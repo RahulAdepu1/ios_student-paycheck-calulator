@@ -11,7 +11,9 @@ import SwiftUI
 struct studPaycheckCalApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack{
+                SelfCheckView()
+            }
         }
     }
 }

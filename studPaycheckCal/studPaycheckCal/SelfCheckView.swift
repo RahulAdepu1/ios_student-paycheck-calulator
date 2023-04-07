@@ -20,102 +20,105 @@ struct SelfCheckView: View {
     @State private var selectedMaritalStatus: String = "Choose One"
     
     var body: some View {
-        VStack {
-            Text("STEP 1/2")
-                .font(.largeTitle)
-                .padding(.bottom, 100)
+        
+        NavigationStack {
             VStack {
-                HStack {
-                    VStack {
-                        Text("Nationality")
-                            .modifier(CustomTextDesign())
-                        Button {
-                            showContryPicker = true
-                        } label: {
-                            Text(selectedCountry)
-                                .modifier(CustomChoiceButtonDesign())
+                Text("STEP 1/2")
+                    .font(.largeTitle)
+                    .padding(.bottom, 100)
+                VStack {
+                    HStack {
+                        VStack {
+                            Text("Nationality")
+                                .modifier(CustomTextDesign())
+                            Button {
+                                showContryPicker = true
+                            } label: {
+                                Text(selectedCountry)
+                                    .modifier(CustomChoiceButtonDesign())
+                            }
                         }
-                    }
-                    .modifier(CustomBlockDesign())
-                    
-                    
-                    VStack {
-                        Text("State")
-                            .modifier(CustomTextDesign())
-                        Button {
-                            showStatePicker = true
-                        } label: {
-                            Text(selectedState)
-                                .modifier(CustomChoiceButtonDesign())
+                        .modifier(CustomBlockDesign())
+                        
+                        
+                        VStack {
+                            Text("State")
+                                .modifier(CustomTextDesign())
+                            Button {
+                                showStatePicker = true
+                            } label: {
+                                Text(selectedState)
+                                    .modifier(CustomChoiceButtonDesign())
+                            }
                         }
+                        .padding(10)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                     }
-                    .padding(10)
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                    
+                    HStack{
+                        VStack {
+                            Text("W4?")
+                                .modifier(CustomTextDesign())
+                            Button {
+                                showW4Picker = true
+                            } label: {
+                                Text(selectedW4)
+                                    .modifier(CustomChoiceButtonDesign())
+                            }
+                        }
+                        .padding(10)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        
+                        VStack {
+                            Text("Marital Status")
+                                .modifier(CustomTextDesign())
+                            Button {
+                                showMaritalStatusPicker = true
+                            } label: {
+                                Text(selectedMaritalStatus)
+                                    .modifier(CustomChoiceButtonDesign())
+                            }
+                        }
+                        .padding(10)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                    }
+                }
+                .modifier(CustomBlockDesign())
+                
+                .padding(.bottom, 50)
+                NavigationLink {
+                    SelfCheckView2()
+                } label: {
+                    Text("Next")
+                        .modifier(CustomActionButtonDesign())
                 }
                 
-                HStack{
-                    VStack {
-                        Text("W4?")
-                            .modifier(CustomTextDesign())
-                        Button {
-                            showW4Picker = true
-                        } label: {
-                            Text(selectedW4)
-                                .modifier(CustomChoiceButtonDesign())
-                        }
-                    }
-                    .padding(10)
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                    
-                    VStack {
-                        Text("Marital Status")
-                            .modifier(CustomTextDesign())
-                        Button {
-                            showMaritalStatusPicker = true
-                        } label: {
-                            Text(selectedMaritalStatus)
-                                .modifier(CustomChoiceButtonDesign())
-                        }
-                    }
-                    .padding(10)
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                }
             }
-            .modifier(CustomBlockDesign())
-            
-            .padding(.bottom, 50)
-            Button {
-                print("")
-            } label: {
-                Text("Next")
-                    .modifier(CustomActionButtonDesign())
+            .sheet(isPresented: $showContryPicker) {
+                NationalitySelectPicker(selectedCountry: $selectedCountry)
+                    .presentationDetents([.height(200)])
             }
             
-        }
-        .sheet(isPresented: $showContryPicker) {
-            NationalitySelectPicker(selectedCountry: $selectedCountry)
-                .presentationDetents([.height(200)])
-        }
-        
-        .sheet(isPresented: $showStatePicker) {
-            StateSelectPicker(selectedState: $selectedState)
-                .presentationDetents([.height(200)])
-        }
-        
-        .sheet(isPresented: $showW4Picker) {
-            W4SelectPicker(selectedW4: $selectedW4)
-                .presentationDetents([.height(200)])
-        }
-        
-        .sheet(isPresented: $showMaritalStatusPicker) {
-            MaritalStatusSelectPicker(selectedMaritalStatus: $selectedMaritalStatus)
-                .presentationDetents([.height(200)])
+            .sheet(isPresented: $showStatePicker) {
+                StateSelectPicker(selectedState: $selectedState)
+                    .presentationDetents([.height(200)])
+            }
+            
+            .sheet(isPresented: $showW4Picker) {
+                W4SelectPicker(selectedW4: $selectedW4)
+                    .presentationDetents([.height(200)])
+            }
+            
+            .sheet(isPresented: $showMaritalStatusPicker) {
+                MaritalStatusSelectPicker(selectedMaritalStatus: $selectedMaritalStatus)
+                    .presentationDetents([.height(200)])
+            }
         }
         
     }
@@ -127,7 +130,7 @@ struct NationalitySelectPicker: View {
     @Binding var selectedCountry: String
     
     var body: some View{
-        VStack{
+        VStack(spacing: 0){
             Text(selectedCountry)
                 .padding(.top, 20)
                 .font(.title)
@@ -145,7 +148,7 @@ struct StateSelectPicker: View {
     @Binding var selectedState: String
     
     var body: some View{
-        VStack{
+        VStack(spacing: 0){
             Text(selectedState)
                 .padding(.top, 20)
                 .font(.title)
@@ -163,7 +166,7 @@ struct W4SelectPicker: View {
     @Binding var selectedW4: String
     
     var body: some View{
-        VStack{
+        VStack(spacing: 0){
             Text(selectedW4)
                 .padding(.top, 20)
                 .font(.title)
@@ -181,7 +184,7 @@ struct MaritalStatusSelectPicker: View {
     @Binding var selectedMaritalStatus: String
     
     var body: some View{
-        VStack{
+        VStack(spacing: 0){
             Text(selectedMaritalStatus)
                 .padding(.top, 20)
                 .font(.title)
@@ -332,20 +335,6 @@ struct MaritalStatus: Identifiable {
         MaritalStatus(maritalStatus: "Married filling separate"),
         MaritalStatus(maritalStatus: "Married filling together"),
         MaritalStatus(maritalStatus: "Head of Household")
-    ]
-}
-
-// MARK: - SecondView Data Source
-struct PayPeriod: Identifiable {
-    let id = UUID().uuidString
-    let payPeriod: String
-    
-    static let payPeriodList = [
-        PayPeriod(payPeriod: "Choose One"),
-        PayPeriod(payPeriod: "Weekly"),
-        PayPeriod(payPeriod: "Bi-Weekly"),
-        PayPeriod(payPeriod: "Bi-Monthly"),
-        PayPeriod(payPeriod: "Monthly")
     ]
 }
 

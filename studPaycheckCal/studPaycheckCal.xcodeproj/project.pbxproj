@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */; };
-		DA5B49CD29E003ED0032C6E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49CC29E003ED0032C6E4 /* ContentView.swift */; };
 		DA5B49CF29E003EF0032C6E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */; };
 		DA5B49D229E003EF0032C6E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */; };
 		DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */; };
+		DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studPaycheckCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = studPaycheckCalApp.swift; sourceTree = "<group>"; };
-		DA5B49CC29E003ED0032C6E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckView.swift; sourceTree = "<group>"; };
+		DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,6 @@
 			children = (
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
-				DA5B49CC29E003ED0032C6E4 /* ContentView.swift */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
 			);
@@ -74,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */,
+				DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */,
 			);
 			name = SelfCheck;
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA5B49CD29E003ED0032C6E4 /* ContentView.swift in Sources */,
+				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
 			);
