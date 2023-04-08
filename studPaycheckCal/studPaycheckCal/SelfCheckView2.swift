@@ -53,7 +53,7 @@ struct SelfCheckView2: View {
                         Button {
                             showPayRateAmountPicker = true
                         } label: {
-                            Text(selectedPayRateAmount)
+                            Text(selectedPayRateAmount == "Choose One" ? selectedPayRateAmount : "$"+selectedPayRateAmount)
                                 .modifier(CustomChoiceButtonDesign())
                         }
                     }
@@ -104,8 +104,10 @@ struct SelfCheckView2: View {
                 Text("Next")
                     .modifier(CustomActionButtonDesign())
             }
-            .disabled((selectedPayPeriod == "Choose One" || selectedPayRateAmount == "Choose One"
-                        || selectedHours == "Choose One" || selectedSalaryType == "Choose One" ))
+            .disabled((selectedPayPeriod == "Choose One"
+                       || selectedPayRateAmount == "Choose One"
+                       || selectedHours == "Choose One"
+                       || selectedSalaryType == "Choose One" ))
             
         }
         .sheet(isPresented: $showPayPeriodPicker) {
@@ -153,21 +155,43 @@ struct PayPeriodSelectPicker: View {
 
 struct PayRateAmountSelectPicker: View {
     @Binding var selectedPayRateAmount: String
+    @State var selectedDollars = 0
+    @State var selectedCents = 0
     
-    var body: some View{
-        VStack{
-            Text(selectedPayRateAmount)
-                .padding(.top, 20)
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("$\(selectedDollars).\(selectedCents)")
                 .font(.title)
-            Picker("", selection: $selectedPayRateAmount) {
-                ForEach(PayRateAmount.payPeriodAmountList){ payRateAmount in
-                    Text("\(payRateAmount.payRateAmount)").tag("\(payRateAmount.payRateAmount)")
+                .padding(.top, 20)
+            HStack {
+                Picker("", selection: $selectedDollars) {
+                    ForEach(6..<61) { number in
+                        Text(String(format: "%02d", number))
+                            .tag(number)
+                    }
                 }
+                .frame(width: 100, height: 150)
+                .pickerStyle(WheelPickerStyle())
+                
+                Picker("", selection: $selectedCents) {
+                    ForEach(0..<100) {number in
+                        Text(String(format: "%02d", number))
+                            .tag(number)
+                    }
+                }
+                .frame(width: 100, height: 150)
+                .pickerStyle(WheelPickerStyle())
             }
-            .pickerStyle(WheelPickerStyle())
+        }
+        .onChange(of: selectedDollars) { _ in
+            selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
+        }
+        .onChange(of: selectedCents) { _ in
+            selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
         }
     }
 }
+
 
 struct HoursSelectPicker: View {
     @Binding var selectedHours: String
@@ -205,56 +229,6 @@ struct SalarySelectPicker: View {
             .pickerStyle(WheelPickerStyle())
         }
     }
-}
-
-// MARK: - SecondView Data Source
-struct PayPeriod: Identifiable {
-    let id = UUID().uuidString
-    let payPeriod: String
-    
-    static let payPeriodList = [
-        PayPeriod(payPeriod: "Choose One"),
-        PayPeriod(payPeriod: "Weekly"),
-        PayPeriod(payPeriod: "Bi-Weekly"),
-        PayPeriod(payPeriod: "Bi-Monthly"),
-        PayPeriod(payPeriod: "Monthly")
-    ]
-}
-
-struct PayRateAmount: Identifiable {
-    let id = UUID().uuidString
-    let payRateAmount: Int
-    
-    static let payPeriodAmountList = [
-        PayRateAmount(payRateAmount: 1),
-        PayRateAmount(payRateAmount: 1),
-        PayRateAmount(payRateAmount: 2)
-    ]
-}
-
-struct SalaryType: Identifiable  {
-    let id = UUID().uuidString
-    let salaryType: String
-    
-    static let salaryTypeList = [
-        SalaryType(salaryType: "Choose One"),
-        SalaryType(salaryType: "Hourly"),
-        SalaryType(salaryType: "Monthly")
-    ]
-}
-
-struct AnnualizedRate: Identifiable  {
-    let id = UUID().uuidString
-    let payRate: String
-    let payRateMulti: Int
-    
-    static let annualizedRateList = [
-        AnnualizedRate(payRate: "Choose One", payRateMulti: 0),
-        AnnualizedRate(payRate: "Weekly", payRateMulti: 52),
-        AnnualizedRate(payRate: "Bi-Weekly", payRateMulti: 26),
-        AnnualizedRate(payRate: "Bi-Monthly", payRateMulti: 24),
-        AnnualizedRate(payRate: "Monthly", payRateMulti: 12)
-    ]
 }
 
 //MARK: - Preview

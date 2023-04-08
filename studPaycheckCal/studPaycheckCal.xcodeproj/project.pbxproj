@@ -13,6 +13,9 @@
 		DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */; };
 		DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */; };
 		DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */; };
+		DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */; };
+		DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E229E1C3D40032C6E4 /* MainModel.swift */; };
+		DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckView.swift; sourceTree = "<group>"; };
 		DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckView2.swift; sourceTree = "<group>"; };
 		DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckViewResult.swift; sourceTree = "<group>"; };
+		DA5B49E229E1C3D40032C6E4 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,8 @@
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
+				DA5B49E229E1C3D40032C6E4 /* MainModel.swift */,
+				DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
 			);
@@ -77,6 +85,7 @@
 			children = (
 				DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */,
 				DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */,
+				DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */,
 			);
 			name = SelfCheck;
 			sourceTree = "<group>";
@@ -151,10 +160,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
+				DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
+				DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
