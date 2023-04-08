@@ -24,6 +24,14 @@ struct SelfCheckView2: View {
             Text("STEP 2/2")
                 .font(.largeTitle)
                 .padding(.bottom, 100)
+            if selectedPayPeriod == "Choose One"
+            || selectedPayRateAmount == "Choose One"
+            || selectedHours == "Choose One"
+            || selectedSalaryType == "Choose One"{
+                Text("Make a choice for all the options \nto move to next page")
+                    .multilineTextAlignment(.center)
+                    .padding(10)
+            }
             VStack {
                 HStack {
                     VStack {
@@ -96,6 +104,8 @@ struct SelfCheckView2: View {
                 Text("Next")
                     .modifier(CustomActionButtonDesign())
             }
+            .disabled((selectedPayPeriod == "Choose One" || selectedPayRateAmount == "Choose One"
+                        || selectedHours == "Choose One" || selectedSalaryType == "Choose One" ))
             
         }
         .sheet(isPresented: $showPayPeriodPicker) {

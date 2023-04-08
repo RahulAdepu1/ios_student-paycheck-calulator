@@ -12,6 +12,7 @@
 		DA5B49D229E003EF0032C6E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */; };
 		DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */; };
 		DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */; };
+		DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA5B49DA29E0989D0032C6E4 /* SelfCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckView.swift; sourceTree = "<group>"; };
 		DA5B49DC29E099140032C6E4 /* SelfCheckView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckView2.swift; sourceTree = "<group>"; };
+		DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
+				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
@@ -150,6 +153,7 @@
 			files = (
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
+				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

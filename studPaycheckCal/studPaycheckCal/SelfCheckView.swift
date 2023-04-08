@@ -9,10 +9,12 @@ import SwiftUI
 
 struct SelfCheckView: View {
     
-    @State private var showContryPicker:Bool = false
-    @State private var showStatePicker:Bool = false
-    @State private var showW4Picker:Bool = false
-    @State private var showMaritalStatusPicker:Bool = false
+    @State private var showContryPicker: Bool = false
+    @State private var showStatePicker: Bool = false
+    @State private var showW4Picker: Bool = false
+    @State private var showMaritalStatusPicker: Bool = false
+    
+    @State private var isAlert: Bool = true
     
     @State private var selectedCountry: String = "Choose One"
     @State private var selectedState: String = "Choose One"
@@ -26,6 +28,15 @@ struct SelfCheckView: View {
                 Text("STEP 1/2")
                     .font(.largeTitle)
                     .padding(.bottom, 100)
+                if selectedCountry == "Choose One"
+                || selectedState == "Choose One"
+                || selectedW4 == "Choose One"
+                || selectedMaritalStatus == "Choose One"{
+                    Text("Make a choice for all the options \nto move to next page")
+                        .multilineTextAlignment(.center)
+                        .padding(10)
+                }
+                
                 VStack {
                     HStack {
                         VStack {
@@ -90,14 +101,16 @@ struct SelfCheckView: View {
                     }
                 }
                 .modifier(CustomBlockDesign())
-                
                 .padding(.bottom, 50)
+                
                 NavigationLink {
                     SelfCheckView2()
                 } label: {
                     Text("Next")
                         .modifier(CustomActionButtonDesign())
                 }
+                .disabled((selectedCountry == "Choose One" || selectedState == "Choose One"
+                          || selectedW4 == "Choose One" || selectedMaritalStatus == "Choose One" ))
                 
             }
             .sheet(isPresented: $showContryPicker) {
