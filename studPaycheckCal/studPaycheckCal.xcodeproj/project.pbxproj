@@ -16,6 +16,7 @@
 		DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */; };
 		DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E229E1C3D40032C6E4 /* MainModel.swift */; };
 		DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */; };
+		DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCheckViewResult.swift; sourceTree = "<group>"; };
 		DA5B49E229E1C3D40032C6E4 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDesignViewModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		DA5B49E629E1D97B0032C6E4 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */,
+				DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
