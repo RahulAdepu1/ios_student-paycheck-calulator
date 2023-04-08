@@ -9,11 +9,15 @@ import SwiftUI
 
 @main
 struct studPaycheckCalApp: App {
+    
+    @StateObject var studentPaycheckCalculatorVM: StudentPaycheckCalculatorVM = StudentPaycheckCalculatorVM()
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack{
                 SelfCheckView()
             }
+            .environmentObject(studentPaycheckCalculatorVM)
         }
     }
 }

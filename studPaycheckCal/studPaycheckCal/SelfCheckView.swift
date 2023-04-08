@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SelfCheckView: View {
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     @State private var showContryPicker: Bool = false
     @State private var showStatePicker: Bool = false
@@ -258,6 +259,9 @@ struct CustomBlockDesign: ViewModifier {
 //MARK: - Preview
 struct SelfCheckView_Previews: PreviewProvider {
     static var previews: some View {
-        SelfCheckView()
+        NavigationStack{
+            SelfCheckView()
+        }
+        .environmentObject(StudentPaycheckCalculatorVM())
     }
 }

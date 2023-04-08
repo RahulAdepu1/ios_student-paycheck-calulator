@@ -61,6 +61,7 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
+				DA5B49E629E1D97B0032C6E4 /* Custom */,
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
@@ -88,6 +89,13 @@
 				DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */,
 			);
 			name = SelfCheck;
+			sourceTree = "<group>";
+		};
+		DA5B49E629E1D97B0032C6E4 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

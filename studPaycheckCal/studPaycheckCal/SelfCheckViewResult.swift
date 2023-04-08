@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SelfCheckViewResult: View {
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
@@ -15,6 +17,9 @@ struct SelfCheckViewResult: View {
 
 struct SelfCheckViewResult_Previews: PreviewProvider {
     static var previews: some View {
-        SelfCheckViewResult()
+        NavigationStack{
+            SelfCheckViewResult()
+        }
+        .environmentObject(StudentPaycheckCalculatorVM())
     }
 }

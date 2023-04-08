@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SelfCheckView2: View {
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     @State private var showPayPeriodPicker:Bool = false
     @State private var showPayRateAmountPicker:Bool = false
@@ -234,6 +235,9 @@ struct SalarySelectPicker: View {
 //MARK: - Preview
 struct SelfCheckView2_Previews: PreviewProvider {
     static var previews: some View {
-        SelfCheckView2()
+        NavigationStack{
+            SelfCheckView2()
+        }
+        .environmentObject(StudentPaycheckCalculatorVM())
     }
 }
