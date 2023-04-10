@@ -15,24 +15,14 @@ struct SelfCheckView2: View {
     @State private var showHoursPicker:Bool = false
     @State private var showSalaryTypePicker:Bool = false
     
-    @State private var selectedPayPeriod: String = "Choose One"
-    @State private var selectedPayRateAmount: String = "Choose One"
-    @State private var selectedHours: String = "Choose One"
-    @State private var selectedSalaryType: String = "Choose One"
-    
     var body: some View {
         VStack {
             Text("STEP 2/2")
                 .font(.largeTitle)
                 .padding(.bottom, 100)
-            if selectedPayPeriod == "Choose One"
-            || selectedPayRateAmount == "Choose One"
-            || selectedHours == "Choose One"
-            || selectedSalaryType == "Choose One"{
-                Text("Make a choice for all the options \nto move to next page")
-                    .multilineTextAlignment(.center)
-                    .padding(10)
-            }
+            Text("Make a choice for all the options \nto move to next page")
+                .multilineTextAlignment(.center)
+                .padding(10)
             VStack {
                 HStack {
                     VStack {
@@ -41,7 +31,7 @@ struct SelfCheckView2: View {
                         Button {
                             showPayPeriodPicker = true
                         } label: {
-                            Text(selectedPayPeriod)
+                            Text(studentPaycheckCalVM.selectedPayPeriod)
                                 .modifier(CustomChoiceButtonDesign())
                         }
                     }
@@ -54,7 +44,7 @@ struct SelfCheckView2: View {
                         Button {
                             showPayRateAmountPicker = true
                         } label: {
-                            Text(selectedPayRateAmount == "Choose One" ? selectedPayRateAmount : "$"+selectedPayRateAmount)
+                            Text(studentPaycheckCalVM.selectedPayRateAmount)
                                 .modifier(CustomChoiceButtonDesign())
                         }
                     }
@@ -71,7 +61,7 @@ struct SelfCheckView2: View {
                         Button {
                             showHoursPicker = true
                         } label: {
-                            Text(selectedHours)
+                            Text(studentPaycheckCalVM.selectedHours == "Choose One" ? studentPaycheckCalVM.selectedHours : "\(studentPaycheckCalVM.selectedHours)h")
                                 .modifier(CustomChoiceButtonDesign())
                         }
                     }
@@ -86,7 +76,7 @@ struct SelfCheckView2: View {
                         Button {
                             showSalaryTypePicker = true
                         } label: {
-                            Text(selectedSalaryType)
+                            Text(studentPaycheckCalVM.selectedSalaryType)
                                 .modifier(CustomChoiceButtonDesign())
                         }
                     }
@@ -105,29 +95,26 @@ struct SelfCheckView2: View {
                 Text("Next")
                     .modifier(CustomActionButtonDesign())
             }
-            .disabled((selectedPayPeriod == "Choose One"
-                       || selectedPayRateAmount == "Choose One"
-                       || selectedHours == "Choose One"
-                       || selectedSalaryType == "Choose One" ))
+            .disabled(!studentPaycheckCalVM.canNavToSelfCheckResult)
             
         }
         .sheet(isPresented: $showPayPeriodPicker) {
-            PayPeriodSelectPicker(selectedPayPeriod: $selectedPayPeriod)
+            PayPeriodSelectPicker()
                 .presentationDetents([.height(200)])
         }
         
         .sheet(isPresented: $showPayRateAmountPicker) {
-            PayRateAmountSelectPicker(selectedPayRateAmount: $selectedPayRateAmount)
+            PayRateAmountSelectPicker()
                 .presentationDetents([.height(200)])
         }
         
         .sheet(isPresented: $showHoursPicker) {
-            HoursSelectPicker(selectedHours: $selectedHours)
+            HoursSelectPicker()
                 .presentationDetents([.height(200)])
         }
         
         .sheet(isPresented: $showSalaryTypePicker) {
-            SalarySelectPicker(selectedSalaryType: $selectedSalaryType)
+            SalarySelectPicker()
                 .presentationDetents([.height(200)])
         }
         
@@ -137,14 +124,14 @@ struct SelfCheckView2: View {
 
 //MARK: - Picker Views
 struct PayPeriodSelectPicker: View {
-    @Binding var selectedPayPeriod: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View{
         VStack{
-            Text(selectedPayPeriod)
+            Text(studentPaycheckCalVM.selectedPayPeriod)
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedPayPeriod) {
+            Picker("", selection: $studentPaycheckCalVM.selectedPayPeriod) {
                 ForEach(PayPeriod.payPeriodList){ payPeriod in
                     Text(payPeriod.payPeriod).tag(payPeriod.payPeriod)
                 }
@@ -155,7 +142,7 @@ struct PayPeriodSelectPicker: View {
 }
 
 struct PayRateAmountSelectPicker: View {
-    @Binding var selectedPayRateAmount: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     @State var selectedDollars = 0
     @State var selectedCents = 0
     
@@ -185,26 +172,26 @@ struct PayRateAmountSelectPicker: View {
             }
         }
         .onChange(of: selectedDollars) { _ in
-            selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
+            studentPaycheckCalVM.selectedPayRateAmount = "$\(selectedDollars).\(selectedCents)"
         }
         .onChange(of: selectedCents) { _ in
-            selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
+            studentPaycheckCalVM.selectedPayRateAmount = "$\(selectedDollars).\(selectedCents)"
         }
     }
 }
 
 
 struct HoursSelectPicker: View {
-    @Binding var selectedHours: String
-    let hoursList = Array(stride(from: 0, through: 60, by: 1))
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    let hoursList = Array(stride(from: 1, through: 60, by: 1))
     let minutesList = Array(0 ..< 60)
     
     var body: some View{
         VStack{
-            Text(selectedHours)
+            Text(studentPaycheckCalVM.selectedHours == "Choose One" ? studentPaycheckCalVM.selectedHours : "\(studentPaycheckCalVM.selectedHours)h")
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedHours) {
+            Picker("", selection: $studentPaycheckCalVM.selectedHours) {
                 ForEach(hoursList, id:\.self){ hour in
                     Text("\(hour)").tag("\(hour)")
                 }
@@ -215,14 +202,14 @@ struct HoursSelectPicker: View {
 }
 
 struct SalarySelectPicker: View {
-    @Binding var selectedSalaryType: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View{
         VStack{
-            Text(selectedSalaryType)
+            Text(studentPaycheckCalVM.selectedSalaryType)
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedSalaryType) {
+            Picker("", selection: $studentPaycheckCalVM.selectedSalaryType) {
                 ForEach(SalaryType.salaryTypeList){ salaryType in
                     Text(salaryType.salaryType).tag(salaryType.salaryType)
                 }

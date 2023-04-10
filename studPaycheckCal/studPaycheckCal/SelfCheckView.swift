@@ -17,11 +17,6 @@ struct SelfCheckView: View {
     
     @State private var isAlert: Bool = true
     
-    @State private var selectedCountry: String = "Choose One"
-    @State private var selectedState: String = "Choose One"
-    @State private var selectedW4: String = "Choose One"
-    @State private var selectedMaritalStatus: String = "Choose One"
-    
     var body: some View {
         
         NavigationStack {
@@ -29,14 +24,9 @@ struct SelfCheckView: View {
                 Text("STEP 1/2")
                     .font(.largeTitle)
                     .padding(.bottom, 100)
-                if selectedCountry == "Choose One"
-                || selectedState == "Choose One"
-                || selectedW4 == "Choose One"
-                || selectedMaritalStatus == "Choose One"{
-                    Text("Make a choice for all the options \nto move to next page")
-                        .multilineTextAlignment(.center)
-                        .padding(10)
-                }
+                Text("Make a choice for all the options \nto move to next page")
+                    .multilineTextAlignment(.center)
+                    .padding(10)
                 
                 VStack {
                     HStack {
@@ -46,7 +36,7 @@ struct SelfCheckView: View {
                             Button {
                                 showContryPicker = true
                             } label: {
-                                Text(selectedCountry)
+                                Text(studentPaycheckCalVM.selectedCountry)
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
@@ -59,7 +49,7 @@ struct SelfCheckView: View {
                             Button {
                                 showStatePicker = true
                             } label: {
-                                Text(selectedState)
+                                Text(studentPaycheckCalVM.selectedState)
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
@@ -76,7 +66,7 @@ struct SelfCheckView: View {
                             Button {
                                 showW4Picker = true
                             } label: {
-                                Text(selectedW4)
+                                Text(studentPaycheckCalVM.selectedW4)
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
@@ -91,7 +81,7 @@ struct SelfCheckView: View {
                             Button {
                                 showMaritalStatusPicker = true
                             } label: {
-                                Text(selectedMaritalStatus)
+                                Text(studentPaycheckCalVM.selectedMaritalStatus)
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
@@ -110,27 +100,26 @@ struct SelfCheckView: View {
                     Text("Next")
                         .modifier(CustomActionButtonDesign())
                 }
-                .disabled((selectedCountry == "Choose One" || selectedState == "Choose One"
-                          || selectedW4 == "Choose One" || selectedMaritalStatus == "Choose One" ))
+                .disabled(!studentPaycheckCalVM.canNavToSelfCheck2)
                 
             }
             .sheet(isPresented: $showContryPicker) {
-                NationalitySelectPicker(selectedCountry: $selectedCountry)
+                NationalitySelectPicker()
                     .presentationDetents([.height(200)])
             }
             
             .sheet(isPresented: $showStatePicker) {
-                StateSelectPicker(selectedState: $selectedState)
+                StateSelectPicker()
                     .presentationDetents([.height(200)])
             }
             
             .sheet(isPresented: $showW4Picker) {
-                W4SelectPicker(selectedW4: $selectedW4)
+                W4SelectPicker()
                     .presentationDetents([.height(200)])
             }
             
             .sheet(isPresented: $showMaritalStatusPicker) {
-                MaritalStatusSelectPicker(selectedMaritalStatus: $selectedMaritalStatus)
+                MaritalStatusSelectPicker()
                     .presentationDetents([.height(200)])
             }
         }
@@ -141,14 +130,14 @@ struct SelfCheckView: View {
 
 //MARK: - Picker Views
 struct NationalitySelectPicker: View {
-    @Binding var selectedCountry: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View{
         VStack(spacing: 0){
-            Text(selectedCountry)
+            Text(studentPaycheckCalVM.selectedCountry)
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedCountry) {
+            Picker("", selection: $studentPaycheckCalVM.selectedCountry) {
                 ForEach(CountryNames.countriesList){ country in
                     Text(country.name).tag(country.name)
                 }
@@ -159,14 +148,14 @@ struct NationalitySelectPicker: View {
 }
 
 struct StateSelectPicker: View {
-    @Binding var selectedState: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View{
         VStack(spacing: 0){
-            Text(selectedState)
+            Text(studentPaycheckCalVM.selectedState)
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedState) {
+            Picker("", selection: $studentPaycheckCalVM.selectedState) {
                 ForEach(StateNames.statesList){ state in
                     Text(state.stateName).tag(state.stateName)
                 }
@@ -177,14 +166,14 @@ struct StateSelectPicker: View {
 }
 
 struct W4SelectPicker: View {
-    @Binding var selectedW4: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View{
         VStack(spacing: 0){
-            Text(selectedW4)
+            Text(studentPaycheckCalVM.selectedW4)
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedW4) {
+            Picker("", selection: $studentPaycheckCalVM.selectedW4) {
                 ForEach(W4Filled.w4FilledList){ options in
                     Text(options.option).tag(options.option)
                 }
@@ -195,14 +184,14 @@ struct W4SelectPicker: View {
 }
 
 struct MaritalStatusSelectPicker: View {
-    @Binding var selectedMaritalStatus: String
+    @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View{
         VStack(spacing: 0){
-            Text(selectedMaritalStatus)
+            Text(studentPaycheckCalVM.selectedMaritalStatus)
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $selectedMaritalStatus) {
+            Picker("", selection: $studentPaycheckCalVM.selectedMaritalStatus) {
                 ForEach(MaritalStatus.maritalStatusList){ maritalStatus in
                     Text(maritalStatus.maritalStatus).tag(maritalStatus.maritalStatus)
                 }
