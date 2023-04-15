@@ -17,6 +17,9 @@
 		DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E229E1C3D40032C6E4 /* MainModel.swift */; };
 		DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */; };
 		DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */; };
+		DA5B49EA29E716540032C6E4 /* FederalTaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */; };
+		DA5B49EC29E7168B0032C6E4 /* StateTaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */; };
+		DA5B49EE29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		DA5B49E229E1C3D40032C6E4 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDesignViewModifier.swift; sourceTree = "<group>"; };
+		DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederalTaxCalculator.swift; sourceTree = "<group>"; };
+		DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTaxCalculator.swift; sourceTree = "<group>"; };
+		DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnualizedSalaryCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 				DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
+				DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */,
+				DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */,
+				DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */,
 			);
 			path = studPaycheckCal;
 			sourceTree = "<group>";
@@ -172,12 +181,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */,
+				DA5B49EA29E716540032C6E4 /* FederalTaxCalculator.swift in Sources */,
 				DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
 				DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */,
+				DA5B49EC29E7168B0032C6E4 /* StateTaxCalculator.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
+				DA5B49EE29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift in Sources */,
 				DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

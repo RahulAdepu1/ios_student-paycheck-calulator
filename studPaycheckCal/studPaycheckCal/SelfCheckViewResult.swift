@@ -11,7 +11,21 @@ struct SelfCheckViewResult: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(studentPaycheckCalVM.selectedCountry)
+            Text(studentPaycheckCalVM.selectedState)
+            Text(studentPaycheckCalVM.selectedW4)
+            Text(studentPaycheckCalVM.selectedMaritalStatus)
+            Text(studentPaycheckCalVM.selectedPayPeriod)
+            Text(studentPaycheckCalVM.selectedPayRateAmount)
+            Text(studentPaycheckCalVM.selectedHours)
+            Text(studentPaycheckCalVM.selectedSalaryType)
+            HStack{
+                Text("Salary Before Tax")
+                Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryBeforeTax()))
+            }
+            
+        }
     }
 }
 

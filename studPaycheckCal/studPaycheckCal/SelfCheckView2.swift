@@ -89,8 +89,8 @@ struct SelfCheckView2: View {
             .modifier(CustomBlockDesign())
             
             .padding(.bottom, 50)
-            Button {
-                print("")
+            NavigationLink {
+                SelfCheckViewResult()
             } label: {
                 Text("Next")
                     .modifier(CustomActionButtonDesign())
@@ -172,14 +172,13 @@ struct PayRateAmountSelectPicker: View {
             }
         }
         .onChange(of: selectedDollars) { _ in
-            studentPaycheckCalVM.selectedPayRateAmount = "$\(selectedDollars).\(selectedCents)"
+            studentPaycheckCalVM.selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
         }
         .onChange(of: selectedCents) { _ in
-            studentPaycheckCalVM.selectedPayRateAmount = "$\(selectedDollars).\(selectedCents)"
+            studentPaycheckCalVM.selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
         }
     }
 }
-
 
 struct HoursSelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
