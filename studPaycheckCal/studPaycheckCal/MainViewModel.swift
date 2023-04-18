@@ -48,12 +48,15 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         let annualizedSalaryCalculator = AnnualizedSalaryCalculator()
         let federalTaxCalculator = FederalTaxCalculator()
         
-        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: <#T##String#>, salaryType: <#T##String#>, hours: <#T##Double#>, payRateAmount: <#T##Double#>)
-        let fedStandardDeduction = federalTaxCalculator.calFedStandardDeduction(nationality: <#T##String#>, w4Filled: <#T##String#>)
+        let doubleSelectedHours = Double(selectedHours) ?? 0.00
+        let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
+        
+        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedHours, payRateAmount: doubleSelectedPayRateAmount)
+        let fedStandardDeduction = federalTaxCalculator.calFedStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
         let federalTaxableIncome = federalTaxCalculator.calFederalTaxableIncome(annualizedSalary: annualizedSalary, fedStandardDeduction: fedStandardDeduction)
-        let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: <#T##String#>)
+        let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: selectedState)
         let annualizedFederalTax = federalTaxCalculator.calAnnualizedFederalTax(federalTaxableIncome: federalTaxableIncome, taxBracketAmountList: taxBracketAmountList)
-        let federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: <#T##String#>)
+        let federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: selectedSalaryType)
         
         return 0.00
     }
@@ -63,11 +66,14 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         let annualizedSalaryCalculator = AnnualizedSalaryCalculator()
         let stateTaxCalculator = StateTaxCalculator()
         
-        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: <#T##String#>, salaryType: <#T##String#>, hours: <#T##Double#>, payRateAmount: <#T##Double#>)
-        let stateStandardDeduction = stateTaxCalculator.calStateStandardDeduction(nationality: <#T##String#>, w4Filled: <#T##String#>)
+        let doubleSelectedHours = Double(selectedHours) ?? 0.00
+        let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
+        
+        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedHours, payRateAmount: doubleSelectedPayRateAmount)
+        let stateStandardDeduction = stateTaxCalculator.calStateStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
         let stateTaxableIncome = stateTaxCalculator.calStateTaxableIncome(annualizedSalary: annualizedSalary, stateStandardDeduction: stateStandardDeduction)
-        let annualizedStateTax = stateTaxCalculator.calAnnualizedStateTax(state: <#T##String#>, stateTaxableIncome: stateTaxableIncome)
-        let stateTax = stateTaxCalculator.stateTax(annualizedFederalTax: annualizedStateTax, salaryType: <#T##String#>)
+        let annualizedStateTax = stateTaxCalculator.calAnnualizedStateTax(state: selectedState, stateTaxableIncome: stateTaxableIncome)
+        let stateTax = stateTaxCalculator.stateTax(annualizedFederalTax: annualizedStateTax, salaryType: selectedSalaryType)
         
         return 0.00
     }
