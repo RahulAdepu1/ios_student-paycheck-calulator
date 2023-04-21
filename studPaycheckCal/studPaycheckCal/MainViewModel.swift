@@ -13,8 +13,9 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     @Published var selectedW4 = "Choose One"
     @Published var selectedMaritalStatus = "Choose One"
     @Published var selectedPayPeriod = "Choose One"
-    @Published var selectedPayRateAmount = "Choose One"
-    @Published var selectedHours = "Choose One"
+    @Published var selectedPayRateAmount = ""
+    @Published var selectedHours = "0"
+    @Published var selectedMinutes = "0"
     @Published var selectedSalaryType = "Choose One"
     
     @Published var navToSelfCheck2 = false
@@ -37,51 +38,56 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     //Four things to find
     // 1. Salary Before Tax
     func SalaryBeforeTax() -> Double {
+        var salaryBeforeTax = 0.00
         let annualizedSalaryCalulator = AnnualizedSalaryCalculator()
-        let doubleSelectedHours = Double(selectedHours) ?? 0.00
+        let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
-        return annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedHours, payRateAmount: doubleSelectedPayRateAmount)
+        
+        salaryBeforeTax = annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
+        return salaryBeforeTax
     }
     
     // 2. Federal Tax
     func FederalTax() -> Double {
+        var federalTax = 0.00
         let annualizedSalaryCalculator = AnnualizedSalaryCalculator()
         let federalTaxCalculator = FederalTaxCalculator()
         
-        let doubleSelectedHours = Double(selectedHours) ?? 0.00
+        let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedHours, payRateAmount: doubleSelectedPayRateAmount)
+        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
         let fedStandardDeduction = federalTaxCalculator.calFedStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
         let federalTaxableIncome = federalTaxCalculator.calFederalTaxableIncome(annualizedSalary: annualizedSalary, fedStandardDeduction: fedStandardDeduction)
-        let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: selectedState)
+        let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: selectedMaritalStatus)
         let annualizedFederalTax = federalTaxCalculator.calAnnualizedFederalTax(federalTaxableIncome: federalTaxableIncome, taxBracketAmountList: taxBracketAmountList)
-        let federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: selectedSalaryType)
         
-        return 0.00
+        federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: selectedSalaryType)
+        return federalTax
     }
     
     // 3. State Tax
     func StateTax() -> Double {
+        var stateTax = 0.00
         let annualizedSalaryCalculator = AnnualizedSalaryCalculator()
         let stateTaxCalculator = StateTaxCalculator()
         
-        let doubleSelectedHours = Double(selectedHours) ?? 0.00
+        let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedHours, payRateAmount: doubleSelectedPayRateAmount)
+        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
         let stateStandardDeduction = stateTaxCalculator.calStateStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
         let stateTaxableIncome = stateTaxCalculator.calStateTaxableIncome(annualizedSalary: annualizedSalary, stateStandardDeduction: stateStandardDeduction)
         let annualizedStateTax = stateTaxCalculator.calAnnualizedStateTax(state: selectedState, stateTaxableIncome: stateTaxableIncome)
-        let stateTax = stateTaxCalculator.stateTax(annualizedFederalTax: annualizedStateTax, salaryType: selectedSalaryType)
         
-        return 0.00
+        stateTax = stateTaxCalculator.stateTax(annualizedFederalTax: annualizedStateTax, salaryType: selectedSalaryType)
+        return stateTax
     }
     
     // 4. Salary After Tax
     func SalaryAfterTax() -> Double {
         let salaryAfterTax = SalaryBeforeTax() - FederalTax() - StateTax() 
-        return 0.00
+        return salaryAfterTax
     }
     
 }

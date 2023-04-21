@@ -123,7 +123,6 @@ struct SelfCheckView: View {
                     .presentationDetents([.height(200)])
             }
         }
-        
     }
 }
 
