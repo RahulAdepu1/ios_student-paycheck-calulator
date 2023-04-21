@@ -12,19 +12,22 @@ struct SelfCheckViewResult: View {
     
     var body: some View {
         VStack {
-            Text(studentPaycheckCalVM.selectedCountry)
-            Text(studentPaycheckCalVM.selectedState)
-            Text(studentPaycheckCalVM.selectedW4)
-            Text(studentPaycheckCalVM.selectedMaritalStatus)
-            Text(studentPaycheckCalVM.selectedPayPeriod)
-            Text(studentPaycheckCalVM.selectedPayRateAmount)
-            Text(studentPaycheckCalVM.selectedHours)
-            Text(studentPaycheckCalVM.selectedSalaryType)
             HStack{
                 Text("Salary Before Tax")
                 Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryBeforeTax()))
             }
-            
+            HStack{
+                Text("Fedeeral Tax")
+                Text(String(format: "$%.2f", studentPaycheckCalVM.FederalTax()))
+            }
+            HStack{
+                Text("State Tax")
+                Text(String(format: "$%.2f", studentPaycheckCalVM.StateTax()))
+            }
+            HStack{
+                Text("Salary After Tax")
+                Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryAfterTax()))
+            }
         }
     }
 }
