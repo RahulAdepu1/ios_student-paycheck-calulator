@@ -41,12 +41,7 @@ struct SelfCheckView2: View {
                     VStack {
                         Text("Pay Rate Amount")
                             .modifier(CustomTextDesign())
-                        Button {
-                            showPayRateAmountPicker = true
-                        } label: {
-                            Text(studentPaycheckCalVM.selectedPayRateAmount)
-                                .modifier(CustomChoiceButtonDesign())
-                        }
+                        PayRateAmountTextField()
                     }
                     .padding(10)
                     .background(Color.white)
@@ -61,7 +56,7 @@ struct SelfCheckView2: View {
                         Button {
                             showHoursPicker = true
                         } label: {
-                            Text(studentPaycheckCalVM.selectedHours == "Choose One" ? studentPaycheckCalVM.selectedHours : "\(studentPaycheckCalVM.selectedHours)h")
+                            Text("\(studentPaycheckCalVM.selectedHours)h \(studentPaycheckCalVM.selectedMinutes)m")
                                 .modifier(CustomChoiceButtonDesign())
                         }
                     }
@@ -102,12 +97,6 @@ struct SelfCheckView2: View {
             PayPeriodSelectPicker()
                 .presentationDetents([.height(200)])
         }
-        
-        .sheet(isPresented: $showPayRateAmountPicker) {
-            PayRateAmountSelectPicker()
-                .presentationDetents([.height(200)])
-        }
-        
         .sheet(isPresented: $showHoursPicker) {
             HoursSelectPicker()
                 .presentationDetents([.height(200)])
@@ -120,6 +109,7 @@ struct SelfCheckView2: View {
         
     }
 }
+
 
 
 //MARK: - Picker Views
@@ -141,42 +131,30 @@ struct PayPeriodSelectPicker: View {
     }
 }
 
-struct PayRateAmountSelectPicker: View {
+struct PayRateAmountTextField: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
-    @State var selectedDollars = 0
-    @State var selectedCents = 0
-    
+
     var body: some View {
-        VStack(spacing: 0) {
-            Text("$\(selectedDollars).\(selectedCents)")
-                .font(.title)
-                .padding(.top, 20)
-            HStack {
-                Picker("", selection: $selectedDollars) {
-                    ForEach(6..<61) { number in
-                        Text(String(format: "%02d", number))
-                            .tag(number)
-                    }
+        let filteredValue = Binding<String>(
+            get: { self.studentPaycheckCalVM.selectedPayRateAmount },
+            set: {
+                let filtered = $0.filter { "0123456789.".contains($0) }
+                if filtered == "." || filtered.components(separatedBy: ".").count <= 2 {
+                    self.studentPaycheckCalVM.selectedPayRateAmount = filtered
                 }
-                .frame(width: 100, height: 150)
-                .pickerStyle(WheelPickerStyle())
-                
-                Picker("", selection: $selectedCents) {
-                    ForEach(0..<100) {number in
-                        Text(String(format: "%02d", number))
-                            .tag(number)
-                    }
-                }
-                .frame(width: 100, height: 150)
-                .pickerStyle(WheelPickerStyle())
             }
-        }
-        .onChange(of: selectedDollars) { _ in
-            studentPaycheckCalVM.selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
-        }
-        .onChange(of: selectedCents) { _ in
-            studentPaycheckCalVM.selectedPayRateAmount = "\(selectedDollars).\(selectedCents)"
-        }
+        )
+        
+        TextField("$0.00", text: filteredValue)
+            .keyboardType(.decimalPad)
+            .foregroundColor(.black)
+            .font(.subheadline)
+            .frame(width: 120, height: 50)
+            .foregroundColor(.black)
+            .background(Color.white)
+            .cornerRadius(15)
+            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+            .multilineTextAlignment(.center)
     }
 }
 
@@ -186,16 +164,36 @@ struct HoursSelectPicker: View {
     let minutesList = Array(0 ..< 60)
     
     var body: some View{
+        
+        
         VStack{
-            Text(studentPaycheckCalVM.selectedHours == "Choose One" ? studentPaycheckCalVM.selectedHours : "\(studentPaycheckCalVM.selectedHours)h")
+            Text("\(studentPaycheckCalVM.selectedHours)h \(studentPaycheckCalVM.selectedMinutes)m")
                 .padding(.top, 20)
                 .font(.title)
-            Picker("", selection: $studentPaycheckCalVM.selectedHours) {
-                ForEach(hoursList, id:\.self){ hour in
-                    Text("\(hour)").tag("\(hour)")
+            HStack(spacing: 0) {
+                Picker("", selection: $studentPaycheckCalVM.selectedHours) {
+                    ForEach(hoursList, id:\.self){ hour in
+                        Text("\(hour)").tag("\(hour)")
+                    }
                 }
+                .frame(width: 75)
+                .clipped()
+                .labelsHidden()
+                .pickerStyle(WheelPickerStyle())
+                Text("h")
+                
+                // For minutes
+                Picker("", selection: $studentPaycheckCalVM.selectedMinutes) {
+                    ForEach(minutesList, id:\.self){ minutes in
+                        Text("\(minutes)").tag("\(minutes)")
+                    }
+                }
+                .frame(width: 75)
+                .clipped()
+                .labelsHidden()
+                .pickerStyle(WheelPickerStyle())
+                Text("m")
             }
-            .pickerStyle(WheelPickerStyle())
         }
     }
 }
