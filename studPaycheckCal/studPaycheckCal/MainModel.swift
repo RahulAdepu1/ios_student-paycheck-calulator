@@ -14,8 +14,8 @@ struct W4Filled: Identifiable {
     
     static let w4FilledList = [
         W4Filled(option: "Choose One"),
-        W4Filled(option: "No"),
-        W4Filled(option: "Yes")
+        W4Filled(option: "Yes"),
+        W4Filled(option: "No")
     ]
     
 }
@@ -27,7 +27,7 @@ struct CountryNames: Identifiable {
     static let countriesList = [
         CountryNames(name: "Choose One"),
         CountryNames(name: "India"),
-        CountryNames(name: "Usa")
+        CountryNames(name: "USA")
     ]
 }
 
@@ -116,19 +116,6 @@ struct PayPeriod: Identifiable {
         PayPeriod(payPeriod: "Bi-Monthly"),
         PayPeriod(payPeriod: "Monthly")
     ]
-}
-
-struct PayRateAmount: Identifiable {
-    let id = UUID()
-    let payRateAmount: String
-    
-    static let payPeriodAmountList: [PayRateAmount] = {
-        var amounts = [PayRateAmount(payRateAmount: "Choose One")]
-        for i in stride(from: 1, to: 60.25, by: 0.25) {
-            amounts.append(PayRateAmount(payRateAmount: String(format: "$%.2f", i)))
-        }
-        return amounts
-    }()
 }
 
 struct SalaryType: Identifiable  {
