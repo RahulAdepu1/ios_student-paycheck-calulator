@@ -12,21 +12,46 @@ struct SelfCheckViewResult: View {
     
     var body: some View {
         VStack {
-            HStack{
-                Text("Salary Before Tax")
-                Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryBeforeTax()))
+            VStack {
+                HStack{
+                    Text("Salary Before Tax")
+                    Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryBeforeTax()))
+                }
+                .modifier(CustomActionButtonDesign())
+                .padding(.horizontal, 30)
+                HStack{
+                    Text("Fedeeral Tax")
+                    Text(String(format: "$%.2f", studentPaycheckCalVM.FederalTax()))
+                }
+                .modifier(CustomActionButtonDesign())
+                .padding(.horizontal, 30)
+                HStack{
+                    Text("State Tax")
+                    Text(String(format: "$%.2f", studentPaycheckCalVM.StateTax()))
+                }
+                .modifier(CustomActionButtonDesign())
+                .padding(.horizontal, 30)
+                HStack{
+                    Text("Salary After Tax")
+                    Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryAfterTax()))
+                }
+                .modifier(CustomActionButtonDesign())
+                .padding(.horizontal, 30)
             }
-            HStack{
-                Text("Fedeeral Tax")
-                Text(String(format: "$%.2f", studentPaycheckCalVM.FederalTax()))
+            .padding(.bottom, 50)
+            
+            Button {
+                studentPaycheckCalVM.SaveToCoreData()
+            } label: {
+                Text("Save")
+                    .modifier(CustomActionButtonDesign())
             }
-            HStack{
-                Text("State Tax")
-                Text(String(format: "$%.2f", studentPaycheckCalVM.StateTax()))
-            }
-            HStack{
-                Text("Salary After Tax")
-                Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryAfterTax()))
+
+            Button {
+                print("")
+            } label: {
+                Text("Start Over")
+                    .modifier(CustomActionButtonDesign())
             }
         }
     }
@@ -38,5 +63,6 @@ struct SelfCheckViewResult_Previews: PreviewProvider {
             SelfCheckViewResult()
         }
         .environmentObject(StudentPaycheckCalculatorVM())
+        .environmentObject(StudentPaycheckCoreDataVM())
     }
 }
