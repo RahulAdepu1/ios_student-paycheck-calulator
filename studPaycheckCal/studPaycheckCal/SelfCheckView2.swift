@@ -223,5 +223,6 @@ struct SelfCheckView2_Previews: PreviewProvider {
             SelfCheckView2()
         }
         .environmentObject(StudentPaycheckCalculatorVM())
+        .environmentObject(StudentPaycheckCoreDataVM())
     }
 }
