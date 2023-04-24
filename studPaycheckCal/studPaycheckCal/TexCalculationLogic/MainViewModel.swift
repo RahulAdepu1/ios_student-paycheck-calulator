@@ -8,6 +8,8 @@
 import Foundation
 
 class StudentPaycheckCalculatorVM: ObservableObject{
+    @Published var studentPaycheckCoreDataVM = StudentPaycheckCoreDataVM()
+    
     @Published var selectedCountry = "Choose One"
     @Published var selectedState = "Choose One"
     @Published var selectedW4 = "Choose One"
@@ -20,6 +22,11 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     
     @Published var navToSelfCheck2 = false
     @Published var navToSelfCheckResult = false
+    
+    //Dictionary for charts
+    var salaryAfterTaxDict: [Date: Int] = [Date: Int]()
+    var federalTaxDict: [Date: Int] = [Date: Int]()
+    var stateTaxDict: [Date: Int] = [Date: Int]()
     
     var canNavToSelfCheck2: Bool {
         return selectedCountry != "Choose One"
@@ -86,8 +93,21 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     
     // 4. Salary After Tax
     func SalaryAfterTax() -> Double {
-        let salaryAfterTax = SalaryBeforeTax() - FederalTax() - StateTax() 
+        var salaryAfterTax = 0.00
+        salaryAfterTax = SalaryBeforeTax() - FederalTax() - StateTax()
         return salaryAfterTax
+    }
+    
+    func SaveToCoreData() {
+        let doubleSelectedHours = (Double(selectedHours) ?? 0.00)
+        let doubleSelectedMinutes = ((Double(selectedMinutes) ?? 0.00)/60)
+        let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
+        
+        studentPaycheckCoreDataVM.addPantry(country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus, payPeriod: selectedPayPeriod,
+                                            payRateAmount: doubleSelectedPayRateAmount, salaryType: selectedSalaryType, w4: selectedW4,
+                                            federalTax: FederalTax(), stateTax: StateTax(), salaryAfterTax: SalaryAfterTax(), hours: doubleSelectedHours, minutes: doubleSelectedMinutes)
+        
+        
     }
     
 }

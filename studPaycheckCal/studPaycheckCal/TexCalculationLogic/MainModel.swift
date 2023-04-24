@@ -109,6 +109,7 @@ struct PayPeriod: Identifiable {
     let id = UUID().uuidString
     let payPeriod: String
     
+    // User has to choose how often they get paid
     static let payPeriodList = [
         PayPeriod(payPeriod: "Choose One"),
         PayPeriod(payPeriod: "Weekly"),
@@ -122,6 +123,7 @@ struct SalaryType: Identifiable  {
     let id = UUID().uuidString
     let salaryType: String
     
+    // User has to choose the type of salary mentioned for the job
     static let salaryTypeList = [
         SalaryType(salaryType: "Choose One"),
         SalaryType(salaryType: "Hourly"),
