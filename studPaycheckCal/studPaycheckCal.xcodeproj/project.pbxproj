@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA27BAAD29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAAB29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld */; };
+		DA27BAB029F4EA4000A61A59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAAF29F4EA4000A61A59 /* CoreDataManager.swift */; };
+		DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */; };
+		DA27BAB429F6105B00A61A59 /* Paycheck+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB229F6105B00A61A59 /* Paycheck+CoreDataProperties.swift */; };
 		DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */; };
 		DA5B49CF29E003EF0032C6E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */; };
 		DA5B49D229E003EF0032C6E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */; };
@@ -23,6 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA27BAA929F2587700A61A59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DA27BAAC29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudentPaycheckDataModel.xcdatamodel; sourceTree = "<group>"; };
+		DA27BAAF29F4EA4000A61A59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Paycheck+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DA27BAB229F6105B00A61A59 /* Paycheck+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Paycheck+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studPaycheckCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = studPaycheckCalApp.swift; sourceTree = "<group>"; };
 		DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,6 +59,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA27BAAA29F4CC9E00A61A59 /* TexCalculationLogic */ = {
+			isa = PBXGroup;
+			children = (
+				DA5B49E229E1C3D40032C6E4 /* MainModel.swift */,
+				DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */,
+				DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */,
+				DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */,
+				DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */,
+			);
+			path = TexCalculationLogic;
+			sourceTree = "<group>";
+		};
+		DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */,
+				DA27BAB229F6105B00A61A59 /* Paycheck+CoreDataProperties.swift */,
+				DA27BAAB29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld */,
+				DA27BAAF29F4EA4000A61A59 /* CoreDataManager.swift */,
+			);
+			path = CoreDataProperties;
+			sourceTree = "<group>";
+		};
 		DA5B49BE29E003ED0032C6E4 = {
 			isa = PBXGroup;
 			children = (
@@ -69,17 +101,15 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
+				DA27BAA929F2587700A61A59 /* Info.plist */,
 				DA5B49E629E1D97B0032C6E4 /* Custom */,
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
+				DA27BAAA29F4CC9E00A61A59 /* TexCalculationLogic */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
-				DA5B49E229E1C3D40032C6E4 /* MainModel.swift */,
-				DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
-				DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */,
-				DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */,
-				DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */,
+				DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */,
 			);
 			path = studPaycheckCal;
 			sourceTree = "<group>";
@@ -185,12 +215,16 @@
 				DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
+				DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
 				DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */,
+				DA27BAB029F4EA4000A61A59 /* CoreDataManager.swift in Sources */,
+				DA27BAAD29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld in Sources */,
 				DA5B49EC29E7168B0032C6E4 /* StateTaxCalculator.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
 				DA5B49EE29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift in Sources */,
 				DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */,
+				DA27BAB429F6105B00A61A59 /* Paycheck+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +356,8 @@
 				DEVELOPMENT_TEAM = 4P2C9WR2BJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = studPaycheckCal/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs to use camera to scan the document";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -351,6 +387,8 @@
 				DEVELOPMENT_TEAM = 4P2C9WR2BJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = studPaycheckCal/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs to use camera to scan the document";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -391,6 +429,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DA27BAAB29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DA27BAAC29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodel */,
+			);
+			currentVersion = DA27BAAC29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodel */;
+			path = StudentPaycheckDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DA5B49BF29E003ED0032C6E4 /* Project object */;
 }
