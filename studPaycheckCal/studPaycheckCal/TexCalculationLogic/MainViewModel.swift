@@ -19,6 +19,7 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     @Published var selectedHours = "0"
     @Published var selectedMinutes = "0"
     @Published var selectedSalaryType = "Choose One"
+    @Published var selectedPaymentDate = Date()
     
     @Published var navToSelfCheck2 = false
     @Published var navToSelfCheckResult = false
@@ -103,11 +104,9 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         let doubleSelectedMinutes = ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        studentPaycheckCoreDataVM.addPantry(country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus, payPeriod: selectedPayPeriod,
-                                            payRateAmount: doubleSelectedPayRateAmount, salaryType: selectedSalaryType, w4: selectedW4,
+        studentPaycheckCoreDataVM.addPantry(date: selectedPaymentDate, country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus,
+                                            payPeriod: selectedPayPeriod,payRateAmount: doubleSelectedPayRateAmount, salaryType: selectedSalaryType, w4: selectedW4,
                                             federalTax: FederalTax(), stateTax: StateTax(), salaryAfterTax: SalaryAfterTax(), hours: doubleSelectedHours, minutes: doubleSelectedMinutes)
-        
-        
     }
     
 }

@@ -155,6 +155,16 @@ struct PayRateAmountTextField: View {
             .cornerRadius(15)
             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
             .multilineTextAlignment(.center)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    } label: {
+                        Image(systemName: "keyboard.chevron.compact.down")
+                    }
+                }
+            }
     }
 }
 

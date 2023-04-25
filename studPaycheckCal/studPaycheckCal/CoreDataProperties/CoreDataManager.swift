@@ -72,7 +72,7 @@ class StudentPaycheckCoreDataVM: ObservableObject {
             .absoluteString
             .replacingOccurrences(of: "file://", with: "")
             .removingPercentEncoding
-        print(path ?? "Not found")
+        print("This is the Path:"+(path ?? "Not Found"))
     }
     
 //------------------------------------------------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     
 //------------------------------------------------------------------------------------------------------------------------
     // Add Paycheck Items
-    func addPantry(country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
+    func addPantry(date: Date, country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
                    w4: String, federalTax: Double, stateTax: Double, salaryAfterTax: Double, hours: Double, minutes: Double) {
         let newPaycheckItems = Paycheck(context: manager.context)
         newPaycheckItems.id = UUID().uuidString
@@ -153,7 +153,7 @@ class StudentPaycheckCoreDataVM: ObservableObject {
         newPaycheckItems.payRateAmount = payRateAmount
         newPaycheckItems.salaryType = salaryType
         newPaycheckItems.w4 = w4
-        newPaycheckItems.date = Date()
+        newPaycheckItems.date = date
         newPaycheckItems.federalTax = federalTax
         newPaycheckItems.stateTax = stateTax
         newPaycheckItems.salaryAfterTax = salaryAfterTax

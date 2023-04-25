@@ -9,149 +9,351 @@ import SwiftUI
 import Charts
 
 struct HistoryView: View {
-    @State var sampleData: [MyTestData] = sample_Data
+    @EnvironmentObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM
     
-    //MARK: View Properties
-    @State var currentTab: String = "7 Days"
     var body: some View {
-        NavigationStack{
-            VStack{
-                //MARK: New Chart API
-                Spacer()
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack{
-                        Text("Salary")
-                            .fontWeight(.semibold)
-                        Picker("", selection: $currentTab) {
-                            Text("7 Days").tag("7 Days")
-                            Text("Week").tag("Week")
-                            Text("Month").tag("Month")
-                        }
-                        .pickerStyle(.segmented)
-                        .padding(.leading, 50)
-                    }
-                    
-                    let totalSalary = sampleData.reduce(0.0) { result, item in
-                        item.salaryAfterTax + result
-                    }
-                    Text(totalSalary.stringFormat)
-                        .font(.largeTitle.bold())
-                    AnimatedCharts()
-                }
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.white.shadow(.drop(radius: 8)))
-                )
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding()
-            
-            //Simple updating values for segmented tabs
-            .onChange(of: currentTab) { newValue in
-                sampleData = sample_Data
-                if newValue != "7 Days" {
-                    for (index, _) in sampleData.enumerated(){
-                        sampleData[index].salaryAfterTax = .random(in: 1500...10000)
-                    }
-                }
-                
-                // Re-Animate View
-                animateGraph()
-            }
+        TabView{
+            historySalaryAfterTax()
+            historyFederalTax()
+            historyStateTax()
         }
-    }
-    
-    @ViewBuilder
-    func AnimatedCharts() -> some View {
-        let max = sampleData.max { item1, item2 in
-            return item2.salaryAfterTax > item1.salaryAfterTax
-        }?.salaryAfterTax ?? 0.0
-        
-        ScrollView(.horizontal) {
-            Chart{
-                ForEach(sampleData){ item in
-                    // BAR GRAPH
-                    // Animated Graph
-                    BarMark(
-                        x: .value("Month", item.date, unit: .month),
-                        y: .value("Salary", item.animate ? item.salaryAfterTax : 0)
-                    )
-                    .annotation(position: .top) {
-                        Text("\(item.salaryAfterTax.stringFormat)")
-                    }
-                    .foregroundStyle(Color.blue.gradient)
-                }
-            }
-            // MARK: Customize Y-Axis length
-            .chartYScale(domain: 0...(max + 2000))
-            .chartPlotStyle{ plotArea in
-                plotArea
-                    .frame(width: 650, height: 250)
-                
-            }
-            .chartXAxis{
-                AxisMarks(values: sampleData.map{ $0.date}) { date in
-                    AxisValueLabel(format: .dateTime.month(), anchor: .topTrailing)
-                    
-                }
-            }
-            .onAppear {
-                animateGraph()
-            }
-        }
-    }
-    
-    // Animating Graph
-    func animateGraph(){
-        for (index, _) in sampleData.enumerated(){
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                withAnimation(.easeInOut(duration: 1)) {
-                    sampleData[index].animate = true
-                    
-                }
-            }
-        }
+        .tabViewStyle(.page)
+        .indexViewStyle(.page(backgroundDisplayMode: .always))
     }
 }
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryView()
+        NavigationStack{
+            HistoryView()
+        }
+        .environmentObject(StudentPaycheckCalculatorVM())
+        .environmentObject(StudentPaycheckCoreDataVM())
     }
 }
 
-
-struct MyTestData:Identifiable {
-    var id = UUID().uuidString
-    var date: Date
-    var salaryAfterTax: Double
-    var animate: Bool = false
-}
-
-var sample_Data: [MyTestData] = [
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 1, to: Date())!, salaryAfterTax: 1000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 2, to: Date())!, salaryAfterTax: 2000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 3, to: Date())!, salaryAfterTax: 3000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 4, to: Date())!, salaryAfterTax: 4000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 5, to: Date())!, salaryAfterTax: 5000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 6, to: Date())!, salaryAfterTax: 6000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 7, to: Date())!, salaryAfterTax: 5000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 8, to: Date())!, salaryAfterTax: 4000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 9, to: Date())!, salaryAfterTax: 3000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 10, to: Date())!, salaryAfterTax: 2000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 11, to: Date())!, salaryAfterTax: 1000),
-    MyTestData(date: Calendar.current.date(byAdding: .month, value: 12, to: Date())!, salaryAfterTax: 1500)
-    
-]
-
 extension Double {
-    var stringFormat: String {
+    var stringDoubleFormat: String {
         if self >= 1000 && self < 999999 {
             return String(format: "%.1fK", self/1000).replacingOccurrences(of: ".0", with: "")
         }
         return String(format: "%.0f", self)
+    }
+}
+
+extension Int {
+    var stringIntFormat: String {
+        return String(format: "%.0d", self)
+    }
+}
+
+struct historySalaryAfterTax: View {
+    @EnvironmentObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM
+    
+    //MARK: View Properties
+    @State var currentTab: String = "2023"
+    
+    var body: some View{
+        VStack{
+            Spacer()
+            Text("Salary After Tax")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.vertical, 25)
+            //MARK: New Chart API
+            VStack(alignment: .leading, spacing: 0) {
+                let uniqueYears = Array(Set(studentPaycheckCoreDataVM.studentHistoryCoreData.map { Calendar.current.component(.year, from: $0.unwrappedDate) }))
+                
+                HStack{
+                    Text("Salary")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Picker("", selection: $currentTab) {
+                        ForEach(uniqueYears, id:\.self) { years in
+                            Text(years.stringIntFormat)
+                                .tag(years.stringIntFormat)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    .padding(.leading, 50)
+                }
+                
+                
+                // LOGIC FOR CHART
+                // Get the Total Salary Amount for Entire Year
+                let totalSalary = studentPaycheckCoreDataVM.studentHistoryCoreData.reduce(0.0) { result, item in
+                    item.salaryAfterTax + result
+                }
+                
+                // Group by Date
+                let groupedData = Dictionary(grouping: studentPaycheckCoreDataVM.studentHistoryCoreData) { historyData -> Date in
+                    let components = Calendar.current.dateComponents([.year, .month], from: historyData.unwrappedDate)
+                    return Calendar.current.date(from: components)!
+                }
+                
+                // Get current Year
+                let currentYear = Calendar.current.dateComponents([.year], from: Date())
+                let yearInt = Int(currentTab) ?? currentYear.year
+                
+                // Get sorted dictionary of salary after tax value by each month for the year choosen on the picker view
+                let sortedMonthlyData = groupedData.reduce(into: [Date: Double]()) { result, group in
+                    let (date, data) = group
+                    let yearComponents = Calendar.current.dateComponents([.year], from: date)
+                    if yearComponents.year == yearInt {
+                        let monthComponents = Calendar.current.dateComponents([.month], from: date)
+                        let monthDate = Calendar.current.date(from: monthComponents)!
+                        let sum = data.reduce(0) { $0 + $1.salaryAfterTax }
+                        result[monthDate] = sum
+                    }
+                }.sorted { $0.key < $1.key }
+                
+                Text(totalSalary.stringDoubleFormat)
+                    .font(.largeTitle.bold())
+                Text("Total")
+                    .font(.caption2)
+                    .padding(.bottom, 15)
+                Chart{
+                    ForEach(sortedMonthlyData, id: \.0) { (date, amount) in
+                        // BAR GRAPH
+                        BarMark(
+                            x: .value("Month", date, unit: .month),
+                            y: .value("Salary", amount)
+                        )
+                        .foregroundStyle(Color.blue.gradient)
+                        .annotation(position: .top) {
+                            Text(amount == 0.0 ? "" : amount.stringDoubleFormat)
+                                .font(.caption)
+                        }
+                    }
+                }
+                .frame(width: .infinity, height: 200)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(.white.shadow(.drop(radius: 8)))
+            )
+            Spacer()
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding()
+        
+        //Simple updating values for segmented tabs
+        .onChange(of: currentTab) { newValue in
+            
+        }
+    }
+}
+
+struct historyFederalTax: View {
+    @EnvironmentObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM
+    
+    //MARK: View Properties
+    @State var currentTab: String = "2023"
+    
+    var body: some View{
+        VStack{
+            Spacer()
+            Text("Federal Tax")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.vertical, 25)
+            //MARK: New Chart API
+            VStack(alignment: .leading, spacing: 0) {
+                let uniqueYears = Array(Set(studentPaycheckCoreDataVM.studentHistoryCoreData.map { Calendar.current.component(.year, from: $0.unwrappedDate) }))
+                
+                HStack{
+                    Text("Tax")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Picker("", selection: $currentTab) {
+                        ForEach(uniqueYears, id:\.self) { years in
+                            Text(years.stringIntFormat)
+                                .tag(years.stringIntFormat)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    .padding(.leading, 50)
+                }
+                
+                // LOGIC FOR CHART
+                
+                // Get the Total Salary Amount for Entire Year
+                let totalFedTax = studentPaycheckCoreDataVM.studentHistoryCoreData.reduce(0.0) { result, item in
+                    item.federalTax + result
+                }
+                
+                // Group by Date
+                let groupedData = Dictionary(grouping: studentPaycheckCoreDataVM.studentHistoryCoreData) { historyData -> Date in
+                    let components = Calendar.current.dateComponents([.year, .month], from: historyData.unwrappedDate)
+                    return Calendar.current.date(from: components)!
+                }
+                
+                // Get current Year
+                let currentYear = Calendar.current.dateComponents([.year], from: Date())
+                let yearInt = Int(currentTab) ?? currentYear.year
+                
+                // Get sorted dictionary of salary after tax value by each month for the year choosen on the picker view
+                let sortedMonthlyData = groupedData.reduce(into: [Date: Double]()) { result, group in
+                    let (date, data) = group
+                    let yearComponents = Calendar.current.dateComponents([.year], from: date)
+                    if yearComponents.year == yearInt {
+                        let monthComponents = Calendar.current.dateComponents([.month], from: date)
+                        let monthDate = Calendar.current.date(from: monthComponents)!
+                        let sum = data.reduce(0) { $0 + $1.federalTax }
+                        result[monthDate] = sum
+                    }
+                }.sorted { $0.key < $1.key }
+                
+                Text(totalFedTax.stringDoubleFormat)
+                    .font(.largeTitle.bold())
+                Text("Total")
+                    .font(.caption2)
+                    .padding(.bottom, 15)
+                Chart{
+                    ForEach(sortedMonthlyData, id: \.0) { (date, amount) in
+                        // BAR GRAPH
+                        BarMark(
+                            x: .value("Month", date, unit: .month),
+                            y: .value("Salary", amount)
+                        )
+                        .foregroundStyle(Color.blue.gradient)
+                        .annotation(position: .top) {
+                            Text(amount == 0.0 ? "" : amount.stringDoubleFormat)
+                                .font(.caption)
+                        }
+                    }
+                }
+                .frame(width: .infinity, height: 200)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(.white.shadow(.drop(radius: 8)))
+            )
+            Spacer()
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding()
+        
+        //Simple updating values for segmented tabs
+        .onChange(of: currentTab) { newValue in
+            
+        }
+    }
+}
+
+struct historyStateTax: View {
+    @EnvironmentObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM
+    
+    //MARK: View Properties
+    @State var currentTab: String = "2023"
+    
+    var body: some View{
+        VStack{
+            Spacer()
+            Text("State Tax")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.vertical, 25)
+            //MARK: New Chart API
+            VStack(alignment: .leading, spacing: 0) {
+                let uniqueYears = Array(Set(studentPaycheckCoreDataVM.studentHistoryCoreData.map { Calendar.current.component(.year, from: $0.unwrappedDate) }))
+                
+                HStack{
+                    Text("Tax")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Picker("", selection: $currentTab) {
+                        ForEach(uniqueYears, id:\.self) { years in
+                            Text(years.stringIntFormat)
+                                .tag(years.stringIntFormat)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                    )
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    .padding(.leading, 50)
+                }
+                
+                // LOGIC FOR CHART
+                // Get the Total Salary Amount for Entire Year
+                let totalSalary = studentPaycheckCoreDataVM.studentHistoryCoreData.reduce(0.0) { result, item in
+                    item.stateTax + result
+                }
+                
+                // Group by Date
+                let groupedData = Dictionary(grouping: studentPaycheckCoreDataVM.studentHistoryCoreData) { historyData -> Date in
+                    let components = Calendar.current.dateComponents([.year, .month], from: historyData.unwrappedDate)
+                    return Calendar.current.date(from: components)!
+                }
+                
+                // Get current Year
+                let currentYear = Calendar.current.dateComponents([.year], from: Date())
+                let yearInt = Int(currentTab) ?? currentYear.year
+                
+                // Get sorted dictionary of salary after tax value by each month for the year choosen on the picker view
+                let sortedMonthlyData = groupedData.reduce(into: [Date: Double]()) { result, group in
+                    let (date, data) = group
+                    let yearComponents = Calendar.current.dateComponents([.year], from: date)
+                    if yearComponents.year == yearInt {
+                        let monthComponents = Calendar.current.dateComponents([.month], from: date)
+                        let monthDate = Calendar.current.date(from: monthComponents)!
+                        let sum = data.reduce(0) { $0 + $1.stateTax }
+                        result[monthDate] = sum
+                    }
+                }.sorted { $0.key < $1.key }
+                
+                Text(totalSalary.stringDoubleFormat)
+                    .font(.largeTitle.bold())
+                Text("Total")
+                    .font(.caption2)
+                    .padding(.bottom, 15)
+                Chart{
+                    ForEach(sortedMonthlyData, id: \.0) { (date, amount) in
+                        // BAR GRAPH
+                        BarMark(
+                            x: .value("Month", date, unit: .month),
+                            y: .value("Salary", amount)
+                        )
+                        .foregroundStyle(Color.blue.gradient)
+                        .annotation(position: .top) {
+                            Text(amount == 0.0 ? "" : amount.stringDoubleFormat)
+                                .font(.caption)
+                        }
+                    }
+                }
+                .frame(width: .infinity, height: 200)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(.white.shadow(.drop(radius: 8)))
+            )
+            Spacer()
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding()
+        
+        //Simple updating values for segmented tabs
+        .onChange(of: currentTab) { newValue in
+            
+        }
     }
 }
