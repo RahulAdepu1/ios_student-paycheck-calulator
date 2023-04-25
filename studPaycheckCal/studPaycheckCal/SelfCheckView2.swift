@@ -25,7 +25,7 @@ struct SelfCheckView2: View {
                 HStack {
                     VStack {
                         Text("Pay Period")
-                            .modifier(CustomTextDesign1())
+                            .modifier(CustomTextDesign4())
                         Button {
                             showPayPeriodPicker = true
                         } label: {
@@ -38,7 +38,7 @@ struct SelfCheckView2: View {
                     
                     VStack {
                         Text("Pay Rate Amount")
-                            .modifier(CustomTextDesign1())
+                            .modifier(CustomTextDesign4())
                         PayRateAmountTextField()
                     }
                     .padding(10)
@@ -50,7 +50,7 @@ struct SelfCheckView2: View {
                 HStack{
                     VStack {
                         Text("Hours")
-                            .modifier(CustomTextDesign1())
+                            .modifier(CustomTextDesign4())
                         Button {
                             showHoursPicker = true
                         } label: {
@@ -65,7 +65,7 @@ struct SelfCheckView2: View {
                     
                     VStack {
                         Text("Salary Type")
-                            .modifier(CustomTextDesign1())
+                            .modifier(CustomTextDesign4())
                         Button {
                             showSalaryTypePicker = true
                         } label: {
@@ -80,6 +80,7 @@ struct SelfCheckView2: View {
                 }
             }
             .modifier(CustomBlockDesign())
+            .padding()
             
             Spacer()
             NavigationLink {
