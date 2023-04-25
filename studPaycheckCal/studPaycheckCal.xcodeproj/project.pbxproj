@@ -12,6 +12,18 @@
 		DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */; };
 		DA27BAB429F6105B00A61A59 /* Paycheck+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB229F6105B00A61A59 /* Paycheck+CoreDataProperties.swift */; };
 		DA27BAB629F6161400A61A59 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB529F6161400A61A59 /* CustomTabBarView.swift */; };
+		DA27BAB829F61B2C00A61A59 /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB729F61B2C00A61A59 /* CustomTabBarContainerView.swift */; };
+		DA27BABA29F61D4000A61A59 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB929F61D4000A61A59 /* MainView.swift */; };
+		DA27BABD29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BABC29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift */; };
+		DA27BABF29F63A6C00A61A59 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BABE29F63A6C00A61A59 /* TabBarItem.swift */; };
+		DA27BAC229F64A7700A61A59 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAC129F64A7700A61A59 /* ProfileView.swift */; };
+		DA27BAC429F650BB00A61A59 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAC329F650BB00A61A59 /* OnboardingView.swift */; };
+		DA27BAC729F65AFF00A61A59 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAC629F65AFF00A61A59 /* IntroView.swift */; };
+		DA27BAC929F6DAD900A61A59 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAC829F6DAD900A61A59 /* ScannerView.swift */; };
+		DA27BACB29F6DC8800A61A59 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BACA29F6DC8800A61A59 /* TextRecognizer.swift */; };
+		DA27BACD29F6DE1F00A61A59 /* ScanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BACC29F6DE1F00A61A59 /* ScanData.swift */; };
+		DA27BAD329F73D8E00A61A59 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAD229F73D8E00A61A59 /* HistoryView.swift */; };
+		DA27BAD629F73FED00A61A59 /* IncomeCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAD529F73FED00A61A59 /* IncomeCalculatorView.swift */; };
 		DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */; };
 		DA5B49CF29E003EF0032C6E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */; };
 		DA5B49D229E003EF0032C6E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */; };
@@ -28,12 +40,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DA27BAA929F2587700A61A59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DA27BAA929F2587700A61A59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA27BAAC29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudentPaycheckDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DA27BAAF29F4EA4000A61A59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Paycheck+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA27BAB229F6105B00A61A59 /* Paycheck+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Paycheck+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA27BAB529F6161400A61A59 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		DA27BAB729F61B2C00A61A59 /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
+		DA27BAB929F61D4000A61A59 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		DA27BABC29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemPreferenceKey.swift; sourceTree = "<group>"; };
+		DA27BABE29F63A6C00A61A59 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		DA27BAC129F64A7700A61A59 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		DA27BAC329F650BB00A61A59 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		DA27BAC629F65AFF00A61A59 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
+		DA27BAC829F6DAD900A61A59 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		DA27BACA29F6DC8800A61A59 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		DA27BACC29F6DE1F00A61A59 /* ScanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanData.swift; sourceTree = "<group>"; };
+		DA27BAD229F73D8E00A61A59 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		DA27BAD529F73FED00A61A59 /* IncomeCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCalculatorView.swift; sourceTree = "<group>"; };
 		DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studPaycheckCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = studPaycheckCalApp.swift; sourceTree = "<group>"; };
 		DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,6 +108,60 @@
 			path = CoreDataProperties;
 			sourceTree = "<group>";
 		};
+		DA27BABB29F61DF000A61A59 /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAB529F6161400A61A59 /* CustomTabBarView.swift */,
+				DA27BAB729F61B2C00A61A59 /* CustomTabBarContainerView.swift */,
+				DA27BABC29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift */,
+				DA27BABE29F63A6C00A61A59 /* TabBarItem.swift */,
+			);
+			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
+		DA27BAC029F64A6500A61A59 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAC129F64A7700A61A59 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		DA27BAC529F650C000A61A59 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAC329F650BB00A61A59 /* OnboardingView.swift */,
+				DA27BAC629F65AFF00A61A59 /* IntroView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		DA27BAD029F72E1200A61A59 /* TextRecognitionLogic */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAC829F6DAD900A61A59 /* ScannerView.swift */,
+				DA27BACA29F6DC8800A61A59 /* TextRecognizer.swift */,
+				DA27BACC29F6DE1F00A61A59 /* ScanData.swift */,
+			);
+			path = TextRecognitionLogic;
+			sourceTree = "<group>";
+		};
+		DA27BAD129F73D7D00A61A59 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAD229F73D8E00A61A59 /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		DA27BAD429F73FD000A61A59 /* IncomeCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				DA27BAD529F73FED00A61A59 /* IncomeCalculatorView.swift */,
+			);
+			path = IncomeCalculator;
+			sourceTree = "<group>";
+		};
 		DA5B49BE29E003ED0032C6E4 = {
 			isa = PBXGroup;
 			children = (
@@ -103,15 +181,21 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
-				DA27BAA929F2587700A61A59 /* Info.plist */,
-				DA5B49E629E1D97B0032C6E4 /* Custom */,
+				DA27BAD429F73FD000A61A59 /* IncomeCalculator */,
+				DA27BAD129F73D7D00A61A59 /* History */,
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
+				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
+				DA27BAC529F650C000A61A59 /* Onboarding */,
+				DA27BAB929F61D4000A61A59 /* MainView.swift */,
+				DA27BAC029F64A6500A61A59 /* Profile */,
+				DA5B49E629E1D97B0032C6E4 /* Custom */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
 				DA27BAAA29F4CC9E00A61A59 /* TexCalculationLogic */,
-				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
-				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
 				DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */,
+				DA27BAD029F72E1200A61A59 /* TextRecognitionLogic */,
+				DA27BAA929F2587700A61A59 /* Info.plist */,
+				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 			);
 			path = studPaycheckCal;
 			sourceTree = "<group>";
@@ -137,8 +221,8 @@
 		DA5B49E629E1D97B0032C6E4 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				DA27BABB29F61DF000A61A59 /* CustomTabBar */,
 				DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */,
-				DA27BAB529F6161400A61A59 /* CustomTabBarView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -214,21 +298,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5B49E529E1D71C0032C6E4 /* MainViewModel.swift in Sources */,
+				DA27BABA29F61D4000A61A59 /* MainView.swift in Sources */,
+				DA27BACB29F6DC8800A61A59 /* TextRecognizer.swift in Sources */,
+				DA27BABF29F63A6C00A61A59 /* TabBarItem.swift in Sources */,
 				DA5B49EA29E716540032C6E4 /* FederalTaxCalculator.swift in Sources */,
 				DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */,
 				DA27BAB629F6161400A61A59 /* CustomTabBarView.swift in Sources */,
+				DA27BAD329F73D8E00A61A59 /* HistoryView.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
 				DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */,
+				DA27BAC929F6DAD900A61A59 /* ScannerView.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
+				DA27BAD629F73FED00A61A59 /* IncomeCalculatorView.swift in Sources */,
+				DA27BACD29F6DE1F00A61A59 /* ScanData.swift in Sources */,
+				DA27BABD29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift in Sources */,
 				DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */,
 				DA27BAB029F4EA4000A61A59 /* CoreDataManager.swift in Sources */,
 				DA27BAAD29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld in Sources */,
 				DA5B49EC29E7168B0032C6E4 /* StateTaxCalculator.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
+				DA27BAB829F61B2C00A61A59 /* CustomTabBarContainerView.swift in Sources */,
 				DA5B49EE29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift in Sources */,
 				DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */,
+				DA27BAC729F65AFF00A61A59 /* IntroView.swift in Sources */,
+				DA27BAC229F64A7700A61A59 /* ProfileView.swift in Sources */,
 				DA27BAB429F6105B00A61A59 /* Paycheck+CoreDataProperties.swift in Sources */,
+				DA27BAC429F650BB00A61A59 /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
