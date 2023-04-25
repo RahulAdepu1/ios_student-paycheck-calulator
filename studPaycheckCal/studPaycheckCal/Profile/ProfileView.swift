@@ -34,7 +34,6 @@ struct ProfileView: View {
                         Text("Change me")
                             .offset(CGSize(width: 0, height: -15))
                     }
-
                 }
             VStack{
 //                dataView(dataTitle: "username: ", selectedValue: T##String?)

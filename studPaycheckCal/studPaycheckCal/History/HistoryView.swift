@@ -131,7 +131,7 @@ struct historySalaryAfterTax: View {
                         }
                     }
                 }
-                .frame(width: .infinity, height: 200)
+                .frame(height: 200)
             }
             .padding()
             .background(
@@ -235,7 +235,7 @@ struct historyFederalTax: View {
                         }
                     }
                 }
-                .frame(width: .infinity, height: 200)
+                .frame(height: 200)
             }
             .padding()
             .background(
@@ -338,7 +338,7 @@ struct historyStateTax: View {
                         }
                     }
                 }
-                .frame(width: .infinity, height: 200)
+                .frame(height: 200)
             }
             .padding()
             .background(

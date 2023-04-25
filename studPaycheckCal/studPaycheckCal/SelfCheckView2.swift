@@ -80,7 +80,7 @@ struct SelfCheckView2: View {
                 }
             }
             .modifier(CustomBlockDesign())
-            .padding()
+            .padding(.horizontal)
             
             Spacer()
             NavigationLink {

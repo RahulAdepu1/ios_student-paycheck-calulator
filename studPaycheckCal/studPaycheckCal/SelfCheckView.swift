@@ -32,6 +32,7 @@ struct SelfCheckView: View {
         
         NavigationStack {
             VStack {
+                Spacer()
                 Text("Make a choice for all the options \nto move to next page")
                     .multilineTextAlignment(.center)
                     .padding(10)
@@ -41,7 +42,7 @@ struct SelfCheckView: View {
                         // Nationality Block
                         VStack {
                             Text("Nationality")
-                                .modifier(CustomTextDesign1())
+                                .modifier(CustomTextDesign4())
                             Button {
                                 showContryPicker = true
                             } label: {
@@ -54,7 +55,7 @@ struct SelfCheckView: View {
                         // State Block
                         VStack {
                             Text("State")
-                                .modifier(CustomTextDesign1())
+                                .modifier(CustomTextDesign4())
                             Button {
                                 showStatePicker = true
                             } label: {
@@ -69,7 +70,7 @@ struct SelfCheckView: View {
                         // W4 Block
                         VStack {
                             Text("W4?")
-                                .modifier(CustomTextDesign1())
+                                .modifier(CustomTextDesign4())
                             Button {
                                 showW4Picker = true
                             } label: {
@@ -82,7 +83,7 @@ struct SelfCheckView: View {
                         // Marital Status Block
                         VStack {
                             Text("Marital Status")
-                                .modifier(CustomTextDesign1())
+                                .modifier(CustomTextDesign4())
                             Button {
                                 showMaritalStatusPicker = true
                             } label: {
@@ -94,8 +95,9 @@ struct SelfCheckView: View {
                     }
                 }
                 .modifier(CustomBlockDesign())
-                .padding(.bottom, 50)
+                .padding(.horizontal)
                 
+                Spacer()
                 Button {
                     updateAppStorageValues()
                     dismiss()
@@ -103,6 +105,7 @@ struct SelfCheckView: View {
                     Text("Done")
                         .modifier(CustomActionButtonDesign())
                 }
+                Spacer()
                 
             }
             .sheet(isPresented: $showContryPicker) {
