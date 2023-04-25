@@ -41,14 +41,15 @@ struct SelfCheckViewResult: View {
             .padding(.bottom, 50)
             
             Button {
-                studentPaycheckCalVM.SaveToCoreData()
+//                studentPaycheckCalVM.SaveToCoreData()
+                print("Data Saved")
             } label: {
                 Text("Save")
                     .modifier(CustomActionButtonDesign())
             }
 
             Button {
-                print("")
+                MainView()
             } label: {
                 Text("Start Over")
                     .modifier(CustomActionButtonDesign())

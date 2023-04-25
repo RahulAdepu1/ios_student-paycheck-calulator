@@ -9,30 +9,39 @@ import SwiftUI
 
 struct SelfCheckView: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Environment(\.dismiss) var dismiss
     
     @State private var showContryPicker: Bool = false
     @State private var showStatePicker: Bool = false
     @State private var showW4Picker: Bool = false
     @State private var showMaritalStatusPicker: Bool = false
     
-    @State private var isAlert: Bool = true
+    // App Storage
+    @AppStorage("signed_in") var userSignedIn: Bool = false
+    @AppStorage("country") var selectedCountry: String?
+    @AppStorage("state") var selectedState: String?
+    @AppStorage("maritalStatus") var selectedMaritalStatus: String?
+    @AppStorage("w4Filled") var selectedW4Filled: String?
+    
+    // Alert
+    @State var alertTitle: String = ""
+    @State var alertMessage: String = ""
+    @State var showAlert: Bool = false
     
     var body: some View {
         
         NavigationStack {
             VStack {
-                Text("STEP 1/2")
-                    .font(.largeTitle)
-                    .padding(.bottom, 100)
                 Text("Make a choice for all the options \nto move to next page")
                     .multilineTextAlignment(.center)
                     .padding(10)
                 
                 VStack {
                     HStack {
+                        // Nationality Block
                         VStack {
                             Text("Nationality")
-                                .modifier(CustomTextDesign())
+                                .modifier(CustomTextDesign1())
                             Button {
                                 showContryPicker = true
                             } label: {
@@ -42,10 +51,10 @@ struct SelfCheckView: View {
                         }
                         .modifier(CustomBlockDesign())
                         
-                        
+                        // State Block
                         VStack {
                             Text("State")
-                                .modifier(CustomTextDesign())
+                                .modifier(CustomTextDesign1())
                             Button {
                                 showStatePicker = true
                             } label: {
@@ -53,16 +62,14 @@ struct SelfCheckView: View {
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
-                        .padding(10)
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .modifier(CustomBlockDesign())
                     }
                     
                     HStack{
+                        // W4 Block
                         VStack {
                             Text("W4?")
-                                .modifier(CustomTextDesign())
+                                .modifier(CustomTextDesign1())
                             Button {
                                 showW4Picker = true
                             } label: {
@@ -70,14 +77,12 @@ struct SelfCheckView: View {
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
-                        .padding(10)
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .modifier(CustomBlockDesign())
                         
+                        // Marital Status Block
                         VStack {
                             Text("Marital Status")
-                                .modifier(CustomTextDesign())
+                                .modifier(CustomTextDesign1())
                             Button {
                                 showMaritalStatusPicker = true
                             } label: {
@@ -85,22 +90,19 @@ struct SelfCheckView: View {
                                     .modifier(CustomChoiceButtonDesign())
                             }
                         }
-                        .padding(10)
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        .modifier(CustomBlockDesign())
                     }
                 }
                 .modifier(CustomBlockDesign())
                 .padding(.bottom, 50)
                 
-                NavigationLink {
-                    SelfCheckView2()
+                Button {
+                    updateAppStorageValues()
+                    dismiss()
                 } label: {
-                    Text("Next")
+                    Text("Done")
                         .modifier(CustomActionButtonDesign())
                 }
-                .disabled(!studentPaycheckCalVM.canNavToSelfCheck2)
                 
             }
             .sheet(isPresented: $showContryPicker) {
@@ -122,8 +124,36 @@ struct SelfCheckView: View {
                 MaritalStatusSelectPicker()
                     .presentationDetents([.height(200)])
             }
+            
+            .alert(alertTitle, isPresented: $showAlert) {
+            } message: {
+                Text(alertMessage)
+            }
         }
     }
+    
+    func updateAppStorageValues() {
+        guard studentPaycheckCalVM.selectedCountry != "Choose One",
+        studentPaycheckCalVM.selectedState != "Choose One",
+        studentPaycheckCalVM.selectedMaritalStatus != "Choose One",
+        studentPaycheckCalVM.selectedW4 != "Choose One"
+        else {
+            showAlertFunction()
+            return
+        }
+        
+        selectedCountry = studentPaycheckCalVM.selectedCountry
+        selectedState = studentPaycheckCalVM.selectedState
+        selectedMaritalStatus = studentPaycheckCalVM.selectedMaritalStatus
+        selectedW4Filled = studentPaycheckCalVM.selectedW4
+    }
+    
+    func showAlertFunction() {
+        alertTitle = "DID NOT CHOOSE"
+        alertMessage = "You have not made a choice \nplease make a choice"
+        self.showAlert.toggle()
+    }
+    
 }
 
 

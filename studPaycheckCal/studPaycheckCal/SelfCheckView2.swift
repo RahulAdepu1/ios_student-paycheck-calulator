@@ -17,9 +17,7 @@ struct SelfCheckView2: View {
     
     var body: some View {
         VStack {
-            Text("STEP 2/2")
-                .font(.largeTitle)
-                .padding(.bottom, 100)
+            Spacer()
             Text("Make a choice for all the options \nto move to next page")
                 .multilineTextAlignment(.center)
                 .padding(10)
@@ -27,7 +25,7 @@ struct SelfCheckView2: View {
                 HStack {
                     VStack {
                         Text("Pay Period")
-                            .modifier(CustomTextDesign())
+                            .modifier(CustomTextDesign1())
                         Button {
                             showPayPeriodPicker = true
                         } label: {
@@ -40,7 +38,7 @@ struct SelfCheckView2: View {
                     
                     VStack {
                         Text("Pay Rate Amount")
-                            .modifier(CustomTextDesign())
+                            .modifier(CustomTextDesign1())
                         PayRateAmountTextField()
                     }
                     .padding(10)
@@ -52,7 +50,7 @@ struct SelfCheckView2: View {
                 HStack{
                     VStack {
                         Text("Hours")
-                            .modifier(CustomTextDesign())
+                            .modifier(CustomTextDesign1())
                         Button {
                             showHoursPicker = true
                         } label: {
@@ -67,7 +65,7 @@ struct SelfCheckView2: View {
                     
                     VStack {
                         Text("Salary Type")
-                            .modifier(CustomTextDesign())
+                            .modifier(CustomTextDesign1())
                         Button {
                             showSalaryTypePicker = true
                         } label: {
@@ -83,7 +81,7 @@ struct SelfCheckView2: View {
             }
             .modifier(CustomBlockDesign())
             
-            .padding(.bottom, 50)
+            Spacer()
             NavigationLink {
                 SelfCheckViewResult()
             } label: {
@@ -91,6 +89,7 @@ struct SelfCheckView2: View {
                     .modifier(CustomActionButtonDesign())
             }
             .disabled(!studentPaycheckCalVM.canNavToSelfCheckResult)
+            Spacer()
             
         }
         .sheet(isPresented: $showPayPeriodPicker) {
