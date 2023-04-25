@@ -24,6 +24,8 @@
 		DA27BACD29F6DE1F00A61A59 /* ScanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BACC29F6DE1F00A61A59 /* ScanData.swift */; };
 		DA27BAD329F73D8E00A61A59 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAD229F73D8E00A61A59 /* HistoryView.swift */; };
 		DA27BAD629F73FED00A61A59 /* IncomeCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAD529F73FED00A61A59 /* IncomeCalculatorView.swift */; };
+		DA27BAD929F79D3700A61A59 /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAD729F79D3700A61A59 /* History+CoreDataClass.swift */; };
+		DA27BADA29F79D3700A61A59 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAD829F79D3700A61A59 /* History+CoreDataProperties.swift */; };
 		DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */; };
 		DA5B49CF29E003EF0032C6E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */; };
 		DA5B49D229E003EF0032C6E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B49D129E003EF0032C6E4 /* Preview Assets.xcassets */; };
@@ -58,6 +60,8 @@
 		DA27BACC29F6DE1F00A61A59 /* ScanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanData.swift; sourceTree = "<group>"; };
 		DA27BAD229F73D8E00A61A59 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		DA27BAD529F73FED00A61A59 /* IncomeCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCalculatorView.swift; sourceTree = "<group>"; };
+		DA27BAD729F79D3700A61A59 /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		DA27BAD829F79D3700A61A59 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = studPaycheckCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = studPaycheckCalApp.swift; sourceTree = "<group>"; };
 		DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 		DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */ = {
 			isa = PBXGroup;
 			children = (
+				DA27BAD729F79D3700A61A59 /* History+CoreDataClass.swift */,
+				DA27BAD829F79D3700A61A59 /* History+CoreDataProperties.swift */,
 				DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */,
 				DA27BAB229F6105B00A61A59 /* Paycheck+CoreDataProperties.swift */,
 				DA27BAAB29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld */,
@@ -311,7 +317,9 @@
 				DA27BAC929F6DAD900A61A59 /* ScannerView.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
 				DA27BAD629F73FED00A61A59 /* IncomeCalculatorView.swift in Sources */,
+				DA27BADA29F79D3700A61A59 /* History+CoreDataProperties.swift in Sources */,
 				DA27BACD29F6DE1F00A61A59 /* ScanData.swift in Sources */,
+				DA27BAD929F79D3700A61A59 /* History+CoreDataClass.swift in Sources */,
 				DA27BABD29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift in Sources */,
 				DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */,
 				DA27BAB029F4EA4000A61A59 /* CoreDataManager.swift in Sources */,
