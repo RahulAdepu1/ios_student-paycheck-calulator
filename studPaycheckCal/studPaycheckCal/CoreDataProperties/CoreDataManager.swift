@@ -43,8 +43,10 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     
     let manager = CoreDataManager.instance
     let studentPayCheckEntity = "Paycheck"
+    let studentHistoryEntity = "History"
     
     @Published var studentPayCheckCoreData: [Paycheck] = []
+    @Published var studentHistoryCoreData: [History] = []
     
     //Seacrh Box and Sort Function for Pantry
     @Published var studentPayCheckSearchText: String = ""
@@ -58,6 +60,7 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     init(){
         whereIsMySQLite()
         fetchStudentPayCheck()
+        fetchStudentHistory()
     }
     
     //Find Database Location
@@ -85,6 +88,23 @@ class StudentPaycheckCoreDataVM: ObservableObject {
         // Try to fetch Data
         do {
             studentPayCheckCoreData = try manager.context.fetch(requestStudentPayCheck)
+        }catch let error {
+            print("Error fetching. \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchStudentHistory() {
+        let requestStudentHistory = NSFetchRequest<History>(entityName: studentHistoryEntity)
+        requestStudentHistory.sortDescriptors = [NSSortDescriptor(keyPath: \History.date, ascending: true)]
+        
+        // For Search Bar
+//        if !studentPayCheckSearchText.isEmpty {
+//            requestStudentPayCheck.predicate = NSPredicate(format: "itemName CONTAINS[c] %@", studentPayCheckSearchText)
+//        }
+        
+        // Try to fetch Data
+        do {
+            studentHistoryCoreData = try manager.context.fetch(requestStudentHistory)
         }catch let error {
             print("Error fetching. \(error.localizedDescription)")
         }
@@ -121,7 +141,7 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     }
     
 //------------------------------------------------------------------------------------------------------------------------
-    // Add Pantry Items
+    // Add Paycheck Items
     func addPantry(country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
                    w4: String, federalTax: Double, stateTax: Double, salaryAfterTax: Double, hours: Double, minutes: Double) {
         let newPaycheckItems = Paycheck(context: manager.context)
@@ -142,9 +162,21 @@ class StudentPaycheckCoreDataVM: ObservableObject {
         save()
     }
     
+    // Add History Items
+    func addHistory(federalTax: Double, stateTax: Double, salaryAfterTax: Double) {
+        let newHistoryItems = History(context: manager.context)
+        newHistoryItems.id = UUID().uuidString
+        newHistoryItems.date = Date()
+        newHistoryItems.federalTax = federalTax
+        newHistoryItems.stateTax = stateTax
+        newHistoryItems.salaryAfterTax = salaryAfterTax
+        save()
+    }
+    
 //------------------------------------------------------------------------------------------------------------------------
     func save() {
         manager.save()
         fetchStudentPayCheck()
+        fetchStudentHistory()
     }
 }
