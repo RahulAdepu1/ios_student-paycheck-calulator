@@ -40,6 +40,16 @@ struct CustomTextDesign3: ViewModifier {
     }
 }
 
+struct CustomTextDesign4: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.headline)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
+    }
+}
+
 struct CustomChoiceButtonDesign: ViewModifier {
     func body(content: Content) -> some View {
         content

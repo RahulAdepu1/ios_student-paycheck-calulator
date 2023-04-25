@@ -22,6 +22,10 @@ extension History {
     @NSManaged public var id: String?
     @NSManaged public var date: Date?
 
+    public var unwrappedDate: Date {
+        let date = date ?? Date()
+        return date
+    }
 }
 
 extension History : Identifiable {
