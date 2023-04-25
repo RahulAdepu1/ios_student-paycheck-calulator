@@ -163,10 +163,10 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     }
     
     // Add History Items
-    func addHistory(federalTax: Double, stateTax: Double, salaryAfterTax: Double) {
+    func addHistory(date: Date, federalTax: Double, stateTax: Double, salaryAfterTax: Double) {
         let newHistoryItems = History(context: manager.context)
         newHistoryItems.id = UUID().uuidString
-        newHistoryItems.date = Date()
+        newHistoryItems.date = date
         newHistoryItems.federalTax = federalTax
         newHistoryItems.stateTax = stateTax
         newHistoryItems.salaryAfterTax = salaryAfterTax

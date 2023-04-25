@@ -137,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				DA27BAC329F650BB00A61A59 /* OnboardingView.swift */,
-				DA27BAC629F65AFF00A61A59 /* IntroView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -187,19 +186,20 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
-				DA27BAD429F73FD000A61A59 /* IncomeCalculator */,
-				DA27BAD129F73D7D00A61A59 /* History */,
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
-				DA27BAC529F650C000A61A59 /* Onboarding */,
+				DA27BAC629F65AFF00A61A59 /* IntroView.swift */,
 				DA27BAB929F61D4000A61A59 /* MainView.swift */,
-				DA27BAC029F64A6500A61A59 /* Profile */,
-				DA5B49E629E1D97B0032C6E4 /* Custom */,
+				DA27BAC529F650C000A61A59 /* Onboarding */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
+				DA27BAD129F73D7D00A61A59 /* History */,
+				DA27BAD429F73FD000A61A59 /* IncomeCalculator */,
+				DA27BAC029F64A6500A61A59 /* Profile */,
 				DA27BAAA29F4CC9E00A61A59 /* TexCalculationLogic */,
-				DA5B49D029E003EF0032C6E4 /* Preview Content */,
 				DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */,
 				DA27BAD029F72E1200A61A59 /* TextRecognitionLogic */,
+				DA5B49E629E1D97B0032C6E4 /* Custom */,
+				DA5B49D029E003EF0032C6E4 /* Preview Content */,
 				DA27BAA929F2587700A61A59 /* Info.plist */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 			);
