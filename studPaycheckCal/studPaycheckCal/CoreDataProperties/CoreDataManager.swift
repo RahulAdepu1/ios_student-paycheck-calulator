@@ -42,7 +42,7 @@ class CoreDataManager {
 class StudentPaycheckCoreDataVM: ObservableObject {
     
     let manager = CoreDataManager.instance
-    let studentPayCheckEntity = ""
+    let studentPayCheckEntity = "Paycheck"
     
     @Published var studentPayCheckCoreData: [Paycheck] = []
     
