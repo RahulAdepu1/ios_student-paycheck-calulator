@@ -29,21 +29,7 @@ struct HistoryView_Previews: PreviewProvider {
         }
         .environmentObject(StudentPaycheckCalculatorVM())
         .environmentObject(StudentPaycheckCoreDataVM())
-    }
-}
-
-extension Double {
-    var stringDoubleFormat: String {
-        if self >= 1000 && self < 999999 {
-            return String(format: "%.1fK", self/1000).replacingOccurrences(of: ".0", with: "")
-        }
-        return String(format: "%.0f", self)
-    }
-}
-
-extension Int {
-    var stringIntFormat: String {
-        return String(format: "%.0d", self)
+        .environmentObject(EffectiveTaxCalculator())
     }
 }
 
@@ -112,7 +98,7 @@ struct historySalaryAfterTax: View {
                     }
                 }.sorted { $0.key < $1.key }
                 
-                Text(totalSalary.stringDoubleFormat)
+                Text(totalSalary.doubleToString1)
                     .font(.largeTitle.bold())
                 Text("Total")
                     .font(.caption2)
@@ -126,7 +112,7 @@ struct historySalaryAfterTax: View {
                         )
                         .foregroundStyle(Color.blue.gradient)
                         .annotation(position: .top) {
-                            Text(amount == 0.0 ? "" : amount.stringDoubleFormat)
+                            Text(amount == 0.0 ? "" : amount.doubleToString1)
                                 .font(.caption)
                         }
                     }
@@ -216,7 +202,7 @@ struct historyFederalTax: View {
                     }
                 }.sorted { $0.key < $1.key }
                 
-                Text(totalFedTax.stringDoubleFormat)
+                Text(totalFedTax.doubleToString1)
                     .font(.largeTitle.bold())
                 Text("Total")
                     .font(.caption2)
@@ -230,7 +216,7 @@ struct historyFederalTax: View {
                         )
                         .foregroundStyle(Color.blue.gradient)
                         .annotation(position: .top) {
-                            Text(amount == 0.0 ? "" : amount.stringDoubleFormat)
+                            Text(amount == 0.0 ? "" : amount.doubleToString1)
                                 .font(.caption)
                         }
                     }
@@ -319,7 +305,7 @@ struct historyStateTax: View {
                     }
                 }.sorted { $0.key < $1.key }
                 
-                Text(totalSalary.stringDoubleFormat)
+                Text(totalSalary.doubleToString1)
                     .font(.largeTitle.bold())
                 Text("Total")
                     .font(.caption2)
@@ -333,7 +319,7 @@ struct historyStateTax: View {
                         )
                         .foregroundStyle(Color.blue.gradient)
                         .annotation(position: .top) {
-                            Text(amount == 0.0 ? "" : amount.stringDoubleFormat)
+                            Text(amount == 0.0 ? "" : amount.doubleToString1)
                                 .font(.caption)
                         }
                     }
