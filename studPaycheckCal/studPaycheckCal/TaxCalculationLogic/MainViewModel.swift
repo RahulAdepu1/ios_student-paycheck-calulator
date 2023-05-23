@@ -20,6 +20,7 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     @Published var selectedMinutes = "0"
     @Published var selectedSalaryType = "Choose One"
     @Published var selectedPaymentDate = Date()
+    @Published var selectedYear = Year.yearList[0].year
     
     @Published var navToSelfCheck2 = false
     @Published var navToSelfCheckResult = false
@@ -46,13 +47,11 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     //Four things to find
     // 1. Salary Before Tax
     func SalaryBeforeTax() -> Double {
-        var salaryBeforeTax = 0.00
         let annualizedSalaryCalulator = AnnualizedSalaryCalculator()
         let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        salaryBeforeTax = annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
-        return salaryBeforeTax
+        return annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
     }
     
     // 2. Federal Tax
@@ -77,26 +76,30 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     // 3. State Tax
     func StateTax() -> Double {
         var stateTax = 0.00
-        let annualizedSalaryCalculator = AnnualizedSalaryCalculator()
+        var taxableIncome = 0.0
+        let year = Int(selectedYear) ?? 0
+        
         let stateTaxCalculator = StateTaxCalculator()
         
-        let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
-        let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
+        let doubleSelectedTime = (Double(selectedHours) ?? 0.0) + ((Double(selectedMinutes) ?? 0.0)/60)
+        let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.0
         
-        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
-        let stateStandardDeduction = stateTaxCalculator.calStateStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
-        let stateTaxableIncome = stateTaxCalculator.calStateTaxableIncome(annualizedSalary: annualizedSalary, stateStandardDeduction: stateStandardDeduction)
-        let annualizedStateTax = stateTaxCalculator.calAnnualizedStateTax(state: selectedState, stateTaxableIncome: stateTaxableIncome)
+        if selectedSalaryType == "Hourly" {
+            taxableIncome = doubleSelectedTime * doubleSelectedPayRateAmount
+        }else {
+            taxableIncome = doubleSelectedPayRateAmount
+        }
         
-        stateTax = stateTaxCalculator.stateTax(annualizedFederalTax: annualizedStateTax, salaryType: selectedSalaryType)
+//        let year = Calendar.current.component(.year, from: selectedPaymentDate)
+        stateTax = stateTaxCalculator.stateTaxCal(taxableIncome: taxableIncome, year: year, state: selectedState,
+                                       payPeriod: selectedPayPeriod, nationality: selectedCountry, w4Filled: selectedW4)
+       
         return stateTax
     }
     
     // 4. Salary After Tax
     func SalaryAfterTax() -> Double {
-        var salaryAfterTax = 0.00
-        salaryAfterTax = SalaryBeforeTax() - FederalTax() - StateTax()
-        return salaryAfterTax
+        return SalaryBeforeTax() - FederalTax() - StateTax()
     }
     
     func SaveToCoreData() {
@@ -106,7 +109,13 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         
         studentPaycheckCoreDataVM.addPantry(date: selectedPaymentDate, country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus,
                                             payPeriod: selectedPayPeriod,payRateAmount: doubleSelectedPayRateAmount, salaryType: selectedSalaryType, w4: selectedW4,
-                                            federalTax: FederalTax(), stateTax: StateTax(), salaryAfterTax: SalaryAfterTax(), hours: doubleSelectedHours, minutes: doubleSelectedMinutes)
+                                            hours: doubleSelectedHours, minutes: doubleSelectedMinutes,
+                                            federalTax: FederalTax(),
+                                            stateTax: StateTax(),
+                                            salaryAfterTax: SalaryAfterTax())
     }
+    
+    
+    
     
 }

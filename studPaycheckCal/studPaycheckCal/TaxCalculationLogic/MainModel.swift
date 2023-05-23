@@ -134,13 +134,36 @@ struct SalaryType: Identifiable  {
 struct AnnualizedRate: Identifiable  {
     let id = UUID().uuidString
     let payRate: String
-    let payRateMulti: Int
     
     static let annualizedRateList = [
-        AnnualizedRate(payRate: "Choose One", payRateMulti: 0),
-        AnnualizedRate(payRate: "Weekly", payRateMulti: 52),
-        AnnualizedRate(payRate: "Bi-Weekly", payRateMulti: 26),
-        AnnualizedRate(payRate: "Bi-Monthly", payRateMulti: 24),
-        AnnualizedRate(payRate: "Monthly", payRateMulti: 12)
+        AnnualizedRate(payRate: "Choose One"),
+        AnnualizedRate(payRate: "Weekly"),
+        AnnualizedRate(payRate: "Bi-Weekly"),
+        AnnualizedRate(payRate: "Bi-Monthly"),
+        AnnualizedRate(payRate: "Monthly")
+    ]
+}
+
+struct Year: Identifiable  {
+    let id = UUID().uuidString
+    let year: String
+    
+    static let yearList = [
+        Year(year: "2023"),
+        Year(year: "2022"),
+        Year(year: "2021")
+    ]
+}
+
+struct payPeriodAmount {
+    let payPeriod: String
+    let factor: Int
+    
+    static let factorValue = [
+        payPeriodAmount(payPeriod: "Weekly", factor: 52),
+        payPeriodAmount(payPeriod: "Bi-Weekly", factor: 26),
+        payPeriodAmount(payPeriod: "Bi-Monthly", factor: 24),
+        payPeriodAmount(payPeriod: "Monthly", factor: 12),
+        payPeriodAmount(payPeriod: "Annually", factor: 1)
     ]
 }
