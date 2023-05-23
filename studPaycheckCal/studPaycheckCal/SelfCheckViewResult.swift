@@ -13,10 +13,26 @@ struct SelfCheckViewResult: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @State private var showYearPicker:Bool = false
     @State var showAlert: Bool = false
     
     var body: some View {
         VStack {
+            Menu {
+                Picker(selection: $studentPaycheckCalVM.selectedYear) {
+                    ForEach(Year.yearList) { year in
+                        Text(year.year).tag(year.year)
+                    }
+                } label: {
+                }
+            } label: {
+                Text(studentPaycheckCalVM.selectedYear)
+                    .foregroundColor(.black)
+                    .frame(width: 100)
+                    .modifier(CustomBlockDesign())
+            }
+            .padding(.bottom, 75)
+            
             VStack {
                 HStack{
                     Text("Salary Before Tax")
@@ -26,7 +42,7 @@ struct SelfCheckViewResult: View {
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal, 30)
                 HStack{
-                    Text("Fedeeral Tax")
+                    Text("Federal Tax")
                     Spacer()
                     Text(String(format: "$%.2f", studentPaycheckCalVM.FederalTax()))
                 }
@@ -139,3 +155,6 @@ struct ChooseDateView: View {
         }
     }
 }
+
+
+//arrowtriangle.down.fill

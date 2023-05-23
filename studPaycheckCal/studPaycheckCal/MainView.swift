@@ -24,6 +24,9 @@ struct MainView: View {
             SelfCheckView2()
                 .frame(maxHeight: .infinity)
                 .tabBarItem(tab: .paycheck, selectoin: $selectionTab)
+            TaxCalculatorView()
+                .frame(maxHeight: .infinity)
+                .tabBarItem(tab: .taxCal, selectoin: $selectionTab)
             HistoryView()
                 .frame(maxHeight: .infinity)
                 .tabBarItem(tab: .favorites, selectoin: $selectionTab)
@@ -64,5 +67,14 @@ struct MainView_Previews: PreviewProvider {
         }
         .environmentObject(StudentPaycheckCalculatorVM())
         .environmentObject(StudentPaycheckCoreDataVM())
+        .environmentObject(EffectiveTaxCalculator())
+    }
+}
+
+struct TaxCalculatorView: View {
+    var body: some View{
+        VStack{
+            Text("Tax Calculator")
+        }
     }
 }

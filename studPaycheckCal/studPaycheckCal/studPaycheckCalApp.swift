@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct studPaycheckCalApp: App {
     
+    @StateObject var effectiveTaxCalculator:EffectiveTaxCalculator = EffectiveTaxCalculator()
     @StateObject var studentPaycheckCalculatorVM: StudentPaycheckCalculatorVM = StudentPaycheckCalculatorVM()
     @StateObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM = StudentPaycheckCoreDataVM()
     
@@ -20,6 +21,7 @@ struct studPaycheckCalApp: App {
             }
             .environmentObject(studentPaycheckCalculatorVM)
             .environmentObject(studentPaycheckCoreDataVM)
+            .environmentObject(effectiveTaxCalculator)
         }
     }
 }
