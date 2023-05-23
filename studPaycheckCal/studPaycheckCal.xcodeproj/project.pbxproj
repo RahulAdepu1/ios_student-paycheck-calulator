@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA020C5429FB524200FB2C6B /* EffectiveTaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA020C5329FB524200FB2C6B /* EffectiveTaxCalculator.swift */; };
+		DA18E91029FF8A5200DF5DFE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18E90F29FF8A5200DF5DFE /* StringExtension.swift */; };
+		DA18E91229FF8EA400DF5DFE /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18E91129FF8EA400DF5DFE /* IntExtension.swift */; };
+		DA18E91429FF8EBA00DF5DFE /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA18E91329FF8EBA00DF5DFE /* DoubleExtension.swift */; };
 		DA27BAAD29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAAB29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld */; };
 		DA27BAB029F4EA4000A61A59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAAF29F4EA4000A61A59 /* CoreDataManager.swift */; };
 		DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27BAB129F6105B00A61A59 /* Paycheck+CoreDataClass.swift */; };
@@ -42,6 +46,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA020C5329FB524200FB2C6B /* EffectiveTaxCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectiveTaxCalculator.swift; sourceTree = "<group>"; };
+		DA18E90F29FF8A5200DF5DFE /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		DA18E91129FF8EA400DF5DFE /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		DA18E91329FF8EBA00DF5DFE /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		DA27BAA929F2587700A61A59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA27BAAC29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudentPaycheckDataModel.xcdatamodel; sourceTree = "<group>"; };
 		DA27BAAF29F4EA4000A61A59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -89,16 +97,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA27BAAA29F4CC9E00A61A59 /* TexCalculationLogic */ = {
+		DA020C5529FC1B4C00FB2C6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B49E229E1C3D40032C6E4 /* MainModel.swift */,
-				DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */,
-				DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */,
-				DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */,
-				DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */,
+				DA27BAD429F73FD000A61A59 /* IncomeCalculator */,
+				DA5B49D829E098670032C6E4 /* SelfCheck */,
+				DA27BAC529F650C000A61A59 /* Onboarding */,
+				DA27BAD129F73D7D00A61A59 /* History */,
+				DA27BAC029F64A6500A61A59 /* Profile */,
 			);
-			path = TexCalculationLogic;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DA18E90E29FF8A2F00DF5DFE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DA18E90F29FF8A5200DF5DFE /* StringExtension.swift */,
+				DA18E91129FF8EA400DF5DFE /* IntExtension.swift */,
+				DA18E91329FF8EBA00DF5DFE /* DoubleExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */ = {
@@ -190,16 +208,13 @@
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
 				DA27BAC629F65AFF00A61A59 /* IntroView.swift */,
 				DA27BAB929F61D4000A61A59 /* MainView.swift */,
-				DA27BAC529F650C000A61A59 /* Onboarding */,
-				DA5B49D829E098670032C6E4 /* SelfCheck */,
-				DA27BAD129F73D7D00A61A59 /* History */,
-				DA27BAD429F73FD000A61A59 /* IncomeCalculator */,
-				DA27BAC029F64A6500A61A59 /* Profile */,
-				DA27BAAA29F4CC9E00A61A59 /* TexCalculationLogic */,
+				DA020C5529FC1B4C00FB2C6B /* Views */,
+				DAFCE23A29FB06EE00481EC0 /* TaxCalculationLogic */,
 				DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */,
 				DA27BAD029F72E1200A61A59 /* TextRecognitionLogic */,
 				DA5B49E629E1D97B0032C6E4 /* Custom */,
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
+				DA18E90E29FF8A2F00DF5DFE /* Extension */,
 				DA27BAA929F2587700A61A59 /* Info.plist */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 			);
@@ -222,6 +237,7 @@
 				DA5B49E029E146970032C6E4 /* SelfCheckViewResult.swift */,
 			);
 			name = SelfCheck;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DA5B49E629E1D97B0032C6E4 /* Custom */ = {
@@ -231,6 +247,19 @@
 				DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		DAFCE23A29FB06EE00481EC0 /* TaxCalculationLogic */ = {
+			isa = PBXGroup;
+			children = (
+				DA5B49E229E1C3D40032C6E4 /* MainModel.swift */,
+				DA5B49E429E1D71C0032C6E4 /* MainViewModel.swift */,
+				DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */,
+				DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */,
+				DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */,
+				DA020C5329FB524200FB2C6B /* EffectiveTaxCalculator.swift */,
+			);
+			path = TaxCalculationLogic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +336,8 @@
 				DA27BABA29F61D4000A61A59 /* MainView.swift in Sources */,
 				DA27BACB29F6DC8800A61A59 /* TextRecognizer.swift in Sources */,
 				DA27BABF29F63A6C00A61A59 /* TabBarItem.swift in Sources */,
+				DA18E91029FF8A5200DF5DFE /* StringExtension.swift in Sources */,
+				DA18E91229FF8EA400DF5DFE /* IntExtension.swift in Sources */,
 				DA5B49EA29E716540032C6E4 /* FederalTaxCalculator.swift in Sources */,
 				DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */,
 				DA27BAB629F6161400A61A59 /* CustomTabBarView.swift in Sources */,
@@ -319,6 +350,8 @@
 				DA27BAD629F73FED00A61A59 /* IncomeCalculatorView.swift in Sources */,
 				DA27BADA29F79D3700A61A59 /* History+CoreDataProperties.swift in Sources */,
 				DA27BACD29F6DE1F00A61A59 /* ScanData.swift in Sources */,
+				DA18E91429FF8EBA00DF5DFE /* DoubleExtension.swift in Sources */,
+				DA020C5429FB524200FB2C6B /* EffectiveTaxCalculator.swift in Sources */,
 				DA27BAD929F79D3700A61A59 /* History+CoreDataClass.swift in Sources */,
 				DA27BABD29F61E2E00A61A59 /* TabBarItemPreferenceKey.swift in Sources */,
 				DA5B49E329E1C3D40032C6E4 /* MainModel.swift in Sources */,
