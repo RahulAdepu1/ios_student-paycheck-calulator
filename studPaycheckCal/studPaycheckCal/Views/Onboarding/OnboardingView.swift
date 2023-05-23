@@ -153,7 +153,7 @@ extension OnboardingView {
             HStack{
                 VStack {
                     Text("Nationality")
-                        .modifier(CustomTextDesign1())
+                        .modifier(CustomTextDesign4())
                     Button {
                         showContryPicker = true
                     } label: {
@@ -165,7 +165,7 @@ extension OnboardingView {
                 
                 VStack {
                     Text("State")
-                        .modifier(CustomTextDesign1())
+                        .modifier(CustomTextDesign4())
                     Button {
                         showStatePicker = true
                     } label: {
@@ -175,6 +175,7 @@ extension OnboardingView {
                 }
                 .modifier(CustomBlockDesign())
             }
+            .padding(.horizontal, 50)
         }
         .sheet(isPresented: $showContryPicker) {
             NationalitySelectPicker()
@@ -300,7 +301,7 @@ extension OnboardingView {
     
     func showAlertFunction() {
         alertTitle = "DID NOT CHOOSE"
-        alertMessage = "You have not made a choice \nplease make a choice"
+        alertMessage = "You have not make a choice \nplease make a choice"
         showAlert.toggle()
     }
     

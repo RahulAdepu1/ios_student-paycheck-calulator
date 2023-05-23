@@ -34,6 +34,7 @@ struct CustomTextDesign3: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.caption)
+            .lineLimit(2)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
             .background(Color.white)
@@ -44,6 +45,7 @@ struct CustomTextDesign4: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.headline)
+            .foregroundColor(.black)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
             .background(Color.white)
