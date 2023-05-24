@@ -111,16 +111,16 @@ struct IncomeCalculatorView: View {
                            fedTaxAmount: calFedTax()[0].doubleToString2)
                 
                 // State Tax Row Data
-                StateTax(marginalStateTaxRate: calMarginalStateTax(),
-                         effectiveStateTaxRate: calEffectiveStateTax(),
-                         stateTaxAmount: calStateTaxAmount())
+                StateTax(marginalStateTaxRate: calStateTax()[1].doubleToString2,
+                         effectiveStateTaxRate: calStateTax()[2].doubleToString2,
+                         stateTaxAmount: calStateTax()[0].doubleToString2)
                 
                 // Total Tax Row Data
-                TotalTax(effectiveTotalTaxRate: calEffectiveTotalTax(),
-                         totalTaxAmount: "$")
+                TotalTax(effectiveTotalTaxRate: calTotalTax()[1].doubleToString2,
+                         totalTaxAmount: calTotalTax()[0].doubleToString2)
                 
                 // Income After Tax Row Data
-                IncomeAfterTax(incomeAfterTax: "$")
+                IncomeAfterTax(incomeAfterTax: calIncomeAfterTax().doubleToString2)
             }
             .modifier(CustomBlockDesign())
             .padding(.horizontal)
@@ -165,21 +165,10 @@ struct IncomeCalculatorView: View {
         var effectiveFederalTaxRate = 0.0
         
         let federalTaxCalculator = FederalTaxCalculator()
-        let standardDeduction = FederalStdDedByYear.federalData.filter { $0.year == year }[0].standardDeduction
-        let taxableIncome = federalTaxCalculator.calFederalTaxableIncome(annualizedSalary: selectedAnnualSalary,
-                                                                         fedStandardDeduction: standardDeduction)
-        // Check the year and marital status to get the Tax Bracket List
-        let taxBracketAmountList = FederalTaxBracketListByYear.federalTaxBracketListData.filter {
-            $0.year == year &&
-            $0.maritalStatus == selectedMaritalStatus
-        }[0].taxBracketList
         
-        if (selectedAnnualSalary == 0.0 ){
-            annualizedFederalTaxAmount = 0.0
-            marginalFederalTaxRate = 0.0
-            effectiveFederalTaxRate = 0.0
+        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One" || selectedMaritalStatus == "Choose One" ){
         }else {
-            let federalTaxOutput = federalTaxCalculator.calculateFederalTax(totalSalary: selectedAnnualSalary, fedTaxableIncome: taxableIncome, taxBracketAmountList: taxBracketAmountList)
+            let federalTaxOutput = federalTaxCalculator.calculateFederalTax(totalSalary: selectedAnnualSalary, year: year, selectedMaritalStatus: selectedMaritalStatus )
             annualizedFederalTaxAmount = federalTaxOutput[0]
             marginalFederalTaxRate = federalTaxOutput[1]
             effectiveFederalTaxRate = federalTaxOutput[2]
@@ -190,73 +179,51 @@ struct IncomeCalculatorView: View {
     }
     
     // State Taxes
-    func calMarginalStateTax() -> String {
+    func calStateTax() -> [Double] {
         let year = Calendar.current.component(.year, from: Date())
-        let stateTax = StateTaxCalculator()
-        var stateTaxRate = 0.0
-        var stateTaxAmount = 0.0
+        var annualizedStateTax = 0.0
+        var marginalStateTaxRate = 0.0
+        var effectiveStateTaxRate = 0.0
         
-        let filteredData = StateTaxByYear.stateData.filter { $0.year == year }
-            .flatMap { $0.stateTaxByState }
-            .filter { $0.state == selectedState }
+        let stateTaxCalculator = StateTaxCalculator()
         
-        if selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" {
-            stateTaxRate = filteredData[0].stateTaxRate
-            stateTaxAmount = stateTax.annualStateTaxAmount(annualSalary: selectedAnnualSalary, year: year, state: selectedState)
+        
+        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One" || selectedMaritalStatus == "Choose One" ){
+        }else {
+            let stateTaxOutput = stateTaxCalculator.calculateStateTax(totalSalary: selectedAnnualSalary, year: year, state: selectedState)
+            
+            annualizedStateTax = stateTaxOutput[0]
+            marginalStateTaxRate = stateTaxOutput[1]
+            effectiveStateTaxRate = stateTaxOutput[2]
         }
         
-        if stateTaxAmount < 0 {
-            stateTaxRate = 0.0
-        }
-        
-        return "\(stateTaxRate.doubleToString2)%"
-    }
-    
-    func calEffectiveStateTax() -> String {
-        var effectiveRate = 0.0
-        let year = Calendar.current.component(.year, from: Date())
-        let stateTax = StateTaxCalculator()
-        let stateTaxAmount = stateTax.annualStateTaxAmount(annualSalary: selectedAnnualSalary, year: year, state: selectedState)
-        
-        if selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" {
-            effectiveRate = ((stateTaxAmount / selectedAnnualSalary) * 100)
-        }
-        if effectiveRate < 0 {
-            effectiveRate = 0
-        }
-        
-        return "\(effectiveRate.doubleToString2)%"
-    }
-    
-    func calStateTaxAmount() -> String {
-        let year = Calendar.current.component(.year, from: Date())
-        let stateTax = StateTaxCalculator()
-        var stateTaxAmount = 0.0
-        
-        if selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" {
-            stateTaxAmount = stateTax.annualStateTaxAmount(annualSalary: selectedAnnualSalary, year: year, state: selectedState)
-        }
-        
-        if stateTaxAmount < 0 {
-            stateTaxAmount = 0.0
-        }
-        
-        return "$\(stateTaxAmount.doubleToString2)"
+        return [annualizedStateTax, marginalStateTaxRate, effectiveStateTaxRate ]
     }
     
     // Total Taxes
-    func calEffectiveTotalTax() -> String {
-        return "22.35%"
-    }
-    
-    func calTotalTaxAmount() -> Double {
-        let totalTaxAmount = fedTaxAmount + 0 //calStateTaxAmount()
-        return totalTaxAmount
+    func calTotalTax() -> [Double] {
+        var effectiveTotalTaxRate = 0.0
+        var totalTax = 0.0
+        
+        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One" || selectedMaritalStatus == "Choose One" ){
+        }else {
+            totalTax = calFedTax()[0] + calStateTax()[0]
+            effectiveTotalTaxRate = (totalTax/selectedAnnualSalary) * 100
+        }
+        
+        return [totalTax, effectiveTotalTaxRate]
     }
     
     // Income After Taxes
-    func calIncomeAfterTax(){
-        incomeAfterTax = selectedAnnualSalary - fedTaxAmount - 0//calStateTaxAmount()
+    func calIncomeAfterTax() -> Double{
+        var incomeAfterTax = 0.0
+        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One") {
+            incomeAfterTax = 0
+        }else {
+            incomeAfterTax = selectedAnnualSalary - (calFedTax()[0] + calStateTax()[0])
+        }
+        
+        return incomeAfterTax
     }
 }
 
@@ -318,11 +285,11 @@ struct StateTax: View {
         HStack{
             Text("State")
                 .modifier(CustomTextDesign3())
-            Text(marginalStateTaxRate)
+            Text(marginalStateTaxRate+"%")
                 .modifier(CustomTextDesign3())
-            Text(effectiveStateTaxRate)
+            Text(effectiveStateTaxRate+"%")
                 .modifier(CustomTextDesign3())
-            Text(stateTaxAmount)
+            Text("$"+stateTaxAmount)
                 .modifier(CustomTextDesign3())
         }
     }
@@ -339,9 +306,9 @@ struct TotalTax: View {
                 .modifier(CustomTextDesign3())
             Text("")
                 .modifier(CustomTextDesign3())
-            Text(effectiveTotalTaxRate)
+            Text(effectiveTotalTaxRate+"%")
                 .modifier(CustomTextDesign3())
-            Text(totalTaxAmount)
+            Text("$"+totalTaxAmount)
                 .modifier(CustomTextDesign3())
         }
     }
@@ -359,7 +326,7 @@ struct IncomeAfterTax: View {
                 .modifier(CustomTextDesign3())
             Text("")
                 .modifier(CustomTextDesign3())
-            Text(incomeAfterTax)
+            Text("$"+incomeAfterTax)
                 .modifier(CustomTextDesign3())
         }
     }

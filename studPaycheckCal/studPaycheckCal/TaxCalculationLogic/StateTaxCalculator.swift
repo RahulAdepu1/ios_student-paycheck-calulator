@@ -54,6 +54,20 @@ class StateTaxCalculator{
         
         return stateTaxAmount
     }
+    
+    func calculateStateTax(totalSalary: Double, year: Int, state: String) -> [Double] {
+        // Filter out and get only particular state's data
+        let filteredData = StateTaxByYear.stateData.filter { $0.year == year }
+            .flatMap { $0.stateTaxByState }
+            .filter { $0.state == state }
+        
+        let annualizedStateTax = (totalSalary - filteredData[0].standardDeduction) * (filteredData[0].stateTaxRate/100)
+        let effectiveStateTaxRate = (annualizedStateTax/totalSalary) * 100
+        let marginalStateTaxRate = filteredData[0].stateTaxRate
+        
+        //[annualizedFederalTax, marginalTaxRate, effectiveTaxRate]
+        return [annualizedStateTax, marginalStateTaxRate, effectiveStateTaxRate]
+    }
 }
 
 struct StateTaxByYear {

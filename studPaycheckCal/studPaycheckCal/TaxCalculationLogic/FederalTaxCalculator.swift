@@ -110,13 +110,21 @@ class FederalTaxCalculator{
     }
     
     
-    func calculateFederalTax(totalSalary: Double, fedTaxableIncome: Double, taxBracketAmountList: [Double] ) -> [Double] {
+    func calculateFederalTax(totalSalary: Double, year: Int, selectedMaritalStatus: String ) -> [Double] {
         var taxBracketValue = 0.0
         var annualizedFederalTax = 0.0
         var effectiveTaxRate = 0.0
         var marginalTaxRate = 0.0
-        var fedTaxableIncome = fedTaxableIncome
 
+        let standardDeduction = FederalStdDedByYear.federalData.filter { $0.year == year }[0].standardDeduction
+        var fedTaxableIncome = calFederalTaxableIncome(annualizedSalary: totalSalary, fedStandardDeduction: standardDeduction)
+        
+        // Check the year and marital status to get the Tax Bracket List
+        let taxBracketAmountList = FederalTaxBracketListByYear.federalTaxBracketListData.filter {
+            $0.year == year &&
+            $0.maritalStatus == selectedMaritalStatus
+        }[0].taxBracketList
+        
         print("Tax Bracket size =", taxBracket.count-1)
         for count in 1..<taxBracket.count{
             print("************")
