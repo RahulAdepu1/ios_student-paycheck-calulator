@@ -43,6 +43,9 @@
 		DA5B49EA29E716540032C6E4 /* FederalTaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */; };
 		DA5B49EC29E7168B0032C6E4 /* StateTaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */; };
 		DA5B49EE29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */; };
+		DA8655C82A2B9FE100B960BE /* TaxCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8655C72A2B9FE100B960BE /* TaxCalculatorView.swift */; };
+		DA8655CB2A2BA41E00B960BE /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = DA8655CA2A2BA41E00B960BE /* CropViewController */; };
+		DA8655CD2A2BA41E00B960BE /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = DA8655CC2A2BA41E00B960BE /* TOCropViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +87,7 @@
 		DA5B49E929E716540032C6E4 /* FederalTaxCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederalTaxCalculator.swift; sourceTree = "<group>"; };
 		DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTaxCalculator.swift; sourceTree = "<group>"; };
 		DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnualizedSalaryCalculator.swift; sourceTree = "<group>"; };
+		DA8655C72A2B9FE100B960BE /* TaxCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxCalculatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8655CD2A2BA41E00B960BE /* TOCropViewController in Frameworks */,
+				DA8655CB2A2BA41E00B960BE /* CropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +106,7 @@
 		DA020C5529FC1B4C00FB2C6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DA8655C62A2B9F9700B960BE /* TaxCalculator */,
 				DA27BAD429F73FD000A61A59 /* IncomeCalculator */,
 				DA5B49D829E098670032C6E4 /* SelfCheck */,
 				DA27BAC529F650C000A61A59 /* Onboarding */,
@@ -249,6 +256,14 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		DA8655C62A2B9F9700B960BE /* TaxCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				DA8655C72A2B9FE100B960BE /* TaxCalculatorView.swift */,
+			);
+			path = TaxCalculator;
+			sourceTree = "<group>";
+		};
 		DAFCE23A29FB06EE00481EC0 /* TaxCalculationLogic */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +293,10 @@
 			dependencies = (
 			);
 			name = studPaycheckCal;
+			packageProductDependencies = (
+				DA8655CA2A2BA41E00B960BE /* CropViewController */,
+				DA8655CC2A2BA41E00B960BE /* TOCropViewController */,
+			);
 			productName = studPaycheckCal;
 			productReference = DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */;
 			productType = "com.apple.product-type.application";
@@ -306,6 +325,9 @@
 				Base,
 			);
 			mainGroup = DA5B49BE29E003ED0032C6E4;
+			packageReferences = (
+				DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+			);
 			productRefGroup = DA5B49C829E003ED0032C6E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -359,6 +381,7 @@
 				DA27BAAD29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld in Sources */,
 				DA5B49EC29E7168B0032C6E4 /* StateTaxCalculator.swift in Sources */,
 				DA5B49CB29E003ED0032C6E4 /* studPaycheckCalApp.swift in Sources */,
+				DA8655C82A2B9FE100B960BE /* TaxCalculatorView.swift in Sources */,
 				DA27BAB829F61B2C00A61A59 /* CustomTabBarContainerView.swift in Sources */,
 				DA5B49EE29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift in Sources */,
 				DA5B49E129E146970032C6E4 /* SelfCheckViewResult.swift in Sources */,
@@ -570,6 +593,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA8655CA2A2BA41E00B960BE /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		DA8655CC2A2BA41E00B960BE /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DA27BAAB29F4CD5600A61A59 /* StudentPaycheckDataModel.xcdatamodeld */ = {

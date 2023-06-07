@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI 
 
 enum TabBarItem: Hashable {
-    case paycheck, favorites, taxCal, profile
+    case income, paycheck, favorites, taxCal, profile
     
     var iconImageName: String {
         switch self {
+        case .income: return "house"
         case .paycheck: return "house"
         case .favorites: return "clock.arrow.circlepath"
         case .taxCal: return "clock.arrow.circlepath"
@@ -22,6 +23,7 @@ enum TabBarItem: Hashable {
     
     var iconTitle: String {
         switch self {
+        case .income: return "Income Cal"
         case .paycheck: return "Paycheck Cal"
         case .favorites: return "History"
         case .taxCal: return "Tax Cal"
@@ -31,6 +33,7 @@ enum TabBarItem: Hashable {
     
     var iconColor: Color {
         switch self {
+        case .income: return .yellow
         case .paycheck: return .red
         case .favorites: return .blue
         case .taxCal: return .green

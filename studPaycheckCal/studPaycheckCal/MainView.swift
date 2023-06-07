@@ -18,9 +18,12 @@ struct MainView: View {
     @AppStorage("maritalStatus") var selectedMaritalStatus: String?
     @AppStorage("w4Filled") var selectedW4Filled: String?
     
-    @State var selectionTab: TabBarItem = .paycheck
+    @State var selectionTab: TabBarItem = .taxCal
     var body: some View {
         CustomTabBarContainerView(selection: $selectionTab) {
+            IncomeCalculatorView()
+                .frame(maxHeight: .infinity)
+                .tabBarItem(tab: .income, selectoin: $selectionTab)
             SelfCheckView2()
                 .frame(maxHeight: .infinity)
                 .tabBarItem(tab: .paycheck, selectoin: $selectionTab)
@@ -68,13 +71,5 @@ struct MainView_Previews: PreviewProvider {
         .environmentObject(StudentPaycheckCalculatorVM())
         .environmentObject(StudentPaycheckCoreDataVM())
         .environmentObject(EffectiveTaxCalculator())
-    }
-}
-
-struct TaxCalculatorView: View {
-    var body: some View{
-        VStack{
-            Text("Tax Calculator")
-        }
     }
 }

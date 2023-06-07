@@ -44,21 +44,21 @@ struct SelfCheckViewResult: View {
                 HStack{
                     Text("Federal Tax")
                     Spacer()
-                    Text(String(format: "$%.2f", studentPaycheckCalVM.FederalTax()))
+//                    Text(String(format: "$%.2f", studentPaycheckCalVM.FederalTax()))
                 }
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal, 30)
                 HStack{
                     Text("State Tax")
                     Spacer()
-                    Text(String(format: "$%.2f", studentPaycheckCalVM.StateTax()))
+//                    Text(String(format: "$%.2f", studentPaycheckCalVM.StateTax()))
                 }
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal, 30)
                 HStack{
                     Text("Salary After Tax")
                     Spacer()
-                    Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryAfterTax()))
+//                    Text(String(format: "$%.2f", studentPaycheckCalVM.SalaryAfterTax()))
                 }
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal, 30)
