@@ -166,8 +166,7 @@ struct IncomeCalculatorView: View {
         
         let federalTaxCalculator = FederalTaxCalculator()
         
-        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One" || selectedMaritalStatus == "Choose One" ){
-        }else {
+        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One" || selectedMaritalStatus != "Choose One" ){
             let federalTaxOutput = federalTaxCalculator.calculateFederalTax(totalSalary: selectedAnnualSalary, year: year, selectedMaritalStatus: selectedMaritalStatus )
             annualizedFederalTaxAmount = federalTaxOutput[0]
             marginalFederalTaxRate = federalTaxOutput[1]
@@ -188,8 +187,7 @@ struct IncomeCalculatorView: View {
         let stateTaxCalculator = StateTaxCalculator()
         
         
-        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One" || selectedMaritalStatus == "Choose One" ){
-        }else {
+        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One" || selectedMaritalStatus != "Choose One" ){
             let stateTaxOutput = stateTaxCalculator.calculateStateTax(totalSalary: selectedAnnualSalary, year: year, state: selectedState)
             
             annualizedStateTax = stateTaxOutput[0]
@@ -205,8 +203,7 @@ struct IncomeCalculatorView: View {
         var effectiveTotalTaxRate = 0.0
         var totalTax = 0.0
         
-        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One" || selectedMaritalStatus == "Choose One" ){
-        }else {
+        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One" || selectedMaritalStatus != "Choose One" ){
             totalTax = calFedTax()[0] + calStateTax()[0]
             effectiveTotalTaxRate = (totalTax/selectedAnnualSalary) * 100
         }
@@ -217,9 +214,7 @@ struct IncomeCalculatorView: View {
     // Income After Taxes
     func calIncomeAfterTax() -> Double{
         var incomeAfterTax = 0.0
-        if (selectedAnnualSalary == 0.0 || selectedState == "Choose One") {
-            incomeAfterTax = 0
-        }else {
+        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One") {
             incomeAfterTax = selectedAnnualSalary - (calFedTax()[0] + calStateTax()[0])
         }
         

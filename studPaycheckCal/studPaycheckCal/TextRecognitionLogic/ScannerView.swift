@@ -88,6 +88,7 @@ struct CropView: UIViewControllerRepresentable {
 struct TextView: View {
     let image: UIImage
     @State private var detectedText: String = ""
+    @State var textRecognizer = TextRecognizer()
     
     var body: some View {
         VStack {
@@ -103,29 +104,14 @@ struct TextView: View {
     }
     
     func detectText() {
-        let textRecognitionRequest = VNRecognizeTextRequest { request, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-            
-            guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
-            
-            let detectedText = observations.compactMap { observation in
-                observation.topCandidates(1).first?.string
-            }.joined(separator: "\n")
-            
-            self.detectedText = detectedText
+        self.detectedText = textRecognizer.detectText(image: image)
+        
+        let text =  textRecognizer.detectText(image: image).components(separatedBy: "\n")
+        for i in 0..<text.count{
+            print("\(i) - \(text[i])")
         }
         
-        textRecognitionRequest.recognitionLevel = .accurate
         
-        let requestHandler = VNImageRequestHandler(cgImage: image.cgImage!, options: [:])
         
-        do {
-            try requestHandler.perform([textRecognitionRequest])
-        } catch {
-            print("Error: \(error)")
-        }
     }
 }

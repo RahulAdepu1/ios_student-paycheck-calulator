@@ -9,87 +9,21 @@ import SwiftUI
 
 class EffectiveTaxCalculator: ObservableObject {
     
-    @Published var texts:[ScanData] = []
-    
     @Published var effectiveFedTax: Double = 0.0
     @Published var effectiveStateTax: Double = 0.0
     @Published var effectiveTotalTax: Double = 0.0
     
-    @Published var nationality: String = ""
-    @Published var w4Filled: String = ""
+    @Published var currentTotalGross = ""
+    @Published var currentNetPay = ""
+    @Published var currentTotalTax = ""
+    @Published var currentState = ""
+    @Published var payGroup = ""
+    @Published var payDayPeriod = ""
+    @Published var payYear = Year.yearList[0].year
     
     func CalculateEffectiveTax() {
         
-        var currentTotalGross = ""
-        var currentNetPay = ""
-        var currentTotalTax = ""
-        var currentState = ""
-        var payGroup = ""
-        var payDayPeriod = ""
-        var payYear = ""
         
-        //Formatting Date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        
-        let dataArray = texts[0].content.components(separatedBy: "\n")
-        
-        //        print("******************************")
-        for i in 0..<dataArray.count{
-            
-            print("\(i)->\(dataArray[i])")
-            
-            let date = dateFormatter.date(from: dataArray[i])
-            if date != nil{
-                print(date ?? Date())
-                payYear = dataArray[i].components(separatedBy: "/")[2]
-            }
-            
-            //Calcualte Pay Day Period
-            if dataArray[i] == "Pay End Date:" {
-                payGroup = dataArray[i+1]
-                if payGroup.contains("M1-Monthly 63"){
-                    payDayPeriod = "Monthly"
-                }else if payGroup.contains("MI-Monthly 63"){
-                    payDayPeriod = "Monthly"
-                }else {
-                    payDayPeriod = "Bi-Monthly"
-                }
-            }
-            
-            //Search for State
-            if dataArray[i].contains("Payroll Office") {
-                currentState = dataArray[i+1].components(separatedBy: " ")[1]
-            }
-            
-            //Calculate Total Gross Salary
-            if dataArray[i] == "TOTAL GROSS" {
-                currentTotalGross = dataArray[i+1].components(separatedBy: " ")[0]
-            }else if dataArray[i] == "   TOTAL GROSS" {
-                currentTotalGross = dataArray[i+1].components(separatedBy: " ")[1]
-            }
-            
-            //Calculate Current Net Pay
-            if dataArray[i] == "NET PAY" {
-                currentNetPay = dataArray[i+1]
-            }
-            
-            //Calculating Total Taxes
-            if dataArray[i] == "TOTAL TAXES" {
-                currentTotalTax = dataArray[i+1]
-            }
-        }
-//        print("******************************")
-//        print("Current PAY YEAR is -------> "+payYear)
-//        print("Current PAY DAY PERIOD is -------> "+payDayPeriod)
-//        print("Current STATE is -------> "+currentState)
-//        print("******************************")
-//
-//        print("Current TOTAL GROSS is Double-------> \(currentTotalGross.stringToDouble)")
-//        print("Current NET PAY is Double-------> \(currentNetPay.stringToDouble)")
-//        print("Current TOTAL TAXES is Double-------> \(currentTotalTax.stringToDouble)")
-//        print("******************************")
-//
 //        /*
 //         Things we have
 //          - Total Salary

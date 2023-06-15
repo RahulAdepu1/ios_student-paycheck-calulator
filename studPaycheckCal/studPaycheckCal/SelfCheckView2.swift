@@ -110,8 +110,6 @@ struct SelfCheckView2: View {
     }
 }
 
-
-
 //MARK: - Picker Views
 struct PayPeriodSelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM

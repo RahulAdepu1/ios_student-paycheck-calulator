@@ -17,7 +17,7 @@ class AnnualizedSalaryCalculator {
             salaryBeforeTax = hours * payRateAmount
         }
         
-        print("Salary Before Tax is =", salaryBeforeTax)
+//        print("Salary Before Tax is =", salaryBeforeTax)
         return salaryBeforeTax
     }
     
@@ -33,7 +33,7 @@ class AnnualizedSalaryCalculator {
             taxBracketAmountList = [15700.0, 59850.0, 95350.0, 182100.0, 231250.0, 578100.0, 999999999.0]
         }
         
-        print("tax Bracket Amount List is =", taxBracketAmountList)
+//        print("tax Bracket Amount List is =", taxBracketAmountList)
         return taxBracketAmountList
     }
 
@@ -46,7 +46,7 @@ class AnnualizedSalaryCalculator {
             annualizedSalary = currentTotalGross * 24
         }
         
-        print("Annualized Salary is =", annualizedSalary)
+//        print("Annualized Salary is =", annualizedSalary)
         return annualizedSalary
     }
     
@@ -68,7 +68,7 @@ class AnnualizedSalaryCalculator {
             }
         }
         
-        print("Annualized Salary is =", annualizedSalary)
+//        print("Annualized Salary is =", annualizedSalary)
         return annualizedSalary
     }
 

@@ -61,32 +61,32 @@ class FederalTaxCalculator{
         var fedTaxableIncome = federalTaxableIncome
         //        print("Tax Bracket size =", taxBracket.count-1)
         for count in 0..<taxBracket.count{
-            print("************")
-            print(count)
+//            print("************")
+//            print(count)
             if fedTaxableIncome >= 0 {
                 
-                print("Federal Taxable Income =", fedTaxableIncome)
-                print("Tax Bracket Amount =", taxBracketAmountList[count])
+//                print("Federal Taxable Income =", fedTaxableIncome)
+//                print("Tax Bracket Amount =", taxBracketAmountList[count])
                 
                 if fedTaxableIncome > taxBracketAmountList[count] {
                     annualizedFederalTax += taxBracketAmountList[count] * (taxBracket[count]/100)
-                    print("Annualized Federal Tax", annualizedFederalTax)
+//                    print("Annualized Federal Tax", annualizedFederalTax)
                     
-                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
+//                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
                     fedTaxableIncome = fedTaxableIncome - taxBracketAmountList[count]
-                    print("Federal Taxable Income", fedTaxableIncome)
+//                    print("Federal Taxable Income", fedTaxableIncome)
                 }else{
                     annualizedFederalTax += fedTaxableIncome * (taxBracket[count]/100)
-                    print("Annualized Federal Tax", annualizedFederalTax)
+//                    print("Annualized Federal Tax", annualizedFederalTax)
                     
-                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
+//                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
                     fedTaxableIncome = fedTaxableIncome - taxBracketAmountList[count]
-                    print("Federal Taxable Income", fedTaxableIncome)
+//                    print("Federal Taxable Income", fedTaxableIncome)
                 }
             }
         }
         
-        print("Annualized Federal Tax =", annualizedFederalTax)
+//        print("Annualized Federal Tax =", annualizedFederalTax)
         return annualizedFederalTax
     }
     
@@ -125,10 +125,10 @@ class FederalTaxCalculator{
             $0.maritalStatus == selectedMaritalStatus
         }[0].taxBracketList
         
-        print("Tax Bracket size =", taxBracket.count-1)
+//        print("Tax Bracket size =", taxBracket.count-1)
         for count in 1..<taxBracket.count{
-            print("************")
-            print(count)
+//            print("************")
+//            print(count)
             if fedTaxableIncome >= 0 {
                 taxBracketValue = taxBracketAmountList[count] - taxBracketAmountList[count-1]
                 if fedTaxableIncome > taxBracketValue {
