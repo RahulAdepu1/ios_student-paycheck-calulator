@@ -40,12 +40,20 @@ struct IncomeCalculatorView: View {
     var body: some View {
         
         VStack {
+            Text("Income Estimator")
+                .padding(.bottom, 50)
+                .font(.largeTitle)
+                .fontWeight(.bold)
             // User Entry Data
+            Text("Estimate How much you will pay in taxes \nand earn income after taxes on your prefered Annual salary")
+                .multilineTextAlignment(.center)
+                .padding(.bottom, 10)
             HStack{
                 // State
                 VStack{
                     Text("State")
-                        .modifier(CustomTextDesign2())
+                        .font(.subheadline)
+                        .fontWeight(.bold)
                     Button {
                         showStatePicker = true
                     } label: {
@@ -58,7 +66,8 @@ struct IncomeCalculatorView: View {
                 // Annual Salary
                 VStack{
                     Text("Annual Salary")
-                        .modifier(CustomTextDesign2())
+                        .font(.subheadline)
+                        .fontWeight(.bold)
                     TextField("$0.00", text: $annualSalary)
                         .keyboardType(.decimalPad)
                         .toolbar {
@@ -86,7 +95,8 @@ struct IncomeCalculatorView: View {
                 // Marital Status
                 VStack{
                     Text("Marital Status")
-                        .modifier(CustomTextDesign2())
+                        .font(.subheadline)
+                        .fontWeight(.bold)
                     Button {
                         showMaritalStatusPicker = true
                     } label: {
@@ -118,12 +128,15 @@ struct IncomeCalculatorView: View {
                 // Total Tax Row Data
                 TotalTax(effectiveTotalTaxRate: calTotalTax()[1].doubleToString2,
                          totalTaxAmount: calTotalTax()[0].doubleToString2)
-                
-                // Income After Tax Row Data
-                IncomeAfterTax(incomeAfterTax: calIncomeAfterTax().doubleToString2)
             }
             .modifier(CustomBlockDesign())
             .padding(.horizontal)
+            
+            
+            // Income After Tax Row Data
+            IncomeAfterTax(incomeAfterTax: calIncomeAfterTax().doubleToString2)
+                .modifier(CustomBlockDesign())
+                .padding(.horizontal)
             
         }
         
@@ -239,12 +252,16 @@ struct ColumnTitle:View {
     var body: some View{
         HStack{
             Text("Tax \nType")
+                .fontWeight(.bold)
                 .modifier(CustomTextDesign2())
             Text("Marginal Tax Rate")
+                .fontWeight(.bold)
                 .modifier(CustomTextDesign2())
             Text("Effective Tax Rate")
+                .fontWeight(.bold)
                 .modifier(CustomTextDesign2())
             Text("Tax \nAmount")
+                .fontWeight(.bold)
                 .modifier(CustomTextDesign2())
         }
     }
@@ -314,14 +331,14 @@ struct IncomeAfterTax: View {
     var incomeAfterTax: String
     
     var body: some View{
-        HStack{
+        VStack{
             Text("Income After Tax")
+                .font(.title2)
+                .fontWeight(.bold)
                 .modifier(CustomTextDesign3())
-            Text("")
-                .modifier(CustomTextDesign3())
-            Text("")
-                .modifier(CustomTextDesign3())
+            
             Text("$"+incomeAfterTax)
+                .font(.title3)
                 .modifier(CustomTextDesign3())
         }
     }

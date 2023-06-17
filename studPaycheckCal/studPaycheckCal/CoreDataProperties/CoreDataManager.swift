@@ -142,7 +142,7 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     
 //------------------------------------------------------------------------------------------------------------------------
     // Add Paycheck Items
-    func addPantry(date: Date, country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
+    func addPaycheck(date: Date, country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
                    w4: String, hours: Double, minutes: Double, federalTax: Double, stateTax: Double, salaryAfterTax: Double) {
         let newPaycheckItems = Paycheck(context: manager.context)
         newPaycheckItems.id = UUID().uuidString

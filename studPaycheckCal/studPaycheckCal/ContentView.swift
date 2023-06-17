@@ -98,9 +98,9 @@ struct TaxResultView:View {
     
     var body: some View{
         VStack{
-            Text(String(format: "%.2f", effectiveTaxCalculator.effectiveFedTax))
-            Text(String(format: "%.2f", effectiveTaxCalculator.effectiveStateTax))
-            Text(String(format: "%.2f", effectiveTaxCalculator.effectiveTotalTax))
+            Text(String(format: "%.2f", effectiveTaxCalculator.currentTotalGross))
+            Text(String(format: "%.2f", effectiveTaxCalculator.currentNetPay))
+            Text(String(format: "%.2f", effectiveTaxCalculator.currentTotalTax))
         }
     }
 }

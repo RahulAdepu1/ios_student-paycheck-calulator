@@ -149,6 +149,7 @@ struct Year: Identifiable  {
     let year: String
     
     static let yearList = [
+        Year(year: "Choose One"),
         Year(year: "2023"),
         Year(year: "2022"),
         Year(year: "2021")

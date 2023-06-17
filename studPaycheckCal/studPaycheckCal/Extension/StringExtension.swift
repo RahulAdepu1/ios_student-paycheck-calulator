@@ -12,5 +12,9 @@ extension String {
         let cleanString = self.replacingOccurrences(of: ".", with: "").replacingOccurrences(of: ",", with: "")
         return (Double(cleanString) ?? 0.0)/100
     }
+    
+    var stringToIntYear: Int {
+        return (Int(self) ?? 0)
+    }
 }
 

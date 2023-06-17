@@ -155,6 +155,3 @@ struct ChooseDateView: View {
         }
     }
 }
-
-
-//arrowtriangle.down.fill

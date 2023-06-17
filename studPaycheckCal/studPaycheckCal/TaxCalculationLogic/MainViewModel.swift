@@ -104,18 +104,14 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     
     func SaveToCoreData() {
         let doubleSelectedHours = (Double(selectedHours) ?? 0.00)
-        let doubleSelectedMinutes = ((Double(selectedMinutes) ?? 0.00)/60)
+        let doubleSelectedMinutes = ((Double(selectedMinutes) ?? 0.00))
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        studentPaycheckCoreDataVM.addPantry(date: selectedPaymentDate, country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus,
+        studentPaycheckCoreDataVM.addPaycheck(date: selectedPaymentDate, country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus,
                                             payPeriod: selectedPayPeriod,payRateAmount: doubleSelectedPayRateAmount, salaryType: selectedSalaryType, w4: selectedW4,
                                             hours: doubleSelectedHours, minutes: doubleSelectedMinutes,
                                             federalTax: FederalTax(),
                                             stateTax: StateTax(),
                                             salaryAfterTax: SalaryAfterTax())
     }
-    
-    
-    
-    
 }

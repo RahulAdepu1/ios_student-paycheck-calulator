@@ -18,18 +18,18 @@ struct MainView: View {
     @AppStorage("maritalStatus") var selectedMaritalStatus: String?
     @AppStorage("w4Filled") var selectedW4Filled: String?
     
-    @State var selectionTab: TabBarItem = .taxCal
+    @State var selectionTab: TabBarItem = .income
     var body: some View {
         CustomTabBarContainerView(selection: $selectionTab) {
-            IncomeCalculatorView()
-                .frame(maxHeight: .infinity)
-                .tabBarItem(tab: .income, selectoin: $selectionTab)
-            SelfCheckView2()
-                .frame(maxHeight: .infinity)
-                .tabBarItem(tab: .paycheck, selectoin: $selectionTab)
             TaxCalculatorView()
                 .frame(maxHeight: .infinity)
                 .tabBarItem(tab: .taxCal, selectoin: $selectionTab)
+            SelfCheckView2()
+                .frame(maxHeight: .infinity)
+                .tabBarItem(tab: .paycheck, selectoin: $selectionTab)
+            IncomeCalculatorView()
+                .frame(maxHeight: .infinity)
+                .tabBarItem(tab: .income, selectoin: $selectionTab)
             HistoryView()
                 .frame(maxHeight: .infinity)
                 .tabBarItem(tab: .favorites, selectoin: $selectionTab)
