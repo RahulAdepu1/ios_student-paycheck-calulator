@@ -19,7 +19,6 @@ struct IntroView: View {
                 OnboardingView()
             }
         }
-        
     }
 }
 
@@ -30,5 +29,7 @@ struct IntroView_Previews: PreviewProvider {
         }
         .environmentObject(StudentPaycheckCalculatorVM())
         .environmentObject(StudentPaycheckCoreDataVM())
+        .environmentObject(EffectiveTaxCalculator())
+        .environmentObject(AuthViewModel())
     }
 }

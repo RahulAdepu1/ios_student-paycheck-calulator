@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct studPaycheckCalApp: App {
@@ -13,6 +14,11 @@ struct studPaycheckCalApp: App {
     @StateObject var effectiveTaxCalculator:EffectiveTaxCalculator = EffectiveTaxCalculator()
     @StateObject var studentPaycheckCalculatorVM: StudentPaycheckCalculatorVM = StudentPaycheckCalculatorVM()
     @StateObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM = StudentPaycheckCoreDataVM()
+    @StateObject var authViewModel: AuthViewModel = AuthViewModel()
+    
+    init(){
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -22,6 +28,7 @@ struct studPaycheckCalApp: App {
             .environmentObject(studentPaycheckCalculatorVM)
             .environmentObject(studentPaycheckCoreDataVM)
             .environmentObject(effectiveTaxCalculator)
+            .environmentObject(authViewModel)
         }
     }
 }

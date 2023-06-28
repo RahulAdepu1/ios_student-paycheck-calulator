@@ -18,6 +18,7 @@ struct OnboardingView: View {
      4 - W4 Filled or not
      */
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     @State var onboardingState: Int = 0
     
@@ -48,6 +49,10 @@ struct OnboardingView: View {
     @AppStorage("maritalStatus") var selectedMaritalStatus: String?
     @AppStorage("w4Filled") var selectedW4Filled: String?
     
+    // Login Credentitals
+    @State private var email = ""
+    @State private var password = ""
+    
     var body: some View {
         ZStack {
             // Content
@@ -55,16 +60,16 @@ struct OnboardingView: View {
             case 0:
                 welcomeScreen
                     .transition(forwardTransition)
+//            case 1:
+//                SignInView()
+//                    .transition(nextButtonPressed ? forwardTransition : backTransition)
             case 1:
-                signInScreen
-                    .transition(nextButtonPressed ? forwardTransition : backTransition)
-            case 2:
                 locationScreen
                     .transition(nextButtonPressed ? forwardTransition : backTransition)
-            case 3:
+            case 2:
                 maritalStatusScreen
                     .transition(nextButtonPressed ? forwardTransition : backTransition)
-            case 4:
+            case 3:
                 w4FilledScreen
                     .transition(nextButtonPressed ? forwardTransition : backTransition)
             default:
@@ -106,11 +111,9 @@ struct OnboardingView_Previews: PreviewProvider {
 // MARK: - Content
 extension OnboardingView {
     
+    // Navigation Buttons
     private var forwardButton: some View {
-        Text(onboardingState == 1 ? "SIGN UP" :
-                onboardingState == 4 ? "FINISH" :
-                "Next"
-        )
+        Text(onboardingState == 3 ? "FINISH" : "Next")
             .modifier(CustomActionButtonDesign())
             .onTapGesture {
                 nextButtonPressed = true
@@ -127,29 +130,34 @@ extension OnboardingView {
             }
     }
     
+    //SCREENS
     // Welcome Screen
     private var welcomeScreen: some View {
-        VStack{
-            Text("Welcome Screen")
-                .modifier(CustomActionButtonDesign())
-            
+        VStack(spacing: 20){
+            Text("Welcome")
+                .font(.system(size: 48))
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+            Text("In this App \nyou will be able to post your paycheck information and also estimate your future paychecks")
+                .font(.system(size: 22))
+                .fontWeight(.light)
+                .multilineTextAlignment(.center)
         }
-    }
-    
-    // Sign In
-    private var signInScreen: some View {
-        VStack{
-            Text("Sign In")
-                .modifier(CustomActionButtonDesign())
-        }
-        
+        .modifier(CustomActionButtonDesign())
     }
     
     // Nationality and State
     private var locationScreen: some View {
         VStack{
+            Text("1/3")
+                .font(.system(size: 48))
+                .fontWeight(.bold)
+                .padding(.bottom, 100)
+                .padding(.top, 100)
             Text("Nationality and State")
-                .modifier(CustomActionButtonDesign())
+                .font(.system(size: 48))
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
             HStack{
                 VStack {
                     Text("Nationality")
@@ -176,26 +184,31 @@ extension OnboardingView {
                 .modifier(CustomBlockDesign())
             }
             .padding(.horizontal, 50)
+            Spacer()
         }
         .sheet(isPresented: $showContryPicker) {
-            NationalitySelectPicker()
+            NationalitySelectPicker(showContryPicker: $showContryPicker)
                 .presentationDetents([.height(200)])
         }
         .sheet(isPresented: $showStatePicker) {
-            StateSelectPicker()
+            StateSelectPicker(showStatePicker: $showStatePicker)
                 .presentationDetents([.height(200)])
         }
-        
     }
     
     // Marital Status
     private var maritalStatusScreen: some View {
         VStack{
+            Text("2/3")
+                .font(.system(size: 48))
+                .fontWeight(.bold)
+                .padding(.bottom, 100)
+                .padding(.top, 100)
             Text("Marital Status")
-                .modifier(CustomActionButtonDesign())
+                .font(.system(size: 48))
+                .fontWeight(.bold)
             VStack {
                 Text("Marital Status")
-                    .modifier(CustomTextDesign1())
                 Button {
                     showMaritalStatusPicker = true
                 } label: {
@@ -204,9 +217,10 @@ extension OnboardingView {
                 }
             }
             .modifier(CustomBlockDesign())
+            Spacer()
         }
         .sheet(isPresented: $showMaritalStatusPicker) {
-            MaritalStatusSelectPicker()
+            MaritalStatusSelectPicker(showMaritalStatusPicker: $showMaritalStatusPicker)
                 .presentationDetents([.height(200)])
         }
     }
@@ -214,11 +228,16 @@ extension OnboardingView {
     // W4 Filled or not
     private var w4FilledScreen: some View {
         VStack{
+            Text("3/3")
+                .font(.system(size: 48))
+                .fontWeight(.bold)
+                .padding(.bottom, 100)
+                .padding(.top, 100)
             Text("W4 Filled or not")
-                .modifier(CustomActionButtonDesign())
+                .font(.system(size: 48))
+                .fontWeight(.bold)
             VStack {
                 Text("W4?")
-                    .modifier(CustomTextDesign1())
                 Button {
                     showW4Picker = true
                 } label: {
@@ -227,9 +246,10 @@ extension OnboardingView {
                 }
             }
             .modifier(CustomBlockDesign())
+            Spacer()
         }
         .sheet(isPresented: $showW4Picker) {
-            W4SelectPicker()
+            W4SelectPicker(showW4Picker: $showW4Picker)
                 .presentationDetents([.height(200)])
         }
     }
@@ -240,7 +260,6 @@ extension OnboardingView {
             Text("Default")
                 .modifier(CustomActionButtonDesign())
         }
-        
     }
 }
 
@@ -252,19 +271,19 @@ extension OnboardingView {
         
         // Check Inputs
         switch onboardingState {
-        case 2:
+        case 1:
             guard studentPaycheckCalVM.selectedCountry != "Choose One",
                   studentPaycheckCalVM.selectedState != "Choose One"
             else {
                 showAlertFunction()
                 return
             }
-        case 3:
+        case 2:
             guard studentPaycheckCalVM.selectedMaritalStatus != "Choose One" else {
                 showAlertFunction()
                 return
             }
-        case 4:
+        case 3:
             guard studentPaycheckCalVM.selectedW4 != "Choose One" else {
                 showAlertFunction()
                 return
@@ -274,7 +293,7 @@ extension OnboardingView {
         }
         
         // Go To Next Section
-        if onboardingState == 4 {
+        if onboardingState == 3 {
             signedIn()
         } else {
             withAnimation(.easeInOut) {
@@ -295,13 +314,13 @@ extension OnboardingView {
         selectedMaritalStatus = studentPaycheckCalVM.selectedMaritalStatus
         selectedW4Filled = studentPaycheckCalVM.selectedW4
         withAnimation {
-            userSignedIn = true 
+            userSignedIn = true
         }
     }
     
     func showAlertFunction() {
         alertTitle = "DID NOT CHOOSE"
-        alertMessage = "You have not make a choice \nplease make a choice"
+        alertMessage = "You have not made a choice \nplease make a choice from the picker view"
         showAlert.toggle()
     }
     

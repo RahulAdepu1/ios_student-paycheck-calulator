@@ -15,6 +15,11 @@ struct SelfCheckView2: View {
     @State private var showHoursPicker:Bool = false
     @State private var showSalaryTypePicker:Bool = false
     
+    // Alert
+    @State var alertTitle: String = ""
+    @State var alertMessage: String = ""
+    @State var showAlert: Bool = false
+    
     var body: some View {
         VStack {
             Spacer()
@@ -90,35 +95,48 @@ struct SelfCheckView2: View {
                     .modifier(CustomActionButtonDesign())
             }
             .disabled(!studentPaycheckCalVM.canNavToSelfCheckResult)
+            .opacity(studentPaycheckCalVM.canNavToSelfCheckResult ? 1.0 : 0.5)
             Spacer()
             
         }
         .sheet(isPresented: $showPayPeriodPicker) {
-            PayPeriodSelectPicker()
+            PayPeriodSelectPicker(showPayPeriodPicker: $showPayPeriodPicker)
                 .presentationDetents([.height(200)])
         }
         .sheet(isPresented: $showHoursPicker) {
-            HoursSelectPicker()
+            HoursSelectPicker(showHoursPicker: $showHoursPicker)
                 .presentationDetents([.height(200)])
         }
         
         .sheet(isPresented: $showSalaryTypePicker) {
-            SalarySelectPicker()
+            SalarySelectPicker(showSalaryTypePicker: $showSalaryTypePicker)
                 .presentationDetents([.height(200)])
-        }
-        
+        }    
     }
 }
 
+// Show Alert like in OnboardingView()'
 //MARK: - Picker Views
 struct PayPeriodSelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Binding var showPayPeriodPicker: Bool
     
     var body: some View{
-        VStack{
-            Text(studentPaycheckCalVM.selectedPayPeriod)
-                .padding(.top, 20)
-                .font(.title)
+        VStack(spacing: 0){
+            HStack{
+                Spacer()
+                Button {
+                    showPayPeriodPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $studentPaycheckCalVM.selectedPayPeriod) {
                 ForEach(PayPeriod.payPeriodList){ payPeriod in
                     Text(payPeriod.payPeriod).tag(payPeriod.payPeriod)
@@ -155,12 +173,12 @@ struct PayRateAmountTextField: View {
             .multilineTextAlignment(.center)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
                     Button {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     } label: {
                         Image(systemName: "keyboard.chevron.compact.down")
                     }
+                    Spacer()
                 }
             }
     }
@@ -168,16 +186,26 @@ struct PayRateAmountTextField: View {
 
 struct HoursSelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
-    let hoursList = Array(stride(from: 1, through: 60, by: 1))
+    let hoursList = Array(stride(from: 0, through: 60, by: 1))
     let minutesList = Array(0 ..< 60)
+    @Binding var showHoursPicker: Bool
     
     var body: some View{
-        
-        
-        VStack{
-            Text("\(studentPaycheckCalVM.selectedHours)h \(studentPaycheckCalVM.selectedMinutes)m")
-                .padding(.top, 20)
-                .font(.title)
+        VStack(spacing: 0){
+            HStack{
+                Spacer()
+                Button {
+                    showHoursPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
             HStack(spacing: 0) {
                 Picker("", selection: $studentPaycheckCalVM.selectedHours) {
                     ForEach(hoursList, id:\.self){ hour in
@@ -208,12 +236,25 @@ struct HoursSelectPicker: View {
 
 struct SalarySelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Binding var showSalaryTypePicker: Bool
     
     var body: some View{
-        VStack{
-            Text(studentPaycheckCalVM.selectedSalaryType)
-                .padding(.top, 20)
-                .font(.title)
+        VStack(spacing: 0){
+            HStack{
+                Spacer()
+                Button {
+                    showSalaryTypePicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $studentPaycheckCalVM.selectedSalaryType) {
                 ForEach(SalaryType.salaryTypeList){ salaryType in
                     Text(salaryType.salaryType).tag(salaryType.salaryType)

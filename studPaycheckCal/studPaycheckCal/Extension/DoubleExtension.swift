@@ -21,3 +21,13 @@ extension Double {
         return String(format: "%.2f", self)
     }
 }
+
+extension Double {
+    var doubleToCurrency: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 2
+        
+        return formatter.string(from: NSNumber(value: self)) ?? ""
+    }
+}

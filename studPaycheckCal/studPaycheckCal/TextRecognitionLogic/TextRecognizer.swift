@@ -22,7 +22,7 @@ final class TextRecognizer{
             
             guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
             
-            var text = observations.compactMap { observation in
+            let text = observations.compactMap { observation in
                 observation.topCandidates(1).first?.string
             }.joined(separator: "\n")
             

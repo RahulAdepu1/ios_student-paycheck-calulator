@@ -71,5 +71,6 @@ struct MainView_Previews: PreviewProvider {
         .environmentObject(StudentPaycheckCalculatorVM())
         .environmentObject(StudentPaycheckCoreDataVM())
         .environmentObject(EffectiveTaxCalculator())
+        .environmentObject(AuthViewModel())
     }
 }

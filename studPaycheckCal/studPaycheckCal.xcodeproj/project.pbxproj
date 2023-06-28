@@ -46,6 +46,16 @@
 		DA8655C82A2B9FE100B960BE /* TaxCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8655C72A2B9FE100B960BE /* TaxCalculatorView.swift */; };
 		DA8655CB2A2BA41E00B960BE /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = DA8655CA2A2BA41E00B960BE /* CropViewController */; };
 		DA8655CD2A2BA41E00B960BE /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = DA8655CC2A2BA41E00B960BE /* TOCropViewController */; };
+		DAE51C102A4748DF0085D7B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DAE51C0F2A4748DF0085D7B3 /* GoogleService-Info.plist */; };
+		DAE51C132A477CDF0085D7B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE51C122A477CDF0085D7B3 /* User.swift */; };
+		DAE51C212A4784980085D7B3 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE51C202A4784980085D7B3 /* RegistrationView.swift */; };
+		DAE51C232A4784BF0085D7B3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE51C222A4784BF0085D7B3 /* SignInView.swift */; };
+		DAE51C252A4784F90085D7B3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE51C242A4784F90085D7B3 /* AuthViewModel.swift */; };
+		DAE51C272A47A0640085D7B3 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE51C262A47A0640085D7B3 /* CustomTextField.swift */; };
+		DAF4F6C62A48CFB2009B5B2B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6C52A48CFB2009B5B2B /* FirebaseAuth */; };
+		DAF4F6CA2A48CFB2009B5B2B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6C92A48CFB2009B5B2B /* FirebaseFirestore */; };
+		DAF4F6CC2A48CFB2009B5B2B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6CB2A48CFB2009B5B2B /* FirebaseFirestoreSwift */; };
+		DAF4F6CE2A48CFB2009B5B2B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6CD2A48CFB2009B5B2B /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +98,12 @@
 		DA5B49EB29E7168B0032C6E4 /* StateTaxCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTaxCalculator.swift; sourceTree = "<group>"; };
 		DA5B49ED29E716AA0032C6E4 /* AnnualizedSalaryCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnualizedSalaryCalculator.swift; sourceTree = "<group>"; };
 		DA8655C72A2B9FE100B960BE /* TaxCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxCalculatorView.swift; sourceTree = "<group>"; };
+		DAE51C0F2A4748DF0085D7B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DAE51C122A477CDF0085D7B3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DAE51C202A4784980085D7B3 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		DAE51C222A4784BF0085D7B3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		DAE51C242A4784F90085D7B3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		DAE51C262A47A0640085D7B3 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +111,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF4F6CE2A48CFB2009B5B2B /* FirebaseStorage in Frameworks */,
+				DAF4F6C62A48CFB2009B5B2B /* FirebaseAuth in Frameworks */,
 				DA8655CD2A2BA41E00B960BE /* TOCropViewController in Frameworks */,
 				DA8655CB2A2BA41E00B960BE /* CropViewController in Frameworks */,
+				DAF4F6CA2A48CFB2009B5B2B /* FirebaseFirestore in Frameworks */,
+				DAF4F6CC2A48CFB2009B5B2B /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +231,8 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
+				DAE51C1D2A47844E0085D7B3 /* Authentication */,
+				DAE51C112A477CD10085D7B3 /* Firebase User Model */,
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
 				DA27BAC629F65AFF00A61A59 /* IntroView.swift */,
@@ -223,6 +245,7 @@
 				DA5B49D029E003EF0032C6E4 /* Preview Content */,
 				DA18E90E29FF8A2F00DF5DFE /* Extension */,
 				DA27BAA929F2587700A61A59 /* Info.plist */,
+				DAE51C0F2A4748DF0085D7B3 /* GoogleService-Info.plist */,
 				DA5B49CE29E003EF0032C6E4 /* Assets.xcassets */,
 			);
 			path = studPaycheckCal;
@@ -251,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				DA27BABB29F61DF000A61A59 /* CustomTabBar */,
+				DAE51C262A47A0640085D7B3 /* CustomTextField.swift */,
 				DA5B49E729E1DA6F0032C6E4 /* CustomDesignViewModifier.swift */,
 			);
 			path = Custom;
@@ -262,6 +286,40 @@
 				DA8655C72A2B9FE100B960BE /* TaxCalculatorView.swift */,
 			);
 			path = TaxCalculator;
+			sourceTree = "<group>";
+		};
+		DAE51C112A477CD10085D7B3 /* Firebase User Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAE51C122A477CDF0085D7B3 /* User.swift */,
+			);
+			path = "Firebase User Model";
+			sourceTree = "<group>";
+		};
+		DAE51C1D2A47844E0085D7B3 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				DAE51C1F2A4784880085D7B3 /* ViewModel */,
+				DAE51C1E2A4784820085D7B3 /* View */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		DAE51C1E2A4784820085D7B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DAE51C202A4784980085D7B3 /* RegistrationView.swift */,
+				DAE51C222A4784BF0085D7B3 /* SignInView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DAE51C1F2A4784880085D7B3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DAE51C242A4784F90085D7B3 /* AuthViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DAFCE23A29FB06EE00481EC0 /* TaxCalculationLogic */ = {
@@ -296,6 +354,10 @@
 			packageProductDependencies = (
 				DA8655CA2A2BA41E00B960BE /* CropViewController */,
 				DA8655CC2A2BA41E00B960BE /* TOCropViewController */,
+				DAF4F6C52A48CFB2009B5B2B /* FirebaseAuth */,
+				DAF4F6C92A48CFB2009B5B2B /* FirebaseFirestore */,
+				DAF4F6CB2A48CFB2009B5B2B /* FirebaseFirestoreSwift */,
+				DAF4F6CD2A48CFB2009B5B2B /* FirebaseStorage */,
 			);
 			productName = studPaycheckCal;
 			productReference = DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */;
@@ -327,6 +389,7 @@
 			mainGroup = DA5B49BE29E003ED0032C6E4;
 			packageReferences = (
 				DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = DA5B49C829E003ED0032C6E4 /* Products */;
 			projectDirPath = "";
@@ -344,6 +407,7 @@
 			files = (
 				DA5B49D229E003EF0032C6E4 /* Preview Assets.xcassets in Resources */,
 				DA5B49CF29E003EF0032C6E4 /* Assets.xcassets in Resources */,
+				DAE51C102A4748DF0085D7B3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,12 +422,15 @@
 				DA27BABA29F61D4000A61A59 /* MainView.swift in Sources */,
 				DA27BACB29F6DC8800A61A59 /* TextRecognizer.swift in Sources */,
 				DA27BABF29F63A6C00A61A59 /* TabBarItem.swift in Sources */,
+				DAE51C272A47A0640085D7B3 /* CustomTextField.swift in Sources */,
 				DA18E91029FF8A5200DF5DFE /* StringExtension.swift in Sources */,
 				DA18E91229FF8EA400DF5DFE /* IntExtension.swift in Sources */,
 				DA5B49EA29E716540032C6E4 /* FederalTaxCalculator.swift in Sources */,
 				DA5B49E829E1DA6F0032C6E4 /* CustomDesignViewModifier.swift in Sources */,
 				DA27BAB629F6161400A61A59 /* CustomTabBarView.swift in Sources */,
 				DA27BAD329F73D8E00A61A59 /* HistoryView.swift in Sources */,
+				DAE51C232A4784BF0085D7B3 /* SignInView.swift in Sources */,
+				DAE51C252A4784F90085D7B3 /* AuthViewModel.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
 				DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */,
@@ -388,7 +455,9 @@
 				DA27BAC729F65AFF00A61A59 /* IntroView.swift in Sources */,
 				DA27BAC229F64A7700A61A59 /* ProfileView.swift in Sources */,
 				DA27BAB429F6105B00A61A59 /* Paycheck+CoreDataProperties.swift in Sources */,
+				DAE51C132A477CDF0085D7B3 /* User.swift in Sources */,
 				DA27BAC429F650BB00A61A59 /* OnboardingView.swift in Sources */,
+				DAE51C212A4784980085D7B3 /* RegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,7 +590,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = studPaycheckCal/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs to use camera to scan the document";
+				INFOPLIST_KEY_NSCameraUsageDescription = "studPaycheckCal needs to use camera to scan the document";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -552,7 +621,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = studPaycheckCal/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs to use camera to scan the document";
+				INFOPLIST_KEY_NSCameraUsageDescription = "studPaycheckCal needs to use camera to scan the document";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -603,6 +672,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -615,6 +692,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = TOCropViewController;
+		};
+		DAF4F6C52A48CFB2009B5B2B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		DAF4F6C92A48CFB2009B5B2B /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		DAF4F6CB2A48CFB2009B5B2B /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		DAF4F6CD2A48CFB2009B5B2B /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

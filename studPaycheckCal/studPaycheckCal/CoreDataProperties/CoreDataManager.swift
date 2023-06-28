@@ -18,8 +18,8 @@ class CoreDataManager {
     init() {
         container = NSPersistentContainer(name: containerName)
         container.loadPersistentStores { description, error in
-            if let error = error {
-//                print("Error loading Core Data. \(error.localizedDescription)")
+            if error != nil {
+                print("Error loading Core Data. \(String(describing: error?.localizedDescription))")
             }
         }
         context = container.viewContext

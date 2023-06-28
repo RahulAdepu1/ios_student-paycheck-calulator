@@ -6,101 +6,95 @@
 //
 
 import SwiftUI
-import UIKit
 
+struct FirstView: View {
+    @State var backToStart: Bool = true
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("First View")
+                    .font(.headline)
+                    .padding()
+                NavigationLink(destination: SecondView(backToStart: $backToStart)) {
+                    Text("Go to Second View")
+                }
+            }
+        }
+        .onAppear {
+            backToStart = true
+        }
+    }
+}
 
-struct ContentView: View {
-    @State private var showImagePicker = false
-    @State private var image: UIImage?
-
+struct SecondView: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var backToStart: Bool
+    
     var body: some View {
         VStack {
-            if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            } else {
-                Text("No image selected")
-            }
-            Button("Select Image") {
-                showImagePicker = true
-            }
-        }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $image)
-        }
-    }
-}
-
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    @Environment(\.presentationMode) var presentationMode
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        picker.sourceType = .camera
-        picker.showsCameraControls = true
-        picker.cameraDevice = .rear
-        picker.cameraFlashMode = .off
-        picker.cameraCaptureMode = .photo
-        return picker
-    }
-
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: ImagePicker
-
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            guard let image = info[.editedImage] as? UIImage else {
-                return
-            }
-            picker.dismiss(animated: true)
+            Text("Second View")
+                .font(.headline)
+                .padding()
             
-            parent.presentationMode.wrappedValue.dismiss()
+            NavigationLink(destination: ThirdView(backToStart: $backToStart)) {
+                Text("Go to Third View")
+            }
         }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-        
-        func showCrop(image: UIImage) {
-//            let vc = CropViewController(
+        .onAppear {
+            if !backToStart {
+                dismiss()
+            }
         }
     }
 }
 
+struct ThirdView: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var backToStart: Bool
+    
+    var body: some View {
+        VStack {
+            Text("Third View")
+                .font(.headline)
+                .padding()
+            
+            NavigationLink(destination: FourthView(backToStart: $backToStart)) {
+                Text("Go to Fourth View")
+            }
+        }
+        .onAppear {
+            if !backToStart {
+                dismiss()
+            }
+        }
+    }
+}
+
+struct FourthView: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var backToStart: Bool
+    
+    var body: some View {
+        VStack {
+            Text("Fourth View")
+                .font(.headline)
+                .padding()
+            
+            Button(action: {
+                backToStart = false
+                dismiss()
+            }) {
+                Text("Go to First View")
+            }
+        }
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack{
-            ContentView()
-        }
-        .environmentObject(StudentPaycheckCalculatorVM())
-        .environmentObject(StudentPaycheckCoreDataVM())
-        .environmentObject(EffectiveTaxCalculator())
-    }
-}
-
-struct TaxResultView:View {
-    
-    @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
-    
-    var body: some View{
-        VStack{
-            Text(String(format: "%.2f", effectiveTaxCalculator.currentTotalGross))
-            Text(String(format: "%.2f", effectiveTaxCalculator.currentNetPay))
-            Text(String(format: "%.2f", effectiveTaxCalculator.currentTotalTax))
+        NavigationStack {
+            FirstView()
         }
     }
 }

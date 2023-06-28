@@ -32,11 +32,9 @@ class FederalTaxCalculator{
     func calFederalTaxableIncome(annualizedSalary: Double, fedStandardDeduction: Double) -> Double {
         var federalTaxableIncome = 0.0
         
-        federalTaxableIncome = annualizedSalary - fedStandardDeduction
-        
         // Check if annualized salary is less than the federal Standard Deduction
-        if federalTaxableIncome < 0.0 {
-            federalTaxableIncome = 0.0
+        if annualizedSalary > fedStandardDeduction{
+            federalTaxableIncome = annualizedSalary - fedStandardDeduction
         }
         
         //        print("Federal Taxable Income =", federalTaxableIncome)

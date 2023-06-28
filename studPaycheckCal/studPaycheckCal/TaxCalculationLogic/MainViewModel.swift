@@ -30,17 +30,10 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     var federalTaxDict: [Date: Int] = [Date: Int]()
     var stateTaxDict: [Date: Int] = [Date: Int]()
     
-    var canNavToSelfCheck2: Bool {
-        return selectedCountry != "Choose One"
-        && selectedState != "Choose One"
-        && selectedW4 != "Choose One"
-        && selectedMaritalStatus != "Choose One"
-    }
-    
     var canNavToSelfCheckResult: Bool {
         return selectedPayPeriod != "Choose One"
-        && selectedPayRateAmount != "Choose One"
-        && selectedHours != "Choose One"
+        && selectedPayRateAmount != ""
+        && selectedHours != "0"
         && selectedSalaryType != "Choose One"
     }
     
@@ -51,6 +44,7 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
+        print(annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount))
         return annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
     }
     
@@ -63,13 +57,16 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
-        let fedStandardDeduction = federalTaxCalculator.calFedStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
-        let federalTaxableIncome = federalTaxCalculator.calFederalTaxableIncome(annualizedSalary: annualizedSalary, fedStandardDeduction: fedStandardDeduction)
-        let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: selectedMaritalStatus)
-        let annualizedFederalTax = federalTaxCalculator.calAnnualizedFederalTax(federalTaxableIncome: federalTaxableIncome, taxBracketAmountList: taxBracketAmountList)
+//        print("doubleSelectedPayRateAmount",doubleSelectedPayRateAmount)
+        if doubleSelectedPayRateAmount > 0 {
+            let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
+            let fedStandardDeduction = federalTaxCalculator.calFedStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
+            let federalTaxableIncome = federalTaxCalculator.calFederalTaxableIncome(annualizedSalary: annualizedSalary, fedStandardDeduction: fedStandardDeduction)
+            let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: selectedMaritalStatus)
+            let annualizedFederalTax = federalTaxCalculator.calAnnualizedFederalTax(federalTaxableIncome: federalTaxableIncome, taxBracketAmountList: taxBracketAmountList)
+            federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: selectedSalaryType)
+        }
         
-        federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: selectedSalaryType)
         return federalTax
     }
     
@@ -77,23 +74,23 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     func StateTax() -> Double {
         var stateTax = 0.00
         var taxableIncome = 0.0
-        let year = Int(selectedYear) ?? 0
+        let year = Int(selectedYear) ?? Calendar.current.component(.year, from: Date())
         
         let stateTaxCalculator = StateTaxCalculator()
         
         let doubleSelectedTime = (Double(selectedHours) ?? 0.0) + ((Double(selectedMinutes) ?? 0.0)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.0
         
-        if selectedSalaryType == "Hourly" {
-            taxableIncome = doubleSelectedTime * doubleSelectedPayRateAmount
-        }else {
-            taxableIncome = doubleSelectedPayRateAmount
+        if doubleSelectedPayRateAmount > 0 {
+            if selectedSalaryType == "Hourly" {
+                taxableIncome = doubleSelectedTime * doubleSelectedPayRateAmount
+            }else {
+                taxableIncome = doubleSelectedPayRateAmount
+            }
+            stateTax = stateTaxCalculator.stateTaxCal(taxableIncome: taxableIncome, year: year, state: selectedState,
+                                           payPeriod: selectedPayPeriod, nationality: selectedCountry, w4Filled: selectedW4)
         }
         
-//        let year = Calendar.current.component(.year, from: selectedPaymentDate)
-        stateTax = stateTaxCalculator.stateTaxCal(taxableIncome: taxableIncome, year: year, state: selectedState,
-                                       payPeriod: selectedPayPeriod, nationality: selectedCountry, w4Filled: selectedW4)
-       
         return stateTax
     }
     

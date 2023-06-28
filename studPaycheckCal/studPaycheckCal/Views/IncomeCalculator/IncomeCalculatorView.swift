@@ -45,9 +45,9 @@ struct IncomeCalculatorView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
             // User Entry Data
-            Text("Estimate How much you will pay in taxes \nand earn income after taxes on your prefered Annual salary")
+            Text("Estimate How much you will pay in taxes \nand earn income after taxes on your prefered Annual salary as an international student on F1 Visa")
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
             HStack{
                 // State
                 VStack{
@@ -72,6 +72,7 @@ struct IncomeCalculatorView: View {
                         .keyboardType(.decimalPad)
                         .toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
                                 Button {
                                     // Performing All Calculations
                                     selectedAnnualSalary = (Double(annualSalary) ?? 0.0)
@@ -79,13 +80,15 @@ struct IncomeCalculatorView: View {
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 } label: {
                                     Text("Done")
+                                        .foregroundColor(Color(.systemBlue
+                                                              ))
                                 }
-                                Spacer()
-                                Button {
-                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                } label: {
-                                    Image(systemName: "keyboard.chevron.compact.down")
-                                }
+                                
+//                                Button {
+//                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                                } label: {
+//                                    Image(systemName: "keyboard.chevron.compact.down")
+//                                }
                             }
                         }
                         .foregroundColor(.black)
@@ -118,23 +121,23 @@ struct IncomeCalculatorView: View {
                 // Federal Tax Row Data
                 FederalTax(marginalFedTaxRate: calFedTax()[1].doubleToString2,
                            effectiveFedTaxRate: calFedTax()[2].doubleToString2,
-                           fedTaxAmount: calFedTax()[0].doubleToString2)
+                           fedTaxAmount: calFedTax()[0].doubleToCurrency)
                 
                 // State Tax Row Data
                 StateTax(marginalStateTaxRate: calStateTax()[1].doubleToString2,
                          effectiveStateTaxRate: calStateTax()[2].doubleToString2,
-                         stateTaxAmount: calStateTax()[0].doubleToString2)
+                         stateTaxAmount: calStateTax()[0].doubleToCurrency)
                 
                 // Total Tax Row Data
                 TotalTax(effectiveTotalTaxRate: calTotalTax()[1].doubleToString2,
-                         totalTaxAmount: calTotalTax()[0].doubleToString2)
+                         totalTaxAmount: calTotalTax()[0].doubleToCurrency)
             }
             .modifier(CustomBlockDesign())
             .padding(.horizontal)
             
             
             // Income After Tax Row Data
-            IncomeAfterTax(incomeAfterTax: calIncomeAfterTax().doubleToString2)
+            IncomeAfterTax(incomeAfterTax: calIncomeAfterTax().doubleToCurrency)
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal)
             
@@ -142,30 +145,68 @@ struct IncomeCalculatorView: View {
         
         // Picker View for Marital Status
         .sheet(isPresented: $showMaritalStatusPicker) {
-            VStack(spacing: 0) {
-                Picker(selection: $selectedMaritalStatus, content: {
-                    ForEach(MaritalStatus.maritalStatusList) { item in
-                        Text(item.maritalStatus).tag(item.maritalStatus)
-                    }
-                }, label: {
-                    Text(selectedMaritalStatus)
-                })
-                .pickerStyle(WheelPickerStyle())
-                .presentationDetents([.height(200)])
-            }
+            maritalStatusSheetView()
         }
+        
         .sheet(isPresented: $showStatePicker) {
-            VStack(spacing: 0) {
-                Picker(selection: $selectedState, content: {
-                    ForEach(StateNames.statesList) { state in
-                        Text(state.stateName).tag(state.stateName)
-                    }
-                }, label: {
-                    Text(selectedMaritalStatus)
-                })
-                .pickerStyle(WheelPickerStyle())
-                .presentationDetents([.height(200)])
+            stateSheetView()
+        }
+    }
+    
+    // Sheet Views
+    func maritalStatusSheetView() -> some View {
+        VStack(spacing: 0) {
+            HStack{
+                Spacer()
+                Button {
+                    showMaritalStatusPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
             }
+            .padding(5)
+            .frame(width: UIScreen.main.bounds.width - 32)
+            .background(.gray.opacity(0.3))
+            
+            Picker(selection: $selectedMaritalStatus, content: {
+                ForEach(MaritalStatus.maritalStatusList) { item in
+                    Text(item.maritalStatus).tag(item.maritalStatus)
+                }
+            }, label: {
+                Text(selectedMaritalStatus)
+            })
+            .pickerStyle(WheelPickerStyle())
+            .presentationDetents([.height(200)])
+        }
+    }
+    
+    func stateSheetView() -> some View {
+        VStack(spacing: 0) {
+            HStack{
+                Spacer()
+                Button {
+                    showStatePicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
+            }
+            .padding(5)
+            .frame(width: UIScreen.main.bounds.width - 32)
+            .background(.gray.opacity(0.3))
+            
+            Picker(selection: $selectedState, content: {
+                ForEach(StateNames.statesList) { state in
+                    Text(state.stateName).tag(state.stateName)
+                }
+            }, label: {
+                Text(selectedMaritalStatus)
+            })
+            .pickerStyle(WheelPickerStyle())
+            .presentationDetents([.height(200)])
         }
     }
     
@@ -179,7 +220,7 @@ struct IncomeCalculatorView: View {
         
         let federalTaxCalculator = FederalTaxCalculator()
         
-        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One" || selectedMaritalStatus != "Choose One" ){
+        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" ){
             let federalTaxOutput = federalTaxCalculator.calculateFederalTax(totalSalary: selectedAnnualSalary, year: year, selectedMaritalStatus: selectedMaritalStatus )
             annualizedFederalTaxAmount = federalTaxOutput[0]
             marginalFederalTaxRate = federalTaxOutput[1]
@@ -200,7 +241,7 @@ struct IncomeCalculatorView: View {
         let stateTaxCalculator = StateTaxCalculator()
         
         
-        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One" || selectedMaritalStatus != "Choose One" ){
+        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" ){
             let stateTaxOutput = stateTaxCalculator.calculateStateTax(totalSalary: selectedAnnualSalary, year: year, state: selectedState)
             
             annualizedStateTax = stateTaxOutput[0]
@@ -216,7 +257,7 @@ struct IncomeCalculatorView: View {
         var effectiveTotalTaxRate = 0.0
         var totalTax = 0.0
         
-        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One" || selectedMaritalStatus != "Choose One" ){
+        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" ){
             totalTax = calFedTax()[0] + calStateTax()[0]
             effectiveTotalTaxRate = (totalTax/selectedAnnualSalary) * 100
         }
@@ -227,7 +268,7 @@ struct IncomeCalculatorView: View {
     // Income After Taxes
     func calIncomeAfterTax() -> Double{
         var incomeAfterTax = 0.0
-        if (selectedAnnualSalary != 0.0 || selectedState != "Choose One") {
+        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One") {
             incomeAfterTax = selectedAnnualSalary - (calFedTax()[0] + calStateTax()[0])
         }
         
@@ -281,7 +322,7 @@ struct FederalTax: View {
                 .modifier(CustomTextDesign3())
             Text(effectiveFedTaxRate+"%")
                 .modifier(CustomTextDesign3())
-            Text("$"+fedTaxAmount)
+            Text(fedTaxAmount)
                 .modifier(CustomTextDesign3())
         }
     }
@@ -301,7 +342,7 @@ struct StateTax: View {
                 .modifier(CustomTextDesign3())
             Text(effectiveStateTaxRate+"%")
                 .modifier(CustomTextDesign3())
-            Text("$"+stateTaxAmount)
+            Text(stateTaxAmount)
                 .modifier(CustomTextDesign3())
         }
     }
@@ -320,7 +361,7 @@ struct TotalTax: View {
                 .modifier(CustomTextDesign3())
             Text(effectiveTotalTaxRate+"%")
                 .modifier(CustomTextDesign3())
-            Text("$"+totalTaxAmount)
+            Text(totalTaxAmount)
                 .modifier(CustomTextDesign3())
         }
     }
@@ -337,7 +378,7 @@ struct IncomeAfterTax: View {
                 .fontWeight(.bold)
                 .modifier(CustomTextDesign3())
             
-            Text("$"+incomeAfterTax)
+            Text(incomeAfterTax)
                 .font(.title3)
                 .modifier(CustomTextDesign3())
         }

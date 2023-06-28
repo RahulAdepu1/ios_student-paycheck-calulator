@@ -33,19 +33,22 @@ struct TaxCalculatorView: View {
                         .resizable()
                         .frame(width: 250, height: 250)
                         .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 100)
+                        .padding(.bottom, UIScreen.main.bounds.height*0.05)
                 }else {
                     Image(systemName: "person")
                         .resizable()
                         .frame(width: 250, height: 250)
                         .aspectRatio(contentMode: .fit)
-                        .padding(.bottom, 100)
+                        .padding(.bottom, UIScreen.main.bounds.height*0.05)
                 }
                 
                 if let image = selectedImage {
-                    DetectedTextView(textTitle: "Total Gross", detectedText: "$"+detectText(image: image)[0])
-                    DetectedTextView(textTitle: "Total Tax", detectedText: "$"+detectText(image: image)[1])
-                    DetectedTextView(textTitle: "Net Pay", detectedText: "$"+detectText(image: image)[2])
+                    DetectedTextView(textTitle: "Total Gross",
+                                     detectedText: detectText(image: image)[0].currencyFormattedString)
+                    DetectedTextView(textTitle: "Total Tax",
+                                     detectedText: detectText(image: image)[1].currencyFormattedString)
+                    DetectedTextView(textTitle: "Net Pay",
+                                     detectedText: detectText(image: image)[2].currencyFormattedString)
                     
                 }else {
                     DetectedTextView(textTitle: "Total Gross", detectedText: "---")
@@ -64,7 +67,7 @@ struct TaxCalculatorView: View {
                         }
                         
                         NavigationLink {
-                            SecondView()
+                            SecondView_TaxCalView()
                         } label: {
                             Text("Step 2")
                                 .modifier(CustomActionButtonDesign())
@@ -141,15 +144,15 @@ struct TaxCalculatorView: View {
 struct TaxCalculatorView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            TaxCalculatorView()
-//            SecondView()
+//            TaxCalculatorView()
+            SecondView_TaxCalView()
 //            ResultView()
         }
         .environmentObject(EffectiveTaxCalculator())
     }
 }
 
-struct SecondView: View {
+struct SecondView_TaxCalView: View {
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
     
     @State private var showYearPicker:Bool = false
@@ -162,7 +165,6 @@ struct SecondView: View {
     var body: some View {
         
         NavigationStack{
-            Spacer()
             Text("Make a choice for all the options \nto move to next page")
                 .multilineTextAlignment(.center)
                 .padding(10)
@@ -228,36 +230,40 @@ struct SecondView: View {
             }
             .modifier(CustomBlockDesign())
             .padding(.horizontal)
+            .padding(.bottom, UIScreen.main.bounds.height*0.05)
             
-            Spacer()
             NavigationLink {
                 ResultView()
             } label: {
                 Text("Result")
                     .modifier(CustomActionButtonDesign())
             }
-            Spacer()
+            .disabled(effectiveTaxCalculator.payYear == "Choose One"
+                      && effectiveTaxCalculator.currentMaritalStatus == "Choose One"
+                      && effectiveTaxCalculator.currentState == "Choose One"
+                      && effectiveTaxCalculator.payGroup == "Choose One")
         }
         .sheet(isPresented: $showYearPicker) {
-            YearSelectPicker_TaxCal()
+            YearSelectPicker_TaxCal(showYearPicker: $showYearPicker)
                 .presentationDetents([.height(200)])
         }
         .sheet(isPresented: $showMaritalStatusPicker) {
-            MaritalStatusSelectPicker_TaxCal()
+            MaritalStatusSelectPicker_TaxCal(showMaritalStatusPicker: $showMaritalStatusPicker)
                 .presentationDetents([.height(200)])
         }
         .sheet(isPresented: $showStatePicker) {
-            StateSelectPicker_TaxCal()
+            StateSelectPicker_TaxCal(showStatePicker: $showStatePicker)
                 .presentationDetents([.height(200)])
         }
         .sheet(isPresented: $showSalaryTypePicker) {
-            SalarySelectPicker_TaxCal()
+            SalarySelectPicker_TaxCal(showSalaryTypePicker: $showSalaryTypePicker)
                 .presentationDetents([.height(200)])
         }
     }
 }
 
 struct ResultView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
 
     var body: some View {
@@ -276,6 +282,14 @@ struct ResultView: View {
             TotalTax_TaxCal(effectiveTotalTaxRate: effectiveTaxCalculator.calculateTotalTax_TaxCal().doubleToString2)
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal, 50)
+                .padding(.bottom, UIScreen.main.bounds.height*0.02)
+            
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                Text("Done")
+                    .modifier(CustomActionButtonDesign())
+            }
         }
     }
 }
@@ -402,12 +416,24 @@ struct TotalTax_TaxCal: View {
 //MARK: - Picker Views
 struct YearSelectPicker_TaxCal: View {
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
+    @Binding var showYearPicker: Bool
     
     var body: some View{
-        VStack{
-            Text(effectiveTaxCalculator.payYear)
-                .padding(.top, 20)
-                .font(.title)
+        VStack(spacing: 0){
+            HStack{
+                Spacer()
+                Button {
+                    showYearPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $effectiveTaxCalculator.payYear) {
                 ForEach(Year.yearList){ year in
                     Text(year.year).tag(year.year)
@@ -418,32 +444,26 @@ struct YearSelectPicker_TaxCal: View {
     }
 }
 
-struct SalarySelectPicker_TaxCal: View {
-    @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
-    
-    var body: some View{
-        VStack{
-            Text(effectiveTaxCalculator.payGroup)
-                .padding(.top, 20)
-                .font(.title)
-            Picker("", selection: $effectiveTaxCalculator.payGroup) {
-                ForEach(SalaryType.salaryTypeList){ salaryType in
-                    Text(salaryType.salaryType).tag(salaryType.salaryType)
-                }
-            }
-            .pickerStyle(WheelPickerStyle())
-        }
-    }
-}
-
 struct MaritalStatusSelectPicker_TaxCal: View {
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
+    @Binding var showMaritalStatusPicker: Bool
     
     var body: some View{
         VStack(spacing: 0){
-            Text(effectiveTaxCalculator.currentMaritalStatus)
-                .padding(.top, 20)
-                .font(.title)
+            HStack{
+                Spacer()
+                Button {
+                    showMaritalStatusPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $effectiveTaxCalculator.currentMaritalStatus) {
                 ForEach(MaritalStatus.maritalStatusList){ maritalStatus in
                     Text(maritalStatus.maritalStatus).tag(maritalStatus.maritalStatus)
@@ -456,15 +476,57 @@ struct MaritalStatusSelectPicker_TaxCal: View {
 
 struct StateSelectPicker_TaxCal: View {
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
+    @Binding var showStatePicker: Bool
     
     var body: some View{
         VStack(spacing: 0){
-            Text(effectiveTaxCalculator.currentState)
-                .padding(.top, 20)
-                .font(.title)
+            HStack{
+                Spacer()
+                Button {
+                    showStatePicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $effectiveTaxCalculator.currentState) {
                 ForEach(StateNames.statesList){ state in
                     Text(state.stateName).tag(state.stateName)
+                }
+            }
+            .pickerStyle(WheelPickerStyle())
+        }
+    }
+}
+
+struct SalarySelectPicker_TaxCal: View {
+    @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
+    @Binding var showSalaryTypePicker: Bool
+    
+    var body: some View{
+        VStack(spacing: 0){
+            HStack{
+                Spacer()
+                Button {
+                    showSalaryTypePicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(maxWidth: .infinity)
+            .background(.gray.opacity(0.3))
+            
+            Picker("", selection: $effectiveTaxCalculator.payGroup) {
+                ForEach(SalaryType.salaryTypeList){ salaryType in
+                    Text(salaryType.salaryType).tag(salaryType.salaryType)
                 }
             }
             .pickerStyle(WheelPickerStyle())

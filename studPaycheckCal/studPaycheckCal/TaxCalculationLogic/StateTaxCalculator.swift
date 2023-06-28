@@ -50,7 +50,15 @@ class StateTaxCalculator{
         }
         
         // Calculate State Tax Amount
-        stateTaxAmount = (taxableIncome - (standardDeduction/salaryTypefactor)) * (stateTaxRate)
+//        print("taxableIncome -", taxableIncome)
+//        print("standardDeduction -", standardDeduction)
+//        print("salaryTypefactor -", salaryTypefactor)
+//        print("stateTaxRate -", stateTaxRate)
+//        print("(\(taxableIncome) - (\(standardDeduction)/\(salaryTypefactor))) * (\(stateTaxRate))")
+        if (taxableIncome > (standardDeduction/salaryTypefactor)){
+            stateTaxAmount = (taxableIncome - (standardDeduction/salaryTypefactor)) * (stateTaxRate)
+        }
+        
         
         return stateTaxAmount
     }

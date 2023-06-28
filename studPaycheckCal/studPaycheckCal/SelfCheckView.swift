@@ -109,22 +109,22 @@ struct SelfCheckView: View {
                 
             }
             .sheet(isPresented: $showContryPicker) {
-                NationalitySelectPicker()
+                NationalitySelectPicker(showContryPicker: $showContryPicker)
                     .presentationDetents([.height(200)])
             }
             
             .sheet(isPresented: $showStatePicker) {
-                StateSelectPicker()
+                StateSelectPicker(showStatePicker: $showStatePicker)
                     .presentationDetents([.height(200)])
             }
             
             .sheet(isPresented: $showW4Picker) {
-                W4SelectPicker()
+                W4SelectPicker(showW4Picker: $showW4Picker)
                     .presentationDetents([.height(200)])
             }
             
             .sheet(isPresented: $showMaritalStatusPicker) {
-                MaritalStatusSelectPicker()
+                MaritalStatusSelectPicker(showMaritalStatusPicker: $showMaritalStatusPicker)
                     .presentationDetents([.height(200)])
             }
             
@@ -156,19 +156,31 @@ struct SelfCheckView: View {
         alertMessage = "You have not made a choice \nplease make a choice"
         self.showAlert.toggle()
     }
-    
 }
 
 
 //MARK: - Picker Views
 struct NationalitySelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Binding var showContryPicker: Bool
     
     var body: some View{
         VStack(spacing: 0){
-            Text(studentPaycheckCalVM.selectedCountry)
-                .padding(.top, 20)
-                .font(.title)
+            HStack{
+                Spacer()
+                Button {
+                    showContryPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(width: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $studentPaycheckCalVM.selectedCountry) {
                 ForEach(CountryNames.countriesList){ country in
                     Text(country.name).tag(country.name)
@@ -181,12 +193,25 @@ struct NationalitySelectPicker: View {
 
 struct StateSelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Binding var showStatePicker: Bool
     
     var body: some View{
         VStack(spacing: 0){
-            Text(studentPaycheckCalVM.selectedState)
-                .padding(.top, 20)
-                .font(.title)
+            HStack{
+                Spacer()
+                Button {
+                    showStatePicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(width: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $studentPaycheckCalVM.selectedState) {
                 ForEach(StateNames.statesList){ state in
                     Text(state.stateName).tag(state.stateName)
@@ -199,12 +224,25 @@ struct StateSelectPicker: View {
 
 struct W4SelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Binding var showW4Picker: Bool
     
     var body: some View{
         VStack(spacing: 0){
-            Text(studentPaycheckCalVM.selectedW4)
-                .padding(.top, 20)
-                .font(.title)
+            HStack{
+                Spacer()
+                Button {
+                    showW4Picker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(width: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $studentPaycheckCalVM.selectedW4) {
                 ForEach(W4Filled.w4FilledList){ options in
                     Text(options.option).tag(options.option)
@@ -217,12 +255,25 @@ struct W4SelectPicker: View {
 
 struct MaritalStatusSelectPicker: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @Binding var showMaritalStatusPicker: Bool
     
     var body: some View{
         VStack(spacing: 0){
-            Text(studentPaycheckCalVM.selectedMaritalStatus)
-                .padding(.top, 20)
-                .font(.title)
+            HStack{
+                Spacer()
+                Button {
+                    showMaritalStatusPicker = false
+                } label: {
+                    Text("Done")
+                        .foregroundColor(.black)
+                }
+                
+            }
+            .padding(5)
+            .padding(.trailing, 15)
+            .frame(width: .infinity)
+            .background(.gray.opacity(0.3))
+            
             Picker("", selection: $studentPaycheckCalVM.selectedMaritalStatus) {
                 ForEach(MaritalStatus.maritalStatusList){ maritalStatus in
                     Text(maritalStatus.maritalStatus).tag(maritalStatus.maritalStatus)

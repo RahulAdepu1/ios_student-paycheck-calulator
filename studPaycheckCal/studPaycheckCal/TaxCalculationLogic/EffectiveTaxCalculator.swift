@@ -21,6 +21,8 @@ class EffectiveTaxCalculator: ObservableObject {
         var annualSalary = 0.0
         
         if currentTotalGross != "---"{
+            print("Current Total Gross -",currentTotalGross.stringToDouble)
+            
             if payGroup == "Monthly"{
                 annualSalary = currentTotalGross.stringToDouble * 12
             }else if payGroup == "Hourly"{
@@ -37,7 +39,7 @@ class EffectiveTaxCalculator: ObservableObject {
         
         let federalTaxCalculator = FederalTaxCalculator()
         
-        if (annualSalary() != 0.0 || currentState != "Choose One" || currentMaritalStatus != "Choose One" || payGroup != "Choose One"){
+        if (annualSalary() != 0.0){
             let federalTaxOutput = federalTaxCalculator.calculateFederalTax(totalSalary: annualSalary(),
                                                                             year: payYear.stringToIntYear,
                                                                             selectedMaritalStatus: currentMaritalStatus )
@@ -54,7 +56,7 @@ class EffectiveTaxCalculator: ObservableObject {
         
         let stateTaxCalculator = StateTaxCalculator()
         
-        if (annualSalary() != 0.0 || currentState != "Choose One" || currentMaritalStatus != "Choose One" || payGroup != "Choose One"){
+        if (annualSalary() != 0.0){
             let stateTaxOutput = stateTaxCalculator.calculateStateTax(totalSalary: annualSalary(),
                                                                       year: payYear.stringToIntYear,
                                                                       state: currentState)
@@ -73,12 +75,12 @@ class EffectiveTaxCalculator: ObservableObject {
     }
     
     func federalTax_TaxCal() -> Double {
-        var federalTax = currentTotalGross.stringToDouble * calculateFedTax_TaxCal()[1]
+        let federalTax = currentTotalGross.stringToDouble * calculateFedTax_TaxCal()[1]
         return federalTax
     }
     
     func stateTax_TaxCal() -> Double {
-        var stateTax = currentTotalGross.stringToDouble * calculateStateTax_TaxCal()[1]
+        let stateTax = currentTotalGross.stringToDouble * calculateStateTax_TaxCal()[1]
         return stateTax
     }
     
