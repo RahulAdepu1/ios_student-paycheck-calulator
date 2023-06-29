@@ -16,6 +16,7 @@ struct FirstView: View {
                 Text("First View")
                     .font(.headline)
                     .padding()
+                
                 NavigationLink(destination: SecondView(backToStart: $backToStart)) {
                     Text("Go to Second View")
                 }
@@ -73,6 +74,7 @@ struct ThirdView: View {
 
 struct FourthView: View {
     @Environment(\.dismiss) var dismiss
+    
     @Binding var backToStart: Bool
     
     var body: some View {
@@ -93,7 +95,7 @@ struct FourthView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
+        NavigationStack{
             FirstView()
         }
     }

@@ -95,26 +95,26 @@ struct FederalTaxBracketListByYear {
         
         // For 2022
         FederalTaxBracketListByYear(year: 2022, maritalStatus: "Choose One",
-                                    taxBracketList: [0.0, 10275.0, 41775.0, 89075.0, 170050.0, 215950.0, 539900, 99999999999999999999.0]),
+                                    taxBracketList: [0.0, 10275.0, 41775.0, 89075.0, 170050.0, 215950.0, 539900.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2022, maritalStatus: "Single",
-                                    taxBracketList: [0.0, 10275.0, 41775.0, 89075.0, 170050.0, 215950.0, 539900, 99999999999999999999.0]),
+                                    taxBracketList: [0.0, 10275.0, 41775.0, 89075.0, 170050.0, 215950.0, 539900.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2022, maritalStatus: "Married filling separate",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 10275.0, 41775.0, 89075.0, 170050.0, 215950.0, 539900.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2022, maritalStatus: "Married filling together",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 20550.0, 83550.0, 178150.0, 340100.0, 431900.0, 647850.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2022, maritalStatus: "Head of Household",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 14650.0, 55900.0, 89050.0, 170050.0, 215950.0, 539900.0, 99999999999999999999.0]),
         
         // For 2021
         FederalTaxBracketListByYear(year: 2021, maritalStatus: "Choose One",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 9950.0, 40525.0, 86375.0, 164925.0, 209425.0, 523600.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2021, maritalStatus: "Single",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 9950.0, 40525.0, 86375.0, 164925.0, 209425.0, 523600.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2021, maritalStatus: "Married filling separate",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 9950.0, 40525.0, 86375.0, 164925.0, 209425.0, 523600.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2021, maritalStatus: "Married filling together",
-                                    taxBracketList: []),
+                                    taxBracketList: [0.0, 19900.0, 81050.0, 172750.0, 329850.0, 418850.0, 628300.0, 99999999999999999999.0]),
         FederalTaxBracketListByYear(year: 2021, maritalStatus: "Head of Household",
-                                    taxBracketList: [])
+                                    taxBracketList: [0.0, 14200.0, 54200.0, 86350.0, 164900.0, 209400.0, 523600.0, 99999999999999999999.0])
     ]
 }

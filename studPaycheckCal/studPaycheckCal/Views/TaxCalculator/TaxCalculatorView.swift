@@ -49,7 +49,6 @@ struct TaxCalculatorView: View {
                                      detectedText: detectText(image: image)[1].currencyFormattedString)
                     DetectedTextView(textTitle: "Net Pay",
                                      detectedText: detectText(image: image)[2].currencyFormattedString)
-                    
                 }else {
                     DetectedTextView(textTitle: "Total Gross", detectedText: "---")
                     DetectedTextView(textTitle: "Total Tax", detectedText: "---")
@@ -59,27 +58,19 @@ struct TaxCalculatorView: View {
                 if selectedImage != nil {
                     HStack {
                         Button {
-                            isShowingCamera = true
+                            selectedImage = nil
                         } label: {
-                            Text("Open Camera")
+                            Text("Clear")
                                 .modifier(CustomActionButtonDesign())
-                                .padding(.trailing, -15)
                         }
                         
                         NavigationLink {
-                            SecondView_TaxCalView()
+                            SecondView_TaxCalView(selectedImage: $selectedImage, isSecondViewPresented: $isSecondViewPresented)
                         } label: {
                             Text("Step 2")
                                 .modifier(CustomActionButtonDesign())
                                 .padding(.leading, -15)
                         }
-                    }
-                    
-                    Button {
-                        selectedImage = nil
-                    } label: {
-                        Text("Clear")
-                            .modifier(CustomActionButtonDesign())
                     }
                 }else {
                     Button {
@@ -116,6 +107,7 @@ struct TaxCalculatorView: View {
         var currentNetPay = ""
         
         for i in 0..<text.count {
+//            print("\(i)-",text[i])
             if text[i] == "TOTAL GROSS" {
                 currentTotalGross = text[i+1]
             }
@@ -128,6 +120,10 @@ struct TaxCalculatorView: View {
                 currentNetPay = text[i+1]
             }
         }
+        
+//        print("currentTotalGross-",currentTotalGross)
+//        print("currentTotalTax-",currentTotalTax)
+//        print("currentNetPay-",currentNetPay)
         
         return [currentTotalGross, currentTotalTax, currentNetPay]
     }
@@ -144,8 +140,8 @@ struct TaxCalculatorView: View {
 struct TaxCalculatorView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-//            TaxCalculatorView()
-            SecondView_TaxCalView()
+            TaxCalculatorView()
+//            SecondView_TaxCalView()
 //            ResultView()
         }
         .environmentObject(EffectiveTaxCalculator())
@@ -154,13 +150,17 @@ struct TaxCalculatorView_Previews: PreviewProvider {
 
 struct SecondView_TaxCalView: View {
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
+    @Environment(\.dismiss) var dismiss
     
     @State private var showYearPicker:Bool = false
     @State private var showMaritalStatusPicker:Bool = false
     @State private var showStatePicker:Bool = false
     @State private var showSalaryTypePicker:Bool = false
+    @Binding var selectedImage: UIImage?
     
     @State private var showAlert: Bool = false
+    
+    @Binding var isSecondViewPresented: Bool
     
     var body: some View {
         
@@ -213,7 +213,7 @@ struct SecondView_TaxCalView: View {
                     .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                     
                     VStack {
-                        Text("Salary Type")
+                        Text("Pay Frequency")
                             .modifier(CustomTextDesign4())
                         Button {
                             showSalaryTypePicker = true
@@ -233,15 +233,13 @@ struct SecondView_TaxCalView: View {
             .padding(.bottom, UIScreen.main.bounds.height*0.05)
             
             NavigationLink {
-                ResultView()
+                ResultView(selectedImage: $selectedImage, isSecondViewPresented: $isSecondViewPresented)
             } label: {
                 Text("Result")
                     .modifier(CustomActionButtonDesign())
             }
-            .disabled(effectiveTaxCalculator.payYear == "Choose One"
-                      && effectiveTaxCalculator.currentMaritalStatus == "Choose One"
-                      && effectiveTaxCalculator.currentState == "Choose One"
-                      && effectiveTaxCalculator.payGroup == "Choose One")
+            .disabled(!allValuesAdded)
+            .opacity(allValuesAdded ? 1.0 : 0.5)
         }
         .sheet(isPresented: $showYearPicker) {
             YearSelectPicker_TaxCal(showYearPicker: $showYearPicker)
@@ -259,12 +257,20 @@ struct SecondView_TaxCalView: View {
             SalarySelectPicker_TaxCal(showSalaryTypePicker: $showSalaryTypePicker)
                 .presentationDetents([.height(200)])
         }
+        .onAppear {
+            if !isSecondViewPresented{
+                dismiss()
+            }
+        }
     }
 }
 
 struct ResultView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var effectiveTaxCalculator: EffectiveTaxCalculator
+    @Binding var selectedImage: UIImage?
+    
+    @Binding var isSecondViewPresented: Bool
 
     var body: some View {
         VStack(spacing:50) {
@@ -285,7 +291,16 @@ struct ResultView: View {
                 .padding(.bottom, UIScreen.main.bounds.height*0.02)
             
             Button {
-                presentationMode.wrappedValue.dismiss()
+                effectiveTaxCalculator.currentTotalGross = "---"
+                effectiveTaxCalculator.currentNetPay = "---"
+                effectiveTaxCalculator.currentTotalTax = "---"
+                effectiveTaxCalculator.currentState = "Choose One"
+                effectiveTaxCalculator.currentMaritalStatus = "Choose One"
+                effectiveTaxCalculator.payGroup = "Choose One"
+                effectiveTaxCalculator.payYear = "Choose One"
+                selectedImage = nil
+                isSecondViewPresented = false
+                dismiss()
             } label: {
                 Text("Done")
                     .modifier(CustomActionButtonDesign())
@@ -525,11 +540,20 @@ struct SalarySelectPicker_TaxCal: View {
             .background(.gray.opacity(0.3))
             
             Picker("", selection: $effectiveTaxCalculator.payGroup) {
-                ForEach(SalaryType.salaryTypeList){ salaryType in
-                    Text(salaryType.salaryType).tag(salaryType.salaryType)
+                ForEach(PayPeriodAmount.payPeriodAmountList){ payPeriod in
+                    Text(payPeriod.payPeriod).tag(payPeriod.payPeriod)
                 }
             }
             .pickerStyle(WheelPickerStyle())
         }
+    }
+}
+
+extension SecondView_TaxCalView: EffectiveTaxCalProtocol {
+    var allValuesAdded: Bool {
+        effectiveTaxCalculator.payYear != "Choose One"
+        && effectiveTaxCalculator.currentMaritalStatus != "Choose One"
+        && effectiveTaxCalculator.currentState != "Choose One"
+        && effectiveTaxCalculator.payGroup != "Choose One"
     }
 }

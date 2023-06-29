@@ -156,15 +156,16 @@ struct Year: Identifiable  {
     ]
 }
 
-struct payPeriodAmount {
+struct PayPeriodAmount: Identifiable {
+    let id = UUID().uuidString
     let payPeriod: String
     let factor: Int
     
-    static let factorValue = [
-        payPeriodAmount(payPeriod: "Weekly", factor: 52),
-        payPeriodAmount(payPeriod: "Bi-Weekly", factor: 26),
-        payPeriodAmount(payPeriod: "Bi-Monthly", factor: 24),
-        payPeriodAmount(payPeriod: "Monthly", factor: 12),
-        payPeriodAmount(payPeriod: "Annually", factor: 1)
+    static let payPeriodAmountList = [
+        PayPeriodAmount(payPeriod: "Weekly", factor: 52),
+        PayPeriodAmount(payPeriod: "Bi-Weekly", factor: 26),
+        PayPeriodAmount(payPeriod: "Bi-Monthly", factor: 24),
+        PayPeriodAmount(payPeriod: "Monthly", factor: 12),
+        PayPeriodAmount(payPeriod: "Annually", factor: 1)
     ]
 }

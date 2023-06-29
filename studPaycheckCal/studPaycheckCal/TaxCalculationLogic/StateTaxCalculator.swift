@@ -39,7 +39,7 @@ class StateTaxCalculator{
             .filter { $0.state == state }
         
         // Get the Double factor value of the the corresponding salaryType
-        let salaryTypefactor = Double(payPeriodAmount.factorValue.filter { $0.payPeriod == payPeriod }[0].factor)
+        let salaryTypefactor = Double(PayPeriodAmount.payPeriodAmountList.filter { $0.payPeriod == payPeriod }[0].factor)
         let stateTaxRate = (filteredData[0].stateTaxRate)/100
         
         // Verify if standard deduction applied or not

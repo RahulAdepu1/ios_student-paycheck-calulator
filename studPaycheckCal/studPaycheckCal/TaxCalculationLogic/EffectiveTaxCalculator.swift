@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+protocol EffectiveTaxCalProtocol {
+    var allValuesAdded: Bool { get }
+}
+
 class EffectiveTaxCalculator: ObservableObject {
     
     @Published var currentTotalGross:String = "---"
@@ -21,12 +25,18 @@ class EffectiveTaxCalculator: ObservableObject {
         var annualSalary = 0.0
         
         if currentTotalGross != "---"{
-            print("Current Total Gross -",currentTotalGross.stringToDouble)
+//            print("Current Total Gross -",currentTotalGross.stringToDouble)
             
-            if payGroup == "Monthly"{
+            if payGroup == "Annually"{
+                annualSalary = currentTotalGross.stringToDouble * 1
+            }else if payGroup == "Monthly"{
                 annualSalary = currentTotalGross.stringToDouble * 12
-            }else if payGroup == "Hourly"{
-                annualSalary = currentTotalGross.stringToDouble * 20 * 52
+            }else if payGroup == "Bi-Monthly"{
+                annualSalary = currentTotalGross.stringToDouble * 24
+            }else if payGroup == "Bi-Weekly"{
+                annualSalary = currentTotalGross.stringToDouble * 26
+            }else if payGroup == "Weekly"{
+                annualSalary = currentTotalGross.stringToDouble * 52
             }
         }
         
@@ -70,7 +80,9 @@ class EffectiveTaxCalculator: ObservableObject {
     func calculateTotalTax_TaxCal() -> Double {
         var effectiveTotalTaxRate = 0.0
         
-        effectiveTotalTaxRate = (currentTotalTax.stringToDouble / currentTotalGross.stringToDouble) * 100
+        if (currentTotalTax != "---" && currentTotalGross != "---") {
+            effectiveTotalTaxRate = (currentTotalTax.stringToDouble / currentTotalGross.stringToDouble) * 100
+        }
         return effectiveTotalTaxRate
     }
     
