@@ -9,9 +9,13 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
+    @EnvironmentObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM
     @EnvironmentObject var authViewModel: AuthViewModel
     // Profile Image
     @State private var selectedImage: UIImage?
+    
+    //User Manager
+    @StateObject private var userManager = UserManager()
     
     // App Storage
     @AppStorage("signed_in") var userSignedIn: Bool = false
@@ -64,7 +68,6 @@ struct ProfileView: View {
                 Text((authViewModel.currentUser == nil) ? User.testingUser.email : authViewModel.currentUser!.email)
                     .font(.footnote)
                     .foregroundColor(.gray)
-                    .padding(.bottom, 50)
             }
             
             VStack{
@@ -73,50 +76,67 @@ struct ProfileView: View {
                 DataView(dataTitle: "W4: ", selectedValue: studentPaycheckCalVM.selectedW4)
                 DataView(dataTitle: "Marital Status: ", selectedValue: studentPaycheckCalVM.selectedMaritalStatus)
             }
-            .padding(.bottom, 50)
+            .modifier(CustomBlockDesign())
+            .padding(.horizontal)
+            .padding(.bottom, 25)
             
-            Section("Account"){
+            NavigationLink {
+                SelfCheckView()
+            } label: {
+                Text("Edit")
+                    .modifier(CustomActionButtonDesign())
+            }
+            
+            if authViewModel.userSession == nil {
                 NavigationLink {
-                    SelfCheckView()
+                    SignInView()
                 } label: {
-                    Text("Edit")
+                    Text("Sign In")
                         .modifier(CustomActionButtonDesign())
                 }
-                
-                if authViewModel.userSession == nil {
-                    NavigationLink {
-                        SignInView()
-                    } label: {
-                        Text("Sign In")
-                            .modifier(CustomActionButtonDesign())
-                    }
-                } else {
+            } else {
+                Button {
+                    authViewModel.signOut()
+                } label: {
+                    Text("Sign Out")
+                        .modifier(CustomActionButtonDesign())
+                }
+                HStack{
                     Button {
-                        authViewModel.signOut()
-                    } label: {
-                        Text("Sign Out")
-                            .modifier(CustomActionButtonDesign())
-                    }
-                    Button {
-                        saveToCloud()
+                        if let user = authViewModel.currentUser {
+                            Task {
+                                try await userManager.addUserPaycheckData(userId: user.id)
+                            }
+                        }
                     } label: {
                         Text("Save to Cloud")
                             .modifier(CustomActionButtonDesign())
                     }
-                }
-                
-                Button {
-                    wipeEverything()
-                } label: {
-                    Text("Delete Account")
-                        .modifier(CustomActionButtonDesign())
+                    
+                    Button {
+                        if let user = authViewModel.currentUser {
+                            Task {
+                                try await userManager.loadPaycheckCoreData(userId: user.id)
+                            }
+                        }
+                    } label: {
+                        Text("Download from Cloud")
+                            .modifier(CustomActionButtonDesign())
+                    }
                 }
             }
+            
+            Button {
+                studentPaycheckCoreDataVM.deletePaycheck()
+                Task {
+                    try await authViewModel.deleteAccount()
+                }
+                wipeEverything()
+            } label: {
+                Text("Delete Account")
+                    .modifier(CustomActionButtonDesign())
+            }
         }
-    }
-    
-    func saveToCloud() {
-        
     }
     
     func wipeEverything() {
@@ -130,8 +150,13 @@ struct ProfileView: View {
         studentPaycheckCalVM.selectedW4 = "Choose One"
         studentPaycheckCalVM.selectedMaritalStatus = "Choose One"
         
+        print("Account Deleted")
         withAnimation {
             userSignedIn = false
+        }
+        
+        for i in 0..<studentPaycheckCoreDataVM.studentPayCheckCoreData.count {
+            print("Data\(studentPaycheckCoreDataVM.studentPayCheckCoreData[i])")
         }
     }
 }

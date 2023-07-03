@@ -141,6 +141,11 @@ struct IncomeCalculatorView: View {
                 .modifier(CustomBlockDesign())
                 .padding(.horizontal)
             
+            //Monthly Income After Tax Row Data
+            MonthlyIncomeAfterTax(monthlyIncomeAfterTax: calMonthlyIncomeAfterTax().doubleToCurrency)
+                .modifier(CustomBlockDesign())
+                .padding(.horizontal)
+            
         }
         
         // Picker View for Marital Status
@@ -265,14 +270,24 @@ struct IncomeCalculatorView: View {
         return [totalTax, effectiveTotalTaxRate]
     }
     
-    // Income After Taxes
+    // Annual Income After Taxes
     func calIncomeAfterTax() -> Double{
         var incomeAfterTax = 0.0
-        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One") {
+        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" ){
             incomeAfterTax = selectedAnnualSalary - (calFedTax()[0] + calStateTax()[0])
         }
         
         return incomeAfterTax
+    }
+    
+    // Annual Income After Taxes
+    func calMonthlyIncomeAfterTax() -> Double{
+        var monthlyIncomeAfterTax = 0.0
+        if (selectedAnnualSalary != 0.0 && selectedState != "Choose One" && selectedMaritalStatus != "Choose One" ){
+            monthlyIncomeAfterTax = calIncomeAfterTax()/12
+        }
+        
+        return monthlyIncomeAfterTax
     }
 }
 
@@ -367,18 +382,36 @@ struct TotalTax: View {
     }
 }
 
-// View for Income after tax Row
+// View for Annual Income after tax Row
 struct IncomeAfterTax: View {
     var incomeAfterTax: String
     
     var body: some View{
         VStack{
-            Text("Income After Tax")
+            Text("Annual Income After Tax")
                 .font(.title2)
                 .fontWeight(.bold)
                 .modifier(CustomTextDesign3())
             
             Text(incomeAfterTax)
+                .font(.title3)
+                .modifier(CustomTextDesign3())
+        }
+    }
+}
+
+// View for Monthly Income after tax Row
+struct MonthlyIncomeAfterTax: View {
+    var monthlyIncomeAfterTax: String
+    
+    var body: some View{
+        VStack{
+            Text("Monthly Income After Tax")
+                .font(.title2)
+                .fontWeight(.bold)
+                .modifier(CustomTextDesign3())
+            
+            Text(monthlyIncomeAfterTax)
                 .font(.title3)
                 .modifier(CustomTextDesign3())
         }

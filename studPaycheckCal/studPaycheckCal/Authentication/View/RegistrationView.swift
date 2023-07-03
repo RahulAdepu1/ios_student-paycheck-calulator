@@ -99,6 +99,9 @@ struct RegistrationView: View {
             .navigationBarBackButtonHidden(true)
             .padding(.bottom, 100)
         }
+        .onChange(of: authViewModel.userSession) { newValue in
+            dismiss()
+        }
     }
 }
 

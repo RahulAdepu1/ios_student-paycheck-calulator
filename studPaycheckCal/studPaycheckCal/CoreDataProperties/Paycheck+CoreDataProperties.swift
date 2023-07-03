@@ -37,6 +37,10 @@ extension Paycheck {
     public var unwrappedW4: String { w4 ?? "" }
     public var unwrappedPayPeriod: String { payPeriod ?? "" }
     public var unwrappedSalaryType: String { salaryType ?? "" }
+    public var unwrappedDate: Date {
+        let date = date ?? Date()
+        return date
+    }
 
 }
 

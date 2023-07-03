@@ -20,7 +20,7 @@ class StudentPaycheckCalculatorVM: ObservableObject{
     @Published var selectedMinutes = "0"
     @Published var selectedSalaryType = "Choose One"
     @Published var selectedPaymentDate = Date()
-    @Published var selectedYear = Year.yearList[0].year
+    @Published var selectedYear = Year.yearList[1].year
     
     @Published var navToSelfCheck2 = false
     @Published var navToSelfCheckResult = false
@@ -44,7 +44,7 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         let doubleSelectedTime = (Double(selectedHours) ?? 0.00) + ((Double(selectedMinutes) ?? 0.00)/60)
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        print(annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount))
+//        print(annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount))
         return annualizedSalaryCalulator.salaryBeforeTax(salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
     }
     
@@ -60,13 +60,18 @@ class StudentPaycheckCalculatorVM: ObservableObject{
 //        print("doubleSelectedPayRateAmount",doubleSelectedPayRateAmount)
         if doubleSelectedPayRateAmount > 0 {
             let annualizedSalary = annualizedSalaryCalculator.calAnnualizedSalary(payPeriod: selectedPayPeriod, salaryType: selectedSalaryType, hours: doubleSelectedTime, payRateAmount: doubleSelectedPayRateAmount)
-            let fedStandardDeduction = federalTaxCalculator.calFedStandardDeduction(nationality: selectedCountry, w4Filled: selectedW4)
+//            print("annualizedSalary-\(annualizedSalary)")
+            let fedStandardDeduction = FederalStdDedByYear.federalData.filter { $0.year == Int(selectedYear) }[0].standardDeduction
+//            print("fedStandardDeduction-\(fedStandardDeduction)")
             let federalTaxableIncome = federalTaxCalculator.calFederalTaxableIncome(annualizedSalary: annualizedSalary, fedStandardDeduction: fedStandardDeduction)
+//            print("federalTaxableIncome=\(federalTaxableIncome)")
             let taxBracketAmountList = annualizedSalaryCalculator.calTaxBracket(maritalStatus: selectedMaritalStatus)
+//            print("taxBracketAmountList=\(taxBracketAmountList)")
             let annualizedFederalTax = federalTaxCalculator.calAnnualizedFederalTax(federalTaxableIncome: federalTaxableIncome, taxBracketAmountList: taxBracketAmountList)
+//            print("annualizedFederalTax-\(annualizedFederalTax)")
             federalTax = federalTaxCalculator.federalTax(annualizedFederalTax: annualizedFederalTax, salaryType: selectedSalaryType)
+//            print("federalTax-\(federalTax)")
         }
-        
         return federalTax
     }
     
@@ -99,16 +104,22 @@ class StudentPaycheckCalculatorVM: ObservableObject{
         return SalaryBeforeTax() - FederalTax() - StateTax()
     }
     
-    func SaveToCoreData() {
+    func SaveToCoreData(date: Date, selectedPayPeriod: String = "", selectedSalaryType: String = "", federalTax: Double = 0.0, stateTax: Double = 0.0, salaryAfterTax: Double = 0.0) {
         let doubleSelectedHours = (Double(selectedHours) ?? 0.00)
         let doubleSelectedMinutes = ((Double(selectedMinutes) ?? 0.00))
         let doubleSelectedPayRateAmount = Double(selectedPayRateAmount) ?? 0.00
         
-        studentPaycheckCoreDataVM.addPaycheck(date: selectedPaymentDate, country: selectedCountry, state: selectedState, maritalStatus: selectedMaritalStatus,
-                                            payPeriod: selectedPayPeriod,payRateAmount: doubleSelectedPayRateAmount, salaryType: selectedSalaryType, w4: selectedW4,
-                                            hours: doubleSelectedHours, minutes: doubleSelectedMinutes,
-                                            federalTax: FederalTax(),
-                                            stateTax: StateTax(),
-                                            salaryAfterTax: SalaryAfterTax())
+        studentPaycheckCoreDataVM.addPaycheck(date: date,
+                                              country: selectedCountry,
+                                              state: selectedState,
+                                              maritalStatus: selectedMaritalStatus,
+                                              payPeriod: selectedPayPeriod,
+                                              payRateAmount: doubleSelectedPayRateAmount,
+                                              salaryType: selectedSalaryType,
+                                              w4: selectedW4,
+                                              hours: doubleSelectedHours, minutes: doubleSelectedMinutes,
+                                              federalTax: federalTax,
+                                              stateTax: stateTax,
+                                              salaryAfterTax: salaryAfterTax)
     }
 }

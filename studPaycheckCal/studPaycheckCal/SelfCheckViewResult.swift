@@ -17,6 +17,7 @@ struct SelfCheckViewResult: View {
     
     var body: some View {
         VStack {
+            Text("Compare your salary in previous years")
             Menu {
                 Picker(selection: $studentPaycheckCalVM.selectedYear) {
                     ForEach(Year.yearList) { year in
@@ -99,8 +100,6 @@ struct ChooseDateView: View {
     @EnvironmentObject var studentPaycheckCalVM: StudentPaycheckCalculatorVM
     @EnvironmentObject var studentPaycheckCoreDataVM: StudentPaycheckCoreDataVM
     
-    @Environment(\.dismiss) var dismiss
-    
     @Binding var showAlert: Bool
     var body: some View{
         VStack{
@@ -116,38 +115,34 @@ struct ChooseDateView: View {
                 /*
                  Check if the year entered by the user is a New Year Value which was not in the list or is it the same year which is already present in the Core Data
                  */
+                print("Done button pressed")
                 let year = Calendar.current.component(.year, from: studentPaycheckCalVM.selectedPaymentDate)
-                let isYearPresent = studentPaycheckCoreDataVM.studentHistoryCoreData.contains(where: { Calendar.current.component(.year, from: $0.unwrappedDate) == year })
-
+                let isYearPresentPaycheck = studentPaycheckCoreDataVM.studentPayCheckCoreData.contains(where: {
+                    Calendar.current.component(.year, from: $0.unwrappedDate) ==  year})
+                
+                print("Year = \(year)")
+                print("is Year Present Paycheck \(isYearPresentPaycheck.description)")
                 // Save Data to Paycheck Core Data
-                studentPaycheckCalVM.SaveToCoreData()
-                if isYearPresent {
-                    // Save Data to History Core Data
-                    studentPaycheckCoreDataVM.addHistory(date: studentPaycheckCalVM.selectedPaymentDate,
-                                                         federalTax: studentPaycheckCalVM.FederalTax(),
-                                                         stateTax: studentPaycheckCalVM.StateTax(),
-                                                         salaryAfterTax: studentPaycheckCalVM.SalaryAfterTax())
-                    print("Data Saved")
-                } else {
-                    // When year is NOT PRESENT
+//                studentPaycheckCalVM.SaveToCoreData()
+                
+                if !isYearPresentPaycheck {
                     for month in 1...12 {
                         let dateComponents = DateComponents(year: year, month: month, day: 1)
                         if let date = Calendar.current.date(from: dateComponents) {
-                            studentPaycheckCoreDataVM.addHistory(date: date,
-                                                                 federalTax: 0.0,
-                                                                 stateTax: 0.0,
-                                                                 salaryAfterTax: 0.0)
+                            studentPaycheckCalVM.SaveToCoreData(date: date)
                         }
                     }
-
-                    // Save Data to History Core Data
-                    studentPaycheckCoreDataVM.addHistory(date: studentPaycheckCalVM.selectedPaymentDate,
-                                                         federalTax: studentPaycheckCalVM.FederalTax(),
-                                                         stateTax: studentPaycheckCalVM.StateTax(),
-                                                         salaryAfterTax: studentPaycheckCalVM.SalaryAfterTax())
-                    print("Data Saved")
+                    print("Self Check View Result -> Created dummy Data")
                 }
-                dismiss()
+                
+                // Save data to Paycheck Core Data
+                studentPaycheckCalVM.SaveToCoreData(date: studentPaycheckCalVM.selectedPaymentDate,
+                                                    federalTax: studentPaycheckCalVM.FederalTax(),
+                                                    stateTax: studentPaycheckCalVM.StateTax(),
+                                                    salaryAfterTax: studentPaycheckCalVM.SalaryBeforeTax())
+                
+                print("Data Saved")
+                showAlert = false
             }
             .modifier(CustomActionButtonDesign())
         }

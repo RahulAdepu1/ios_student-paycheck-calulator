@@ -8,13 +8,15 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
+import GoogleSignIn
+import GoogleSignInSwift
 
 protocol AuthenticationFormProtocol {
     var formIsValid: Bool { get }
 }
 
 @MainActor
-class AuthViewModel: ObservableObject {
+final class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
@@ -31,6 +33,7 @@ class AuthViewModel: ObservableObject {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             await fetchUser()
+            
         } catch {
             print(" DEBUG: Failed to log in with error \(error.localizedDescription)")
         }
@@ -59,8 +62,19 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func deleteAccount() {
-        
+//    func resetPassword(email: String) async throws {
+//        try await Auth.auth().sendPasswordReset(withEmail: email)
+//    }
+    
+    func deleteAccount() async throws {
+        do {
+            guard let user = Auth.auth().currentUser else { return }
+            try await user.delete()
+            self.userSession = nil
+            self.currentUser = nil
+        } catch {
+            print("DEBUG: Failed to Delete Account with error \(error.localizedDescription)")
+        }
     }
     
     func fetchUser() async {

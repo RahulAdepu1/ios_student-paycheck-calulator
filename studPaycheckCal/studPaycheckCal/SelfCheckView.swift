@@ -178,7 +178,7 @@ struct NationalitySelectPicker: View {
             }
             .padding(5)
             .padding(.trailing, 15)
-            .frame(width: .infinity)
+            .frame(maxWidth: .infinity)
             .background(.gray.opacity(0.3))
             
             Picker("", selection: $studentPaycheckCalVM.selectedCountry) {
@@ -209,7 +209,7 @@ struct StateSelectPicker: View {
             }
             .padding(5)
             .padding(.trailing, 15)
-            .frame(width: .infinity)
+            .frame(maxWidth: .infinity)
             .background(.gray.opacity(0.3))
             
             Picker("", selection: $studentPaycheckCalVM.selectedState) {
@@ -240,7 +240,7 @@ struct W4SelectPicker: View {
             }
             .padding(5)
             .padding(.trailing, 15)
-            .frame(width: .infinity)
+            .frame(maxWidth: .infinity)
             .background(.gray.opacity(0.3))
             
             Picker("", selection: $studentPaycheckCalVM.selectedW4) {
@@ -271,7 +271,7 @@ struct MaritalStatusSelectPicker: View {
             }
             .padding(5)
             .padding(.trailing, 15)
-            .frame(width: .infinity)
+            .frame(maxWidth: .infinity)
             .background(.gray.opacity(0.3))
             
             Picker("", selection: $studentPaycheckCalVM.selectedMaritalStatus) {

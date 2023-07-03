@@ -10,7 +10,7 @@ import SwiftUI
 class FederalTaxCalculator{
     
     //Constant
-    var taxBracket = [0, 10.0, 12.0, 22.0, 24.0, 32.0, 35.0, 37.0]
+    var taxBracket = [10.0, 12.0, 22.0, 24.0, 32.0, 35.0, 37.0]
     
     //Calculate Federal Standard Deduction
     func calFedStandardDeduction(nationality: String, w4Filled: String) -> Double {
@@ -57,34 +57,36 @@ class FederalTaxCalculator{
     func calAnnualizedFederalTax(federalTaxableIncome: Double, taxBracketAmountList: [Double]) -> Double {
         var annualizedFederalTax = 0.0
         var fedTaxableIncome = federalTaxableIncome
-        //        print("Tax Bracket size =", taxBracket.count-1)
+                print("Tax Bracket size =", taxBracket.count-1)
         for count in 0..<taxBracket.count{
-//            print("************")
-//            print(count)
+            print("************")
+            print(count)
             if fedTaxableIncome >= 0 {
                 
-//                print("Federal Taxable Income =", fedTaxableIncome)
-//                print("Tax Bracket Amount =", taxBracketAmountList[count])
+                print("Federal Taxable Income =", fedTaxableIncome)
+                print("Tax Bracket Amount =", taxBracketAmountList[count])
+                print("\((fedTaxableIncome > taxBracketAmountList[count]).description)")
                 
                 if fedTaxableIncome > taxBracketAmountList[count] {
                     annualizedFederalTax += taxBracketAmountList[count] * (taxBracket[count]/100)
-//                    print("Annualized Federal Tax", annualizedFederalTax)
+                    print("Annualized Federal Tax", annualizedFederalTax)
                     
-//                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
+                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
                     fedTaxableIncome = fedTaxableIncome - taxBracketAmountList[count]
-//                    print("Federal Taxable Income", fedTaxableIncome)
+                    print("Federal Taxable Income", fedTaxableIncome)
                 }else{
+                    print("\(annualizedFederalTax) += \(fedTaxableIncome) * (\(taxBracket[count])/100)")
                     annualizedFederalTax += fedTaxableIncome * (taxBracket[count]/100)
-//                    print("Annualized Federal Tax", annualizedFederalTax)
+                    print("Annualized Federal Tax", annualizedFederalTax)
                     
-//                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
+                    print("\(fedTaxableIncome) - \(taxBracketAmountList[count]) =", (fedTaxableIncome - taxBracketAmountList[count]))
                     fedTaxableIncome = fedTaxableIncome - taxBracketAmountList[count]
-//                    print("Federal Taxable Income", fedTaxableIncome)
+                    print("Federal Taxable Income", fedTaxableIncome)
                 }
             }
         }
         
-//        print("Annualized Federal Tax =", annualizedFederalTax)
+        print("Annualized Federal Tax =", annualizedFederalTax)
         return annualizedFederalTax
     }
     

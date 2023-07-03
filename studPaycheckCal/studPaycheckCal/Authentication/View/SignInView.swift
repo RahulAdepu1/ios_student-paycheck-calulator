@@ -33,15 +33,26 @@ struct SignInView: View {
                           placeholder: "Enter your password",
                           isSecureField: true)
             }
-            .padding(.horizontal, 30 )
-        
+            .padding(.horizontal, 30)
+            
+            //Reset Button
+//            HStack {
+//                Spacer()
+//                Button {
+//
+//
+//                    Task {
+//                        try await authViewModel.resetPassword(email: email)
+//                    }
+//                } label: {
+//                    Text("Forgot Password")
+//                }
+//            }.padding(.horizontal, 30)
+            
             //Sign in Button
             Button {
                 Task {
                     try await authViewModel.signIn(withEmail: email, password: password)
-                }
-                if (authViewModel.userSession != nil) {
-                    dismiss()
                 }
             } label: {
                 HStack {
@@ -70,6 +81,9 @@ struct SignInView: View {
             }
             .padding(.bottom, 100)
             
+        }
+        .onChange(of: authViewModel.userSession) { newValue in
+            dismiss()
         }
     }
 }

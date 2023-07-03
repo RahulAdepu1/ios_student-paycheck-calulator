@@ -142,10 +142,10 @@ class StudentPaycheckCoreDataVM: ObservableObject {
     
 //------------------------------------------------------------------------------------------------------------------------
     // Add Paycheck Items
-    func addPaycheck(date: Date, country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
+    func addPaycheck(id: String = UUID().uuidString ,date: Date, country: String, state: String, maritalStatus: String, payPeriod: String, payRateAmount: Double, salaryType: String,
                    w4: String, hours: Double, minutes: Double, federalTax: Double, stateTax: Double, salaryAfterTax: Double) {
         let newPaycheckItems = Paycheck(context: manager.context)
-        newPaycheckItems.id = UUID().uuidString
+        newPaycheckItems.id = id
         newPaycheckItems.country = country
         newPaycheckItems.state = state
         newPaycheckItems.maritalStatus = maritalStatus
@@ -173,6 +173,17 @@ class StudentPaycheckCoreDataVM: ObservableObject {
         save()
     }
     
+//------------------------------------------------------------------------------------------------------------------------
+    func deletePaycheck() {
+        let paycheck = studentPayCheckCoreData
+        for i in 0..<paycheck.count {
+            manager.context.delete(paycheck[i])
+        }
+        print("Core Data count -> \(paycheck.count)") 
+        print("Paycheck Core Data Deleted")
+        
+        save()
+    }
 //------------------------------------------------------------------------------------------------------------------------
     func save() {
         manager.save()

@@ -56,6 +56,9 @@
 		DAF4F6CA2A48CFB2009B5B2B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6C92A48CFB2009B5B2B /* FirebaseFirestore */; };
 		DAF4F6CC2A48CFB2009B5B2B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6CB2A48CFB2009B5B2B /* FirebaseFirestoreSwift */; };
 		DAF4F6CE2A48CFB2009B5B2B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6CD2A48CFB2009B5B2B /* FirebaseStorage */; };
+		DAF4F6D12A4EA078009B5B2B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6D02A4EA078009B5B2B /* GoogleSignIn */; };
+		DAF4F6D32A4EA078009B5B2B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DAF4F6D22A4EA078009B5B2B /* GoogleSignInSwift */; };
+		DAF4F6D52A4F6E7A009B5B2B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF4F6D42A4F6E7A009B5B2B /* UserManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +107,7 @@
 		DAE51C222A4784BF0085D7B3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DAE51C242A4784F90085D7B3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		DAE51C262A47A0640085D7B3 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		DAF4F6D42A4F6E7A009B5B2B /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +118,11 @@
 				DAF4F6CE2A48CFB2009B5B2B /* FirebaseStorage in Frameworks */,
 				DAF4F6C62A48CFB2009B5B2B /* FirebaseAuth in Frameworks */,
 				DA8655CD2A2BA41E00B960BE /* TOCropViewController in Frameworks */,
+				DAF4F6D32A4EA078009B5B2B /* GoogleSignInSwift in Frameworks */,
 				DA8655CB2A2BA41E00B960BE /* CropViewController in Frameworks */,
 				DAF4F6CA2A48CFB2009B5B2B /* FirebaseFirestore in Frameworks */,
 				DAF4F6CC2A48CFB2009B5B2B /* FirebaseFirestoreSwift in Frameworks */,
+				DAF4F6D12A4EA078009B5B2B /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,12 +237,12 @@
 		DA5B49C929E003ED0032C6E4 /* studPaycheckCal */ = {
 			isa = PBXGroup;
 			children = (
-				DAE51C1D2A47844E0085D7B3 /* Authentication */,
-				DAE51C112A477CD10085D7B3 /* Firebase User Model */,
 				DA5B49DE29E0DBDD0032C6E4 /* ContentView.swift */,
 				DA5B49CA29E003ED0032C6E4 /* studPaycheckCalApp.swift */,
 				DA27BAC629F65AFF00A61A59 /* IntroView.swift */,
 				DA27BAB929F61D4000A61A59 /* MainView.swift */,
+				DAE51C1D2A47844E0085D7B3 /* Authentication */,
+				DAE51C112A477CD10085D7B3 /* Firebase User Model */,
 				DA020C5529FC1B4C00FB2C6B /* Views */,
 				DAFCE23A29FB06EE00481EC0 /* TaxCalculationLogic */,
 				DA27BAAE29F4EA2400A61A59 /* CoreDataProperties */,
@@ -292,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				DAE51C122A477CDF0085D7B3 /* User.swift */,
+				DAF4F6D42A4F6E7A009B5B2B /* UserManager.swift */,
 			);
 			path = "Firebase User Model";
 			sourceTree = "<group>";
@@ -358,6 +365,8 @@
 				DAF4F6C92A48CFB2009B5B2B /* FirebaseFirestore */,
 				DAF4F6CB2A48CFB2009B5B2B /* FirebaseFirestoreSwift */,
 				DAF4F6CD2A48CFB2009B5B2B /* FirebaseStorage */,
+				DAF4F6D02A4EA078009B5B2B /* GoogleSignIn */,
+				DAF4F6D22A4EA078009B5B2B /* GoogleSignInSwift */,
 			);
 			productName = studPaycheckCal;
 			productReference = DA5B49C729E003ED0032C6E4 /* studPaycheckCal.app */;
@@ -390,6 +399,7 @@
 			packageReferences = (
 				DA8655C92A2BA41E00B960BE /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DAF4F6CF2A4EA078009B5B2B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = DA5B49C829E003ED0032C6E4 /* Products */;
 			projectDirPath = "";
@@ -433,6 +443,7 @@
 				DAE51C252A4784F90085D7B3 /* AuthViewModel.swift in Sources */,
 				DA5B49DD29E099140032C6E4 /* SelfCheckView2.swift in Sources */,
 				DA5B49DB29E0989D0032C6E4 /* SelfCheckView.swift in Sources */,
+				DAF4F6D52A4F6E7A009B5B2B /* UserManager.swift in Sources */,
 				DA27BAB329F6105B00A61A59 /* Paycheck+CoreDataClass.swift in Sources */,
 				DA27BAC929F6DAD900A61A59 /* ScannerView.swift in Sources */,
 				DA5B49DF29E0DBDD0032C6E4 /* ContentView.swift in Sources */,
@@ -682,6 +693,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		DAF4F6CF2A4EA078009B5B2B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -714,6 +733,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAF4F6C42A48CFB2009B5B2B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		DAF4F6D02A4EA078009B5B2B /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF4F6CF2A4EA078009B5B2B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		DAF4F6D22A4EA078009B5B2B /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAF4F6CF2A4EA078009B5B2B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 

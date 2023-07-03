@@ -7,6 +7,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Google Sign In</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.458309792693-925negn7ssl8of81fdmbulc4qpseakr8</string>
