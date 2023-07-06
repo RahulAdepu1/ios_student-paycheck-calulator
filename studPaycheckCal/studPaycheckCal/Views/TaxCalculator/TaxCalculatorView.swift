@@ -15,7 +15,7 @@ struct TaxCalculatorView: View {
     @State private var isShowingCropView = false
     @State private var selectedImage: UIImage?
     @State private var isShowingTextView = false
-    @State private var isSecondViewPresented = false
+    @State private var isSecondViewPresented = true
     
     var body: some View {
         NavigationStack {
