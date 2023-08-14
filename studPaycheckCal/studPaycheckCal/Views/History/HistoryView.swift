@@ -101,7 +101,7 @@ struct historySalaryAfterTax: View {
                     }
                 }.sorted { $0.key < $1.key }
                 
-                Text(totalSalary.doubleToString1)
+                Text(totalSalary.doubleToString2)
                     .font(.largeTitle.bold())
                 Text("Total")
                     .font(.caption2)
@@ -205,7 +205,7 @@ struct historyFederalTax: View {
                     }
                 }.sorted { $0.key < $1.key }
                 
-                Text(totalFedTax.doubleToString1)
+                Text(totalFedTax.doubleToString2)
                     .font(.largeTitle.bold())
                 Text("Total")
                     .font(.caption2)
@@ -309,7 +309,7 @@ struct historyStateTax: View {
                     }
                 }.sorted { $0.key < $1.key }
                 
-                Text(totalSalary.doubleToString1)
+                Text(totalSalary.doubleToString2)
                     .font(.largeTitle.bold())
                 Text("Total")
                     .font(.caption2)
